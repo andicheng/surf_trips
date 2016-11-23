@@ -1,0 +1,97 @@
+*{
+   margin: 0px;
+   padding: 0px;
+}
+a{
+   text-decoration: none;
+   margin-top: 10px;
+   margin-bottom: 10px;
+   padding-left: 15px;
+   padding-right: 15px;
+   color: black;
+}
+#header{
+   background-color: #e5e9ee;
+   margin-bottom: 10px;
+   border-style: solid;
+   border-width: 1px;
+   border-color: lightgrey;
+}
+#container{
+   background-color: white;
+   padding: 15px;
+}
+#locations{
+   display: inline-block;
+   width: 57%;
+   vertical-align: top;
+   margin-right: 3%
+}
+   #locations #regionlink{
+      padding-left: 0px;
+      text-decoration: underline;
+      color: darkblue;
+      padding-right: 5px;
+   }
+   #locations #arealink{
+      padding-left: 0px;
+      text-decoration: underline;
+      color: darkblue;
+      padding-right: 5px;
+   }
+   #locations #userlink{
+      padding-left: 0px;
+      text-decoration: underline;
+      color: darkblue;
+      padding-right: 0px;
+   }
+   #locations h3{
+      display: inline-block;
+      vertical-align: top;
+      width: 78%;
+   }
+   #locations #trip{
+      margin-top: 15px;
+   }
+   #locations label{
+      display: inline-block;
+      vertical-align: top;
+   }
+   p{
+      margin: 3px 10px;
+   }
+   #locations #description{
+      height: auto;
+      max-height: 55px;
+      overflow: scroll;
+      text-align: justify;
+   }
+#newTrip{
+   display: inline-block;
+   width: 35%;
+   vertical-align: top;
+}
+   select{
+      margin-right: 10px;
+   }
+   #newTrip #area{
+      margin-left: 15px;
+   }
+   #newTrip p{
+      margin-top: 10px;
+   }
+   #newTrip #title{
+      width: 50%;
+   }
+   #newTrip #desc{
+      width: 100%;
+      height: 80px;
+      overflow: scroll;
+      margin-left: 10px;
+   }
+   #submit{
+      margin-left: 90%;
+      background-color: #3998FC;
+      color: white;
+      padding: 5px 10px;
+   }

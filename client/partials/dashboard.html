@@ -1,0 +1,59 @@
+<link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
+<div id="container" ng-controller="dashboardController">
+   <div id="locations">
+      <h3>Popular Destinations</h3>
+      <label><input ng-model="filter" placeholder="filter.."></label>
+      <div id="trip" ng-repeat="trip in trips | filter: filter | limitTo: 4" | orderBy: 'rating'>
+         <b><i><a id="regionlink" href="#/region/{{trip.region}}">{{trip.region}}</a> - <a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i></b>
+         <p>{{trip.title}} - Rated {{trip.rating}}</p>
+         <p>Posted by <a id="userlink" href="#/user/{{trip._user.username}}">{{trip._user.username}}</a> on {{trip.createdAt | date:'MM/dd/yyyy'}}
+         <p id="description">{{trip.description}}</p>
+      </div>
+   </div>
+   <div id="newTrip">
+      <h3>Share your trip</h3>
+      <form>
+         <p>Select a region</p>
+         <p><select style="width: 40%" ng-model="myTrip.region">
+            <option class="dropdown" value="North America">North America</option>
+            <option value="Central America">Central America</option>
+            <option value="South America">South America</option>
+            <option value="Caribbean">Caribbean</option>
+            <option value="Europe">Europe</option>
+            <option value="Australia / New Zealand">Australia / New Zealand</option>
+            <option value="Africa">Africa</option>
+            <option value="Central Asia">Central Asia</option>
+            <option value="South East Asia">South East Asia</option>
+            <option value="Pacific Islands">Pacific Islands</option>
+         </select></p>
+         <p>Provide a local area</p>
+         <p><select style="width: 40%" ng-model="myTrip.area" data-ng-options="trip.area for trip in trips | unique:'area'| filter:{region:myTrip.region}">
+            <option class="dropdown" ng-disabled='true' ng-selected='true' value='{{trip.area}}'>Select an area</option>
+         </select>
+         or
+         <input style="width: 40%" id="area" type="text" ng-model="myTrip.area2" placeholder="Enter a new area"></p>
+         <p>Provide a title for your trip</p>
+         <p><input id="title" type="text" ng-model='myTrip.title'></p>
+         <p>Provide a description and summary of your trip</p>
+         <textarea id="desc" type="text" ng-model='myTrip.description'></textarea>
+         <p>Rate your overall experience on this trip?<br>(0 worst - 10 best)</p>
+         <p><select ng-model="myTrip.rating">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+         </select></p>
+         <input id="submit" type="submit" value='Submit' ng-click='newTrip()'>
+      </form>
+   </div>
+</div>
+
+<!-- {{friend.birthdate | date:'MM/dd/yyyy'}} -->
+<!-- | filter:{region:myTrip.region}" -->

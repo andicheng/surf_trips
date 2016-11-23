@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+  <head>
+    <meta charset="utf-8">
+    <title>Login and Registration</title>
+    <script src="bower_components/angular/angular.js" charset="utf-8"></script>
+    <script src="bower_components/angular-route/angular-route.js" charset="utf-8"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="assets/app.js" charset="utf-8"></script>
+    <script src="assets/factories/usersFactory.js" charset="utf-8"></script>
+    <script src="assets/factories/postsFactory.js" charset="utf-8"></script>
+    <script src="assets/factories/tripsFactory.js" charset="utf-8"></script>
+    <script src="assets/controllers/log_regController.js" charset="utf-8"></script>
+    <script src="assets/controllers/dashboardController.js" charset="utf-8"></script>
+    <script src="assets/controllers/postsController.js" charset="utf-8"></script>
+    <script src="assets/controllers/areaController.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+
+  </head>
+  <body>
+      <div id="header">
+         <p><a href="#/dashboard">Home</a> | <a href="#/">Regions</a> | <a href="#/">Locations</a> | <a href="#/register">Register</a> | <a href="#/login">Login</a> | <a href="#/logout">Log Out</a></p>
+         <div ng-view="">
+         </div>
+      </div>
+  </body>
+</html>

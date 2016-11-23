@@ -1,0 +1,18 @@
+<!-- <link rel="stylesheet" type="text/css" href="assets/css/area.css"> -->
+<div id="container" ng-controller="areaController">
+   <div id="locations">
+      <h3>{{trips[0].region}} - {{trips[0].area}}</h3>
+      <label><input ng-model="filter" placeholder="filter.."></label>
+      <div id="trip" ng-repeat="trip in trips | filter: filter | limitTo: 4" | orderBy: 'rating'>
+         <b>{{trip.title}} - Rated {{trip.rating}}</b>: Posted by <a id="userlink" href="#/user/{{trip._user.username}}">{{trip._user.username}}</a> on {{trip.createdAt | date:'MMM dd, yyyy'}}
+         <p id="description">{{trip.description}}</p>
+         <div id="posts" ng-repeat="post in trip.posts">
+            <p>{{post._user.username}} - {{post.createdAt | date:'MMM dd, yyyy'}}: {{post.text}} </p>
+         </div>
+         <form>
+            <textarea id="post" type="text" ng-model='post.text'></textarea>
+            <input type="submit" value="Post a Comment" ng-click="newPost(trip._id, post)">
+         </form>
+      </div>
+   </div>
+</div>
