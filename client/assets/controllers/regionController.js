@@ -1,10 +1,10 @@
-app.controller('areaController', ['$scope','usersFactory','tripsFactory', '$location','$routeParams', function($scope, usersFactory, tripsFactory, $location, $routeParams) {
+app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$location','$routeParams', function($scope, usersFactory, tripsFactory, $location, $routeParams) {
 
    usersFactory.getUser(function(user){
       $scope.user = user;
    });
-   var getAreaTrips = function(){
-   tripsFactory.getAreaTrips($routeParams.id, function(returned_data){
+   var getRegionTrips = function(){
+   tripsFactory.getRegionTrips($routeParams.id, function(returned_data){
       console.log(returned_data)
       $scope.trips = returned_data;
       var sum = 0
@@ -13,9 +13,10 @@ app.controller('areaController', ['$scope','usersFactory','tripsFactory', '$loca
       }
       var averageRating = sum/$scope.trips.length;
       $scope.trips.count = $scope.trips.length;
+      $scope.trips.region = $routeParams.id;
       $scope.trips.averageRating = Math.round(averageRating*10)/10;
    })};
-   getAreaTrips()
+   getRegionTrips()
    $scope.logout = function(){
       console.log("logout clicked");
       usersFactory.logout(function(data){

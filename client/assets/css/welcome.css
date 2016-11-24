@@ -10,7 +10,7 @@
    background-size: 100% 100%;
    border-style: solid;
    border-width: 1px;
-   border-color: lightgrey;
+   /*border-color: lightgrey;*/
 }
 h4{
    color: white;
@@ -51,15 +51,21 @@ a{
    text-decoration: none;
    padding-left: 15px;
    padding-right: 15px;
-   color: black;
+   color: white;
+   font-weight: lighter;
+   padding-top: 5px;
+   padding-bottom: 5px;
 }
 #header{
-   background-color: #e5e9ee;
+   background-color: #0A384F;
    margin-bottom: 15px;
    margin-top: 0px;
    border-style: solid;
    border-width: 1px;
-   border-color: lightgrey;
-   padding: 5px;
-
+   color: white;
+}
+#bar{
+   padding-top: 5px;
+   padding-bottom: 5px;
+   color: white;
 }

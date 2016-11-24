@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['angular.filter','ngRoute','ngCookies']);
+var app = angular.module('myApp',['angular.filter','ngRoute','ngCookies']);
 
 app.factory('loginInterceptor', ['$q','$location', function($q, $location) {
    return{
@@ -28,6 +28,12 @@ app.config(function($routeProvider, $httpProvider){
       })
       .when('/area/:id',{
          templateUrl: 'partials/area.html',
+      })
+      .when('/region/:id',{
+         templateUrl: 'partials/region.html',
+      })
+      .when('/regions',{
+         templateUrl: 'partials/regions.html',
       })
       .otherwise({
          redirectTo: '/dashboard'

@@ -5,7 +5,6 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
    });
    var getTrips = function(){
    tripsFactory.getTrips(function(returned_data){
-      console.log(returned_data);
       $scope.trips = returned_data;
    })};
    getTrips()
@@ -16,7 +15,6 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
       $location.url('/login')
    }
    $scope.newTrip = function(){
-      console.log($scope.myTrip);
       tripsFactory.newTrip($scope.myTrip, function(data){
          if(data.data.errors){
             $scope.errors = data.data.errors;

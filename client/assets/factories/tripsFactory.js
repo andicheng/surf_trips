@@ -6,6 +6,12 @@ app.factory('tripsFactory', ['$http','$location', function($http, $location) {
          callback(trips);
       })
    };
+   factory.getUser = function(callback){
+      $http.get('/currentUser').then(function(returned_data){
+         console.log(returned_data)
+         callback(returned_data.data);
+      })
+   };
    factory.newTrip = function(trip, callback){
       $http.post('/newTrip', trip).then(function(res){
          callback(res);
@@ -17,8 +23,24 @@ app.factory('tripsFactory', ['$http','$location', function($http, $location) {
          callback(trips);
       })
    };
+   factory.getRegionTrips = function(region, callback){
+      $http.get('/regionTrips/'+region).then(function(returned_data){
+         trips = returned_data.data;
+         callback(trips);
+      })
+   };
    factory.newPost = function(id, post, callback){
       $http.post('/newPost/'+id, post).then(function(res){
+         callback(res);
+      })
+   };
+   factory.newComment = function(id, comment, callback){
+      $http.post('/newComment/'+id, comment).then(function(res){
+         callback(res);
+      })
+   };
+   factory.logout = function(callback){
+      $http.get('/logout').then(function(res){
          callback(res);
       })
    };

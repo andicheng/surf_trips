@@ -1,0 +1,89 @@
+*{
+   margin: 0px;
+   padding: 0px;
+   color: white;
+   border-width: 0px;
+}
+#bar{
+   padding-top: 5px;
+   padding-bottom: 5px;
+   color: white;
+}
+#bar a{
+   text-decoration: none;
+   margin-top: 10px;
+   margin-bottom: 10px;
+   padding-left: 15px;
+   padding-right: 15px;
+   color: white;
+}
+#header{
+   background-color: #0A384F;
+   color: white;
+   margin-bottom: 10px;
+   border-style: solid;
+}
+.region{
+   width:50%;
+   height: 500px;
+   float: left;
+   vertical-align: top;
+   background-color: white;
+}
+   .region h4{
+      width: 100%;
+      text-align: center;
+      margin: 4% 0%;
+      font-variant: small-caps;
+      font-size: 20px;
+   }
+#NA{
+   background-image: url("/assets/images/north_america.jpeg");
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+#CA{
+   background-image: url("/assets/images/central_america.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+#SA{
+   background-image: url("/assets/images/south_america.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+#PA{
+   background-image: url("/assets/images/pacific_islands.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+#CAR{
+   background-image: url("/assets/images/caribbean.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+#EU{
+   background-image: url("/assets/images/europe.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+#AF{
+   background-image: url("/assets/images/africa.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+#CAS{
+   background-image: url("/assets/images/central_asia.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+#SEA{
+   background-image: url("/assets/images/south_east_asia.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+}
+#AU{
+   background-image: url("/assets/images/australia.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+}

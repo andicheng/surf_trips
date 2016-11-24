@@ -29,12 +29,23 @@ module.exports = {
       })
    },
    areaTrips: function(req,res){
-      Trip.find({area: req.params.id}).populate('_user').populate({path:'posts',model:'Post',populate:{path:'_user',model:'User'}}).sort('-createdAt').exec(function(err, trips){
+      Trip.find({area: req.params.id}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trips){
          if(err){
             console.log('loading error');
             return res.sendStatus('500');
          }else{
             console.log('successfully getting area trips');
+         }
+         res.json(trips);
+      })
+   },
+   regionTrips: function(req,res){
+      Trip.find({region: req.params.id}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trips){
+         if(err){
+            console.log('loading error');
+            return res.sendStatus('500');
+         }else{
+            console.log('successfully getting region trips');
          }
          res.json(trips);
       })
@@ -67,7 +78,6 @@ module.exports = {
       })
    },
    newPost: function(req,res){
-      console.log('***************', req.body)
       User.findOne({_id: req.session.user._id}, function(err, user){
          if(err){
             return res.sendStatus('500');
@@ -81,11 +91,40 @@ module.exports = {
                      trip.posts.push(post)
                      trip.save(function(err){
                         if(err){
-                           console.log('message loading error');
+                           console.log('post loading error');
                            return res.sendStatus('500');
                         }else{
                            console.log('successfully added a new post');
                            res.json(post);
+                           req.session.user = user;
+                        }
+                     })
+                  })
+               })
+            })
+         }
+      })
+   },
+   newComment: function(req,res){
+      console.log('***************', req.body)
+      User.findOne({_id: req.session.user._id}, function(err, user){
+         if(err){
+            return res.sendStatus('500');
+         }else{
+            Post.findOne({_id: req.params.id}, function(err, post){
+               var comment = new Comment(req.body);
+               comment._user = user._id;
+               comment.save(function(err){
+                  user.comments.push(comment);
+                  user.save(function(err){
+                     post.comments.push(comment)
+                     post.save(function(err){
+                        if(err){
+                           console.log('comment loading error');
+                           return res.sendStatus('500');
+                        }else{
+                           console.log('successfully added a new comment');
+                           res.json(comment);
                            req.session.user = user;
                         }
                      })
