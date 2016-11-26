@@ -11,6 +11,7 @@ module.exports = function(app){
    app.get('/trips', trips.index);
    app.get('/areaTrips/:id', trips.areaTrips);
    app.get('/regionTrips/:id', trips.regionTrips);
+   app.get('/userTrips/:id', trips.userTrips);
    app.get('/users', users.index);
    app.use(userAuth);
    app.post('/newTrip', trips.newTrip);

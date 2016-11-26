@@ -28,32 +28,32 @@ module.exports = {
          res.json(users);
       })
    },
-   username: function(req,res){
-      User.findOne({username: req.body.username}, function(err, user){
-         if(user){
-            if (err){
-                 res.json(err);
-                 console.log('issues saving a new user')
-            }
-            else{
-               req.session.user={first_name: user.first_name,
-                                 last_name: user.last_name,
-                                 _id: user._id};
-               console.log('successful username login')
-               res.send(user);
-            }
-         }else{
-            res.json({
-               errors:{
-                  username:{
-                     message: "username not valid",
-                  }
-               }
-            })
-         }
-
-      })
-   },
+   // username: function(req,res){
+   //    User.findOne({username: req.body.username}, function(err, user){
+   //       if(user){
+   //          if (err){
+   //               res.json(err);
+   //               console.log('issues saving a new user')
+   //          }
+   //          else{
+   //             req.session.user={first_name: user.first_name,
+   //                               last_name: user.last_name,
+   //                               _id: user._id};
+   //             console.log('successful username login')
+   //             res.send(user);
+   //          }
+   //       }else{
+   //          res.json({
+   //             errors:{
+   //                username:{
+   //                   message: "username not valid",
+   //                }
+   //             }
+   //          })
+   //       }
+   //
+   //    })
+   // },
    register: function(req,res){
       var user = new User(req.body);
       user.save(function(err, user){
@@ -102,6 +102,7 @@ module.exports = {
             req.session.user = {
                first_name: user.first_name,
                last_name: user.last_name,
+               username: user.username,
                _id: user._id
             };
             res.send(user);
@@ -122,23 +123,31 @@ module.exports = {
       })
    },
    getCurrent: function(req,res){
-      User.findOne({_id: req.session.user._id}, function(err, user){
-         if(err){
-            console.log('issue getting session user');
-            res.sendStatus('500');
-         }else{
-            console.log("get current", user)
-            var user = {
-               first_name: user.first_name,
-               last_name: user.last_name,
-               _id: user._id
+      if(typeof req.session.user == 'undefined' || null == req.session.user){
+         console.log("************session user", req.session.user)
+         res.json();
+         console.log("**************** issue getting session user")
+      }else{
+         User.findOne({_id: req.session.user._id}, function(err, user){
+            if(err){
+               console.log('issue getting session user');
+               res.sendStatus('500');
+            }else{
+               console.log("get current", user);
+               var user = {
+                  first_name: user.first_name,
+                  last_name: user.last_name,
+                  username: user.username,
+                  _id: user._id
+               };
+               res.json(user);
             }
-            res.json(user)
-         }
-      })
+         })
+      }
    },
    logout: function(req,res){
-      req.session.user={};
+      req.session.user=null;
+      console.log("user logged out")
       res.status(200).send("session user logged out")
    },
    delete: function(req,res){
@@ -151,17 +160,17 @@ module.exports = {
          }
       })
    },
-   getUser: function(req,res){
-      User.findOne({_id: req.params.id}, function(err, user){
-         if(err){
-            console.log('loading error');
-            return res.sendStatus('500');
-         }else{
-            console.log('successfully getting user');
-            res.json(user);
-         }
-      })
-   },
+   // getUser: function(req,res){
+   //    User.findOne({_id: req.params.id}, function(err, user){
+   //       if(err){
+   //          console.log('loading error');
+   //          return res.sendStatus('500');
+   //       }else{
+   //          console.log('successfully getting user');
+   //          res.json(user);
+   //       }
+   //    })
+   // },
    show: function(req,res){
       User.findOne({_id: req.params.id}, function(err, user){
          if(err){

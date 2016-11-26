@@ -29,6 +29,12 @@ app.factory('tripsFactory', ['$http','$location', function($http, $location) {
          callback(trips);
       })
    };
+   factory.getUserTrips = function(user, callback){
+      $http.get('/userTrips/'+user).then(function(returned_data){
+         trips = returned_data.data;
+         callback(trips);
+      })
+   };
    factory.newPost = function(id, post, callback){
       $http.post('/newPost/'+id, post).then(function(res){
          callback(res);

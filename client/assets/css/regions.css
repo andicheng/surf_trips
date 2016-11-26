@@ -25,17 +25,32 @@
 }
 .region{
    width:50%;
-   height: 500px;
+   height: 400px;
    float: left;
    vertical-align: top;
    background-color: white;
+   overflow: scroll;
 }
    .region h4{
       width: 100%;
       text-align: center;
-      margin: 4% 0%;
+      margin: 3% 0% 2%;
       font-variant: small-caps;
       font-size: 20px;
+   }
+   .region h5{
+      width: 100%;
+      text-align: center;
+      margin: 1% 0% 2%;
+      font-variant: small-caps;
+      font-size: 17px;
+   }
+   .region p{
+      width: 100%;
+      text-align: center;
+      /*margin: 4% 0%;*/
+      font-variant: small-caps;
+      font-size: 15px;
    }
 #NA{
    background-image: url("/assets/images/north_america.jpeg");

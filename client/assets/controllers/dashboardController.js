@@ -1,6 +1,7 @@
 app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '$location','$routeParams', function($scope, usersFactory, tripsFactory,$location, $routeParams) {
 
    usersFactory.getUser(function(user){
+      console.log(user);
       $scope.user = user;
    });
    var getTrips = function(){
@@ -19,8 +20,10 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
          if(data.data.errors){
             $scope.errors = data.data.errors;
          }else{
+            console.log(data);
             $scope.myTrip = {};
-            getTrips();
+            var id = data.data._user;
+            $location.path('/user/'+id)
          }
       })
    }

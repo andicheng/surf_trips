@@ -1,0 +1,27 @@
+<link rel="stylesheet" type="text/css" href="assets/css/user.css">
+
+<div id="container" ng-controller="userController">
+   <div id="user">
+      <h3>Trips posted by {{trips[0]._user.username}}</h3>
+      <label><input ng-model="filter" placeholder="filter.."></label>
+      <div id="trip" ng-repeat="trip in trips | filter: filter | orderBy: '-createdAt'">
+         <b><i>{{trip.region}}: <a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i> - {{trip.title}} - Rated {{trip.rating}}</b>: Posted on {{trip.createdAt | date:'MMM dd, yyyy'}}
+         <p id="description">{{trip.description}}</p>
+         <form id="newcomment">
+            <textarea id="post" type="text" ng-model='post.text'></textarea>
+            <input class="submit" type="submit" value="Post a Comment" ng-click="newPost(trip._id, post)">
+         </form>
+         <div id="posts" ng-repeat="post in trip.posts">
+            <p id="oldpost">{{post._user.username}} - {{post.createdAt | date:'MMM dd, yyyy'}}: {{post.text}}</p>
+            <form id="newreply">
+               <button class="submit" ng-click="reply = !reply">Reply</button>
+               <textarea style='width:500px' id="comment" type="text" ng-model='comment.text' ng-show='reply'></textarea>
+               <input class="submit" type="submit" value="Send" ng-click="newComment(post._id, comment)" ng-show='reply'>
+            </form>
+            <div id="replies" ng-repeat="comment in post.comments">
+               <p>{{comment._user.username}} - {{comment.createdAt | date: 'MMM dd, yyyy'}}: {{comment.text}}</p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

@@ -3,33 +3,92 @@
 <div ng-controller="regionsController">
    <div class="region" id="NA">
       <a class="regionlink" href="#/region/North America"><h4>North America</h4></a>
-      <p>{{trips.region.averageRating}}</p>
+      <div ng-repeat="region in regions">
+         <h5 ng-if="region.region=='North America'">Rated {{region.count}} time<span ng-if="region.count>1">s</span> - Average Rating: {{region.averageRating}}</h5>
+      </div>
+      <div ng-repeat="trip in trips | unique:'area' | orderBy:'area'">
+         <p ng-if="trip.region=='North America'"><a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></p>
+      </div>
    </div>
    <div class="region" id="CA">
-      <a class="regionlink" href="#/region/Central America"><h4>Central America</h4>
+      <a class="regionlink" href="#/region/Central America"><h4>Central America</h4></a>
+      <div ng-repeat="region in regions">
+         <h5 ng-if="region.region=='Central America'">Rated {{region.count}} time<span ng-if="region.count>1">s</span> - Average Rating: {{region.averageRating}}</h5>
+      </div>
+      <div ng-repeat="trip in trips | unique:'area' | orderBy:'area'">
+         <p ng-if="trip.region=='Central America'"><a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></p>
+      </div>
    </div>
    <div class="region" id="SA">
-      <a class="regionlink" href="#/region/South America"><h4>South America</h4>
+      <a class="regionlink" href="#/region/South America"><h4>South America</h4></a>
+      <div ng-repeat="region in regions">
+         <h5 ng-if="region.region=='South America'">Rated {{region.count}} time<span ng-if="region.count>1">s</span> - Average Rating: {{region.averageRating}}</h5>
+      </div>
+      <div ng-repeat="trip in trips | unique:'area' | orderBy:'area'">
+         <p ng-if="trip.region=='South America'"><a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></p>
+      </div>
    </div>
    <div class="region" id="PA">
-      <a class="regionlink" href="#/region/Pacific Islands"><h4>Pacific Islands</h4>
+      <a class="regionlink" href="#/region/Pacific Islands"><h4>Pacific Islands</h4></a>
+      <div ng-repeat="region in regions">
+         <h5 ng-if="region.region=='Pacific Islands'">Rated {{region.count}} time<span ng-if="region.count>1">s</span> - Average Rating: {{region.averageRating}}</h5>
+      </div>
+      <div ng-repeat="trip in trips | unique:'area' | orderBy:'area'">
+         <p ng-if="trip.region=='Pacific Islands'"><a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></p>
+      </div>
    </div>
    <div class="region" id="CAR">
-      <a class="regionlink" href="#/region/Caribbean"><h4>Caribbean</h4>
+      <a class="regionlink" href="#/region/Caribbean"><h4>Caribbean</h4></a>
+      <div ng-repeat="region in regions">
+         <h5 ng-if="region.region=='Caribbean'">Rated {{region.count}} time<span ng-if="region.count>1">s</span> - Average Rating: {{region.averageRating}}</h5>
+      </div>
+      <div ng-repeat="trip in trips | unique:'area' | orderBy:'area'">
+         <p ng-if="trip.region=='Caribbean'"><a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></p>
+      </div>
    </div>
    <div class="region" id="EU">
-      <a class="regionlink" href="#/region/Europe"><h4>Europe</h4>
+      <a class="regionlink" href="#/region/Europe"><h4>Europe</h4></a>
+      <div ng-repeat="region in regions">
+         <h5 ng-if="region.region=='Europe'">Rated {{region.count}} time<span ng-if="region.count>1">s</span> - Average Rating: {{region.averageRating}}</h5>
+      </div>
+      <div ng-repeat="trip in trips | unique:'area' | orderBy:'area'">
+         <p ng-if="trip.region=='Europe'"><a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></p>
+      </div>
    </div>
    <div class="region" id="AF">
-      <a class="regionlink" href="#/region/Africa"><h4>Africa</h4>
+      <a class="regionlink" href="#/region/Africa"><h4>Africa</h4></a>
+      <div ng-repeat="region in regions">
+         <h5 ng-if="region.region=='Africa'">Rated {{region.count}} time<span ng-if="region.count>1">s</span> - Average Rating: {{region.averageRating}}</h5>
+      </div>
+      <div ng-repeat="trip in trips | unique:'area' | orderBy:'area'">
+         <p ng-if="trip.region=='Africa'"><a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></p>
+      </div>
    </div>
    <div class="region" id="CAS">
-      <a class="regionlink" href="#/region/Central Asia"><h4>Central Asia</h4>
+      <a class="regionlink" href="#/region/Central Asia"><h4>Central Asia</h4></a>
+      <div ng-repeat="region in regions">
+         <h5 ng-if="region.region=='Central Asia'">Rated {{region.count}} time<span ng-if="region.count>1">s</span> - Average Rating: {{region.averageRating}}</h5>
+      </div>
+      <div ng-repeat="trip in trips | unique:'area' | orderBy:'area'">
+         <p ng-if="trip.region=='Central Asia'"><a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></p>
+      </div>
    </div>
    <div class="region" id="SEA">
-      <a class="regionlink" href="#/region/South East Asia"><h4>South East Asia</h4>
+      <a class="regionlink" href="#/region/South East Asia"><h4>South East Asia</h4></a>
+      <div ng-repeat="region in regions">
+         <h5 ng-if="region.region=='South East Asia'">Rated {{region.count}} time<span ng-if="region.count>1">s</span> - Average Rating: {{region.averageRating}}</h5>
+      </div>
+      <div ng-repeat="trip in trips | unique:'area' | orderBy:'area'">
+         <p ng-if="trip.region=='South East Asia'"><a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></p>
+      </div>
    </div>
    <div class="region" id="AU">
-      <a class="regionlink" href="#/region/Australia"><h4>Australia / New Zealand</h4>
+      <a class="regionlink" href="#/region/Australia"><h4>Australia / New Zealand</h4></a>
+      <div ng-repeat="region in regions">
+         <h5 ng-if="region.region=='Australia'">Rated {{region.count}} time<span ng-if="region.count>1">s</span> - Average Rating: {{region.averageRating}}</h5>
+      </div>
+      <div ng-repeat="trip in trips | unique:'area' | orderBy:'area'">
+         <p ng-if="trip.region=='Australia'"><a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></p>
+      </div>
    </div>
 </div>

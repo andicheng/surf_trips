@@ -50,6 +50,24 @@ module.exports = {
          res.json(trips);
       })
    },
+   userTrips: function(req,res){
+      User.findOne({_id: req.params.id}).exec(function(err, user){
+         if(err){
+            console.log('loading error');
+            return res.sendStatus('500');
+         }else{
+            Trip.find({_user: user}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trips){
+               if(err){
+                  console.log('loading error');
+                  return res.sendStatus('500');
+               }else{
+                  console.log('successfully getting user trips');
+               }
+               res.json(trips);
+            })
+         }
+      })
+   },
    newTrip: function(req,res){
       User.findOne({_id: req.session.user._id}, function(err, user){
          if(err){
@@ -70,7 +88,7 @@ module.exports = {
                      res.sendStatus('500');
                   }else{
                      console.log('successfully added a new trip');
-                     res.sendStatus(200);
+                     res.json(trip);
                   }
                })
             })
