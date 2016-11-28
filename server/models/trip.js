@@ -20,9 +20,17 @@ var TripSchema = new mongoose.Schema({
       type: String,
       required: true,
    },
-   area: {
+   country: {
       type: String,
       required: true,
+   },
+   area: {
+      type: String,
+      required: false,
+   },
+   coordinates: {
+      type: [Number],
+      required: false,
    },
    posts: [{type: Schema.Types.ObjectId, ref: "Post"}],
    _user: {type: Schema.Types.ObjectId, ref: "User"},

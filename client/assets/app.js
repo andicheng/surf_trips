@@ -26,6 +26,9 @@ app.config(function($routeProvider, $httpProvider){
       .when('/dashboard',{
          templateUrl: 'partials/dashboard.html',
       })
+      .when('/country/:id',{
+         templateUrl: 'partials/country.html',
+      })
       .when('/area/:id',{
          templateUrl: 'partials/area.html',
       })

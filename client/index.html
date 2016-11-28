@@ -1,52 +1,48 @@
 <!DOCTYPE html>
 <html ng-app='myApp' xmlns:ng="http://angularjs.org/">
    <head>
+      <!DOCTYPE html>
       <meta charset="utf-8">
+      <title>SURF TRIPS</title>
+      <!-- ************************MAP*********************** -->
+      <!-- <!DOCTYPE html>
       <meta name="viewport" content="initial-scale=1.0">
-      <title>Login and Registration</title>
+      <script>
+         var map;
+         function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+               center: {lat: 0.165902, lng: 0.518463},
+               zoom: 2
+            });
+         }
+      </script>
+      <script async defer
+         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9zEze3L8tRr1_-DH6mi44KV5jpvKXnG8&callback=initMap">
+      </script> -->
+      <!-- ************************************************************* -->
+      <meta name="viewport" content="initial-scale=1.0">
+      <meta name="viewport" content="initial-scale=1.0">
       <script src="bower_components/angular/angular.js" charset="utf-8"></script>
       <script src="bower_components/angular-route/angular-route.js" charset="utf-8"></script>
       <script src="bower_components/angular-cookies/angular-cookies.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.js"></script>
       <script src="assets/app.js" charset="utf-8"></script>
-      <!-- <script
-         src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script> -->
-      <!-- <script
-         src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script> -->
-      <!-- /*<style>
-         #map {
-         height: 100%;
-         }
-         html, body {
-         height: 100%;
-         margin: 0;
-         padding: 0;
-         }
-      </style>*/ -->
-      <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9zEze3L8tRr1_-DH6mi44KV5jpvKXnG8&callback=initMap"
-         async defer></script> -->
-      <!-- <script type="text/javascript" src="js/maps.js"></script> -->
       <script src="assets/factories/usersFactory.js" charset="utf-8"></script>
       <script src="assets/factories/tripsFactory.js" charset="utf-8"></script>
       <script src="assets/controllers/log_regController.js" charset="utf-8"></script>
       <script src="assets/controllers/dashboardController.js" charset="utf-8"></script>
       <script src="assets/controllers/areaController.js" charset="utf-8"></script>
+      <script src="assets/controllers/countryController.js" charset="utf-8"></script>
       <script src="assets/controllers/regionController.js" charset="utf-8"></script>
       <script src="assets/controllers/regionsController.js" charset="utf-8"></script>
       <script src="assets/controllers/userController.js" charset="utf-8"></script>
-      <script src="assets/controllers/mapCtrl.js" meta charset="ISO-8859-1"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
-      <!-- <script src="https://code.angularjs.org/1.3.14/angular.js"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
-      <script src="http://rawgit.com/angular-ui/angular-google-maps/2.0.X/dist/angular-google-maps.js"></script>
-      <script type='text/javascript' src='script.js'></script> -->
    </head>
    <body>
       <div id="header" ng-controller="dashboardController">
-         <p id="bar"><a href="#/dashboard">Home</a> | <a href="#/regions">Regions/Locations</a> | <a href="#/dashboard">Post a Trip</a> | <a href="#/register">Register</a> | <a href="#/login">Login</a> | <a href='' ng-click="logout()">Log Out</a></p>
-         <div ng-view="">
-         </div>
+         <p id="bar"><a href="#/dashboard">Home</a> | <a href="#/regions">Regions/Countries</a> | <a href="#/dashboard">Post a Trip</a> | <a href="#/register">Register</a> | <a href="#/login">Login</a> | <a href='' ng-click="logout()">Log Out</a></p>
       </div>
+      <div ng-view=""></div>
    </body>
 </html>
 

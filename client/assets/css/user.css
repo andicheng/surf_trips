@@ -35,7 +35,7 @@
 h3{
    display: inline-block;
    vertical-align: top;
-   width: 85%;
+   width: 75%;
    margin-bottom: 10px;
 }
 label{
@@ -43,6 +43,18 @@ label{
    vertical-align: top;
 }
    #arealink{
+      padding-left: 0px;
+      text-decoration: underline;
+      color: darkblue;
+      padding-right: 0px;
+   }
+   #countrylink{
+      padding-left: 0px;
+      text-decoration: underline;
+      color: darkblue;
+      padding-right: 0px;
+   }
+   #regionlink{
       padding-left: 0px;
       text-decoration: underline;
       color: darkblue;

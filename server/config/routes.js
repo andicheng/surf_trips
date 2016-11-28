@@ -10,6 +10,7 @@ module.exports = function(app){
    app.get('/currentUser', users.getCurrent);
    app.get('/trips', trips.index);
    app.get('/areaTrips/:id', trips.areaTrips);
+   app.get('/countryTrips/:id', trips.countryTrips);
    app.get('/regionTrips/:id', trips.regionTrips);
    app.get('/userTrips/:id', trips.userTrips);
    app.get('/users', users.index);

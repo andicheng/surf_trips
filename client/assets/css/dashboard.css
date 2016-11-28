@@ -26,15 +26,17 @@
 }
 #container{
    background-color: white;
-   padding: 15px;
+   padding: 10px;
+   padding-left: 20px;
 }
 #locations{
    display: inline-block;
    width: 57%;
    vertical-align: top;
-   margin-right: 3%
+   margin-right: 3%;
+   margin-bottom: 20px;
 }
-   #locations #regionlink{
+   .regionlink{
       padding-left: 0px;
       text-decoration: underline;
       color: darkblue;
@@ -57,9 +59,13 @@
       vertical-align: top;
       width: 78%;
    }
-   #locations #trip{
-      margin-top: 15px;
+   #locations #recentTrip{
+      height: 490px;
+      overflow: scroll;
    }
+      #locations #trip{
+         margin-top: 10px;
+      }
    #locations label{
       display: inline-block;
       vertical-align: top;
@@ -133,4 +139,16 @@
    }
    #names {
         cursor: pointer;
+   }
+.regionsummary{
+   margin-bottom: 10px;
+}
+#regions, #countries, #areas{
+   width: 30%;
+   margin-right: 3%;
+   display: inline-block;
+   vertical-align: top;
+}
+   .countrylink{
+      color: darkblue;
    }

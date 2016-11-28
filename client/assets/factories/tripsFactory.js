@@ -23,6 +23,12 @@ app.factory('tripsFactory', ['$http','$location', function($http, $location) {
          callback(trips);
       })
    };
+   factory.getCountryTrips = function(country, callback){
+      $http.get('/countryTrips/'+country).then(function(returned_data){
+         trips = returned_data.data;
+         callback(trips);
+      })
+   };
    factory.getRegionTrips = function(region, callback){
       $http.get('/regionTrips/'+region).then(function(returned_data){
          trips = returned_data.data;

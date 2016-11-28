@@ -5,6 +5,7 @@ app.controller('userController', ['$scope','usersFactory','tripsFactory', '$loca
    // });
    var getUserTrips = function(){
    tripsFactory.getUserTrips($routeParams.id, function(returned_data){
+      console.log($routeParams.id);
       console.log(returned_data)
       $scope.trips = returned_data;
       // var sum = 0

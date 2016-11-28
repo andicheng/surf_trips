@@ -25,25 +25,25 @@ app.controller('regionsController', ['$scope','usersFactory','tripsFactory', '$l
             regions.push({region: region, count: count, averageRating: Math.round(sum/count*10)/10})
          }
       }
-      // var areas=[];
-      // for(var i=0; i<$scope.trips.length; i++){
-      //    var sum=0;
-      //    var count=0;
-      //    var area = $scope.trips[i].area;
-      //    for(var j=i; j<$scope.trips.length; j++){
-      //       if($scope.trips[j].area == area){
-      //          sum+=$scope.trips[j].rating;
-      //          count++;
-      //       }
-      //    }
-      //    var found = areas.some(function (el) {
-      //       return el.area == area;
-      //    });
-      //    if (!found) {
-      //       areas.push({area: area, count: count, averageRating: Math.round(sum/count*10)/10})
-      //    }
-      // }
-      // $scope.areas = areas;
+      var countries=[];
+      for(var i=0; i<$scope.trips.length; i++){
+         var sum2=0;
+         var count2=0;
+         var country = $scope.trips[i].country;
+         for(var j=i; j<$scope.trips.length; j++){
+            if($scope.trips[j].country == country){
+               sum2+=$scope.trips[j].rating;
+               count2++;
+            }
+         }
+         var found = countries.some(function (el) {
+            return el.country == country;
+         });
+         if (!found) {
+            countries.push({country: country, count: count2, averageRating: Math.round(sum2/count2*10)/10})
+         }
+      }
+      $scope.countries = countries;
       $scope.regions = regions;
    })};
    getTrips();

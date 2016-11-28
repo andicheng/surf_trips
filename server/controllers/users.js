@@ -124,9 +124,7 @@ module.exports = {
    },
    getCurrent: function(req,res){
       if(typeof req.session.user == 'undefined' || null == req.session.user){
-         console.log("************session user", req.session.user)
          res.json();
-         console.log("**************** issue getting session user")
       }else{
          User.findOne({_id: req.session.user._id}, function(err, user){
             if(err){

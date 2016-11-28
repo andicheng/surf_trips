@@ -31,7 +31,7 @@ module.exports = {
    areaTrips: function(req,res){
       Trip.find({area: req.params.id}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trips){
          if(err){
-            console.log('loading error');
+            console.log('area loading error');
             return res.sendStatus('500');
          }else{
             console.log('successfully getting area trips');
@@ -39,10 +39,21 @@ module.exports = {
          res.json(trips);
       })
    },
+   countryTrips: function(req,res){
+      Trip.find({country: req.params.id}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trips){
+         if(err){
+            console.log('country loading error');
+            return res.sendStatus('500');
+         }else{
+            console.log('successfully getting country trips');
+         }
+         res.json(trips);
+      })
+   },
    regionTrips: function(req,res){
       Trip.find({region: req.params.id}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trips){
          if(err){
-            console.log('loading error');
+            console.log('region loading error');
             return res.sendStatus('500');
          }else{
             console.log('successfully getting region trips');
@@ -78,6 +89,11 @@ module.exports = {
                trip.area = req.body.area2;
             }else{
                trip.area = req.body.area.area;
+            }
+            if(req.body.country2){
+               trip.country = req.body.country2;
+            }else{
+               trip.country = req.body.country.country;
             }
             trip._user = req.session.user._id;
             trip.save(function(err){

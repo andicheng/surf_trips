@@ -3,9 +3,14 @@
 <div id="container" ng-controller="userController">
    <div id="user">
       <h3>Trips posted by {{trips[0]._user.username}}</h3>
+      Sort: <select id="sort" ng-model='sortorder'>
+         <option value="-createdAt">Date Posted</option>
+         <option value="-rating">Rating</option>
+         <option value="country">Country</option>
+      </select>
       <label><input ng-model="filter" placeholder="filter.."></label>
-      <div id="trip" ng-repeat="trip in trips | filter: filter | orderBy: '-createdAt'">
-         <b><i>{{trip.region}}: <a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i> - {{trip.title}} - Rated {{trip.rating}}</b>: Posted on {{trip.createdAt | date:'MMM dd, yyyy'}}
+      <div id="trip" ng-repeat="trip in trips | filter: filter | orderBy:sortorder">
+         <b><i><a id="countrylink" href="#/region/{{trip.region}}">{{trip.region}}</a>: <a id="countrylink" href="#/country/{{trip.country}}">{{trip.country}}</a> - <a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i> - {{trip.title}} - Rated {{trip.rating}}</b>: Posted on {{trip.createdAt | date:'MMM dd, yyyy'}}
          <p id="description">{{trip.description}}</p>
          <form id="newcomment">
             <textarea id="post" type="text" ng-model='post.text'></textarea>

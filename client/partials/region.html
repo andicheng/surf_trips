@@ -1,10 +1,16 @@
 <link rel="stylesheet" type="text/css" href="assets/css/region.css">
 <div id="container" ng-controller="regionController">
    <div id="region">
-      <h3>{{trips.region}}: Average Rating: {{trips.averageRating}} - Reviewed {{trips.count}} times</h3>
+      <h3>{{trips.region}}: Average Rating: {{trips.averageRating}} - Reviewed {{trips.count}} time<span ng-if="trips.count>1">s</span></h3>
+      Sort: <select id="sort" ng-model="sortorder">
+         <option value="-createdAt">Date Posted</option>
+         <option value="-rating">Rating</option>
+         <option value="country">Country</option>
+         <option value="area">Area</option>
+      </select>
       <label><input ng-model="filter" placeholder="filter.."></label>
-      <div id="trip" ng-repeat="trip in trips | filter: filter | orderBy: '-createdAt'">
-         <b><i><a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i>: {{trip.title}} - Rated {{trip.rating}}</b>: Posted by <a id="userlink" href="#/user/{{trip._user.username}}">{{trip._user.username}}</a> on {{trip.createdAt | date:'MMM dd, yyyy'}}
+      <div id="trip" ng-repeat="trip in trips | filter: filter | orderBy:sortorder">
+         <b><i><a id="arealink" href="#/country/{{trip.country}}">{{trip.country}}</a>: <a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i> - {{trip.title}} - Rated {{trip.rating}}</b>: Posted by <a id="userlink" href="#/user/{{trip._user._id}}">{{trip._user.username}}</a> on {{trip.createdAt | date:'MMM dd, yyyy'}}
          <p id="description">{{trip.description}}</p>
          <form id="newcomment">
             <textarea id="post" type="text" ng-model='post.text'></textarea>
