@@ -19,7 +19,7 @@
 #header{
    background-color: #0A384F;
    color: white;
-   margin-bottom: 10px;
+   /*margin-bottom: 10px;*/
    border-style: solid;
    border-width: 1px;
    border-color: lightgrey;
@@ -28,9 +28,15 @@
       padding: 0px;
       color: darkblue;
    }
+   #arealink{
+      padding: 0px;
+      color: darkblue;
+   }
 #container{
    background-color: white;
    padding: 15px;
+   background-image: url("../images/wallpaper.jpg");
+   background-repeat: repeat-y;
 }
 h3{
    display: inline-block;
@@ -41,6 +47,11 @@ h3{
 label{
    display: inline-block;
    vertical-align: top;
+}
+#locations{
+   padding: 1%;
+   opacity: 0.8;
+   background-color: white;
 }
    #trip{
       margin-top: 15px;

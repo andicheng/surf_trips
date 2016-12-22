@@ -84,16 +84,17 @@ module.exports = {
          if(err){
             return res.sendStatus('500');
          }else{
+            console.log('***************', req.body)
             var trip = new Trip(req.body);
             if(req.body.area2){
                trip.area = req.body.area2;
             }else{
-               trip.area = req.body.area.area;
+               trip.area = req.body.area;
             }
             if(req.body.country2){
                trip.country = req.body.country2;
             }else{
-               trip.country = req.body.country.country;
+               trip.country = req.body.country;
             }
             trip._user = req.session.user._id;
             trip.save(function(err){

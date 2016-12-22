@@ -8,7 +8,7 @@
       </select>
       <label><input ng-model="filter" placeholder="filter.."></label>
       <div id="trip" ng-repeat="trip in trips | filter: filter | orderBy:sortorder">
-         <b>{{trip.area}}: {{trip.title}} - Rated {{trip.rating}}</b>: Posted by <a id="userlink" href="#/user/{{trip._user._id}}">{{trip._user.username}}</a> on {{trip.createdAt | date:'MMM dd, yyyy'}}
+         <b><i><a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i>: {{trip.title}} - Rated {{trip.rating}}</b>: Posted by <a id="userlink" href="#/user/{{trip._user._id}}">{{trip._user.username}}</a> on {{trip.createdAt | date:'MMM dd, yyyy'}}
          <p id="description">{{trip.description}}</p>
          <form id="newcomment">
             <textarea id="post" type="text" ng-model='post.text'></textarea>

@@ -26,6 +26,7 @@
 <!-- ************************************************************* -->
 
 <div id="container" ng-controller="dashboardController">
+   <img id="wide_panoramic" src="../assets/images/wide_panoramic.jpg">
    <!-- <div id="mapholder">
       <div id="map"></div>
    </div> -->
@@ -33,7 +34,7 @@
       <h3>Recent Posts</h3>
       <label><input ng-model="filter" placeholder="filter.."></label>
       <div id="recentTrip">
-         <div id="trip" ng-repeat="trip in trips | filter: filter | limitTo: 10 | orderBy: '-createdAt'">
+         <div id="trip" ng-repeat="trip in trips | filter: filter | limitTo: 25 | orderBy: '-createdAt'">
             <b><i><a class="regionlink" href="#/region/{{trip.region}}">{{trip.region}}</a> - <a id="arealink" href="#/country/{{trip.country}}">{{trip.country}}</a> - <a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i></b>
             <b><p>{{trip.title}} - Rated {{trip.rating}}</p></b>
             <p>Posted by <a id="userlink" href="#/user/{{trip._user._id}}">{{trip._user.username}}</a> on {{trip.createdAt | date:'MM/dd/yyyy'}}
@@ -42,7 +43,7 @@
       </div>
    </div>
    <div id="newTrip">
-      <h3>Share Your Experiences <span ng-if="user">{{user.username}}</span></h3><b><span ng-if="!user">(Please register or log to continue!)</span></b>
+      <h3>Share Your Experiences <span ng-if="user">{{user.username}}</span></h3><b><span ng-if="!user">(Please register or log in to continue!)</span></b>
       <form>
          <p>Select a region</p>
          <p><select style="width: 40%" ng-model="myTrip.region">
@@ -58,14 +59,14 @@
             <option value="Pacific Islands">Pacific Islands</option>
          </select></p>
          <p>Provide a country</p>
-         <p><select style="width: 40%" ng-model="myTrip.country" data-ng-options="trip.country for trip in trips | unique:'country' | filter:{region:myTrip.region}">
-            <option class="dropdown" ng-disabled='true' ng-selected='true' value='{{trip.country}}'>Select a country</option>
+         <p><select style="width: 40%" ng-model="myTrip.country" ng-options="trip.country for trip in trips | unique:'country' | filter:{region:myTrip.region}">
+            <option class="dropdown" ng-disabled='true' ng-selected='true' value={{trip.country}}>Select a country</option>
          </select>
          or
          <input style="width: 40%" id="area" type="text" ng-model="myTrip.country2" placeholder="Enter a new country"></p>
          <p>Provide a local area</p>
-         <p><select style="width: 40%" ng-model="myTrip.area" data-ng-options="trip.area for trip in trips | unique:'area' | filter:{country:myTrip.country}">
-            <option class="dropdown" ng-disabled='true' ng-selected='true' value='{{trip.area}}'>Select an area</option>
+         <p><select style="width: 40%" ng-model="myTrip.area" ng-options="trip.area for trip in trips | unique:'area' | filter:{region:myTrip.region} | filter:{country:myTrip.country.country}:true">
+            <option class="dropdown" value="{{trip.area}}">Select an area</option>
          </select>
          or
          <input style="width: 40%" id="area" type="text" ng-model="myTrip.area2" placeholder="Enter a new area"></p>
@@ -91,16 +92,19 @@
       </form>
    </div>
    <div id="regions">
+      <img class="panoramic" src="../assets/images/panoramic1.jpeg" alt="missing photo">
       <h3 class="regionsummary">Region Summary</h3>
-      <p ng-repeat="region in regions | orderBy:'region'"><b><i><a class="regionlink" href="#/region/{{region.region}}">{{region.region}}</a></i></b>: Rated {{region.count}} Time<span ng-show="region.count>1">s</span> - Average Rating: {{region.averageRating}}
+      <p ng-repeat="region in regions | orderBy:'region'"><b><i><a class="regionlink" href="#/region/{{region.region}}">{{region.region}}:</a></i></b> Rated {{region.count}} Time<span ng-show="region.count>1">s</span> - Average Rating: {{region.averageRating}}
    </div>
    <div id="countries">
+      <img class="panoramic" src="../assets/images/panoramic3.jpg" alt="missing photo">
       <h3 class="regionsummary">Best Rated Countries</h3>
-      <p ng-repeat="country in countries | orderBy:'-averageRating' | limitTo: 10"><b><i><a class="countrylink" href="#/country/{{country.country}}">{{country.country}}</a></i></b>: Rated {{country.count}} Time<span ng-show="country.count>1">s</span> - Average Rating: {{country.averageRating}}
+      <p ng-repeat="country in countries | orderBy:'-averageRating' | limitTo: 15"><b><i><a class="countrylink" href="#/country/{{country.country}}">{{country.country}}:</a></i></b> Rated {{country.count}} Time<span ng-show="country.count>1">s</span> - Average Rating: {{country.averageRating}}
    </div>
    <div id="areas">
+      <img class="panoramic" src="../assets/images/panoramic2.jpeg" alt="missing photo">
       <h3 class="regionsummary">Best Rated Areas</h3>
-      <p ng-repeat="area in areas | orderBy:'-averageRating' | limitTo: 10"><b><i><a class="countrylink" href="#/area/{{area.area}}">{{area.area}}</a></i></b>: Rated {{area.count}} Time<span ng-show="area.count>1">s</span> - Average Rating: {{area.averageRating}}
+      <p ng-repeat="area in areas | orderBy:'-averageRating' | limitTo: 20"><b><i><a class="countrylink" href="#/area/{{area.area}}">{{area.area}}:</a></i></b> Rated {{area.count}} Time<span ng-show="area.count>1">s</span> - Average Rating: {{area.averageRating}}
    </div>
    <!-- <div id="map"></div>
    <meta name="viewport" content="initial-scale=1.0">

@@ -29,7 +29,7 @@ app.controller('countryController', ['$scope','usersFactory','tripsFactory', '$l
             $scope.errors = data.data.errors;
          }else{
             $scope.post = {};
-            getAreaTrips();
+            getCountryTrips();
          }
       })
    }
@@ -40,7 +40,7 @@ app.controller('countryController', ['$scope','usersFactory','tripsFactory', '$l
             $scope.errors = data.data.errors;
          }else{
             $scope.comment = {};
-            getAreaTrips();
+            getCountryTrips();
          }
       })
    }

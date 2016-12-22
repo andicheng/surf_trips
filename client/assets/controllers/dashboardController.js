@@ -74,6 +74,7 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
    }
    $scope.newTrip = function(){
       tripsFactory.newTrip($scope.myTrip, function(data){
+         console.log($scope.myTrip)
          if(data.data.errors){
             $scope.errors = data.data.errors;
          }else{
