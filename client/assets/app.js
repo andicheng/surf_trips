@@ -1,4 +1,4 @@
-var app = angular.module('myApp',['djds4rce.angular-socialshare','ui.filters','angular.filter','ngRoute','ngCookies']);
+var app = angular.module('myApp',['ui.filters','angular.filter','ngRoute','ngCookies']);
 
 app.factory('loginInterceptor', ['$q','$location', function($q, $location) {
    return{
