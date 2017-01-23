@@ -36,7 +36,7 @@
 }
 #region{
    padding: 1%;
-   opacity: 0.8;
+   opacity: 0.85;
    background-color: white;
 }
 h3{
@@ -89,7 +89,7 @@ label{
       }
          #replies{
             margin-left: 25px;
-            margin-top: 5px;
+            margin-top: 8px;
          }
          #comment{
             width: 50%;

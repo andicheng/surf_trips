@@ -8,13 +8,13 @@
    background-image: url("/assets/images/welcome1.jpg");
    background-repeat: no-repeat;
    background-size: 100% 100%;
-   border-style: solid;
+   /*border-style: solid;*/
    border-width: 1px;
    /*border-color: lightgrey;*/
 }
 h4{
    color: white;
-   margin: 10px auto;
+   margin: 0px auto;
    width: 400px;
    font-size: 22px;
    text-align: center;

@@ -41,7 +41,7 @@ app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$lo
             $scope.errors = data.data.errors;
          }else{
             $scope.comment = {};
-            getAreaTrips();
+            getRegionTrips();
          }
       })
    }

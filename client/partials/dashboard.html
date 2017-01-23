@@ -34,7 +34,7 @@
       <h3>Recent Posts</h3>
       <label><input ng-model="filter" placeholder="filter.."></label>
       <div id="recentTrip">
-         <div id="trip" ng-repeat="trip in trips | filter: filter | limitTo: 25 | orderBy: '-createdAt'">
+         <div id="trip" ng-animate="'animate'" ng-repeat="trip in trips | filter: filter | limitTo: 25 | orderBy: '-createdAt'">
             <b><i><a class="regionlink" href="#/region/{{trip.region}}">{{trip.region}}</a> - <a id="arealink" href="#/country/{{trip.country}}">{{trip.country}}</a> - <a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i></b>
             <b><p>{{trip.title}} - Rated {{trip.rating}}</p></b>
             <p>Posted by <a id="userlink" href="#/user/{{trip._user._id}}">{{trip._user.username}}</a> on {{trip.createdAt | date:'MM/dd/yyyy'}}
@@ -43,7 +43,7 @@
       </div>
    </div>
    <div id="newTrip">
-      <h3>Share Your Experiences <span ng-if="user">{{user.username}}</span></h3><b><span ng-if="!user">(Please register or log in to continue!)</span></b>
+      <h3>Share Your Experiences <span ng-if="user">{{user.username}}</span></h3><b><span id="noUser" ng-if="!user">(Please register or log in to continue!)</span></b>
       <form>
          <p>Select a region</p>
          <p><select style="width: 40%" ng-model="myTrip.region">
