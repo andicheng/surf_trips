@@ -4,6 +4,17 @@
    color: white;
    border-width: 0px;
 }
+#body{
+   width: 100%;
+   max-width: 1200px;
+   min-width: 960px;
+   margin: auto;
+}
+#container{
+   max-width: 1200px;
+   min-width: 960px;
+   margin: auto;
+}
 #bar{
    padding-top: 5px;
    padding-bottom: 5px;
@@ -17,11 +28,23 @@
    padding-right: 15px;
    color: white;
 }
+#bar a:hover{
+   color: yellow;
+}
 #header{
    background-color: #0A384F;
    color: white;
    /*margin-bottom: 10px;*/
    border-style: solid;
+}
+.btn{
+   display: inline-block;
+   width: 80px;
+}
+.col6{
+   margin-top: 5px;
+   text-align: right;
+   margin-bottom: 5px;
 }
 .region{
    width:50%;
@@ -53,7 +76,7 @@
       font-size: 15px;
    }
 #NA{
-   background-image: url("/assets/images/north_america.jpeg");
+   background-image: url("/assets/images/north_america.jpg");
    background-repeat: no-repeat;
    background-size: cover;
 }
@@ -101,4 +124,95 @@
    background-image: url("/assets/images/australia.jpg");
    background-repeat: no-repeat;
    background-size: cover;
+}
+#footer{
+   padding: 5px;
+   background-color: #0A384F;
+}
+#copyright{
+   font-size: 13px;
+}
+.foot{
+   display: inline-block;
+   width: 24%;
+   text-align: center;
+   color: white;
+   margin-top: 5px;
+}
+.foot a{
+   color: white;
+   text-decoration: none;
+}
+.foot a:hover{
+   color: yellow;
+}
+#legal{
+   margin-right: 1%;
+   margin-bottom: 20px;
+   padding: 1%;
+   border-style: solid;
+   border-color: lightgrey;
+   border-width: thin;
+   background-color: white;
+   opacity: 0.85;
+}
+#dmca{
+   margin-right: 1%;
+   margin-bottom: 20px;
+   padding: 1%;
+   border-style: solid;
+   border-color: lightgrey;
+   border-width: thin;
+   background-color: white;
+   opacity: 0.85;
+}
+#about{
+   margin-right: 1%;
+   margin-bottom: 20px;
+   padding: 1%;
+   border-style: solid;
+   border-color: lightgrey;
+   border-width: thin;
+   background-color: white;
+   opacity: 0.85;
+}
+#contact{
+   margin-right: 1%;
+   margin-bottom: 20px;
+   padding: 1%;
+   border-style: solid;
+   border-color: lightgrey;
+   border-width: thin;
+   background-color: white;
+   opacity: 0.85;
+}
+.lettered{
+   list-style-type: lower-alpha;
+   margin-left: 20px;
+}
+ul{
+   margin-left: 20px;
+   margin-top: 3px;
+   margin-bottom: 3px;
+   list-style-position: inside;
+}
+p{
+   margin-top: 5px;
+   margin-bottom: 5px;
+   text-align: justify;
+}
+h4{
+   margin-top: 10px;
+   margin-bottom: 5px;
+}
+h2{
+   width: 50%;
+   margin-left: 25%;
+   text-align: center;
+   padding: 20px;
+}
+#message{
+   width: 50%;
+   height: 80px;
+   margin-left: 10px;
 }

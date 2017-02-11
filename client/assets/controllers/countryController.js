@@ -14,6 +14,7 @@ app.controller('countryController', ['$scope','usersFactory','tripsFactory', '$l
       var averageRating = sum/$scope.trips.length;
       $scope.trips.count = $scope.trips.length;
       $scope.trips.averageRating = Math.round(averageRating*10)/10;
+      $scope.url = $location.absUrl();
    })};
    getCountryTrips()
    $scope.logout = function(){
@@ -44,5 +45,23 @@ app.controller('countryController', ['$scope','usersFactory','tripsFactory', '$l
          }
       })
    }
+   $scope.reportcomments = function(comment, report){
+      var req = Object.assign({}, comment, report);
+      console.log(req);
+      tripsFactory.reportcomments(req, function(data){
+         if(data.data.errors){
+            $scope.report = {};
+            $scope.errors = data.data.errors;
+            alert(data.data.errors.login.message);
+         }else{
+            $scope.report = {};
+         }
+      }, function(err){
+         console.log("Please try again later.", err);
+      })
+   }
    $scope.reply = false;
+   $scope.reporttrip = false;
+   $scope.reportpost = false;
+   $scope.reportcomment = false;
 }]);

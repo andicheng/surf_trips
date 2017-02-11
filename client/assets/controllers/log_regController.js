@@ -28,4 +28,36 @@ app.controller('log_regController', ['$scope','usersFactory', '$location','$rout
          console.log("I am an error", err);
       })
    }
+   $scope.forgot = function(user){
+      usersFactory.forgot($scope.user, function(data){
+         console.log(data)
+         if(data.data.errors){
+            $scope.errors = data.data.errors;
+            $scope.user = {};
+         }else{
+            $location.url('/forgot')
+            $scope.user = {};
+         }
+      }, function(err){
+         console.log("I am an error", err);
+      })
+   }
+   $scope.reset = function(user){
+      if($scope.user.password == $scope.user.confirm){
+         usersFactory.reset($routeParams.id, $scope.user, function(data){
+            console.log(data)
+            if(data.data.errors){
+               $scope.errors = data.data.errors;
+               $scope.user = {};
+            }else{
+               $location.url('/login')
+            }
+         }, function(err){
+            console.log("I am an error", err);
+         })
+      }else{
+         $scope.errors = {confirm: "Password not confirmed"}
+      }
+   }
+
 }]);

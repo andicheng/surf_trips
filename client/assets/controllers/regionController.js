@@ -15,8 +15,15 @@ app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$lo
       $scope.trips.count = $scope.trips.length;
       $scope.trips.region = $routeParams.id;
       $scope.trips.averageRating = Math.round(averageRating*10)/10;
+      $scope.url = $location.absUrl();
    })};
    getRegionTrips()
+   var getTrip = function(){
+      tripsFactory.getTrip($routeParams.id, function(returned_data){
+         $scope.trip = returned_data;
+      })
+   }
+   getTrip()
    $scope.logout = function(){
       console.log("logout clicked");
       usersFactory.logout(function(data){
@@ -45,5 +52,23 @@ app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$lo
          }
       })
    }
+   $scope.reportcomments = function(comment, report){
+      var req = Object.assign({}, comment, report);
+      console.log(req);
+      tripsFactory.reportcomments(req, function(data){
+         if(data.data.errors){
+            $scope.report = {};
+            $scope.errors = data.data.errors;
+            alert(data.data.errors.login.message);
+         }else{
+            $scope.report = {};
+         }
+      }, function(err){
+         console.log("Please try again later.", err);
+      })
+   }
    $scope.reply = false;
+   $scope.reporttrip = false;
+   $scope.reportpost = false;
+   $scope.reportcomment = false;
 }]);

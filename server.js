@@ -4,10 +4,21 @@ var mongoose = require( 'mongoose' ),
     session  = require('express-session'),
     path     = require( 'path' ),
     multer   = require('multer'),
+   nodemailer = require('nodemailer'),
+   passport = require('passport'),
+   bcrypt = require('bcrypt-nodejs'),
+   LocalStrategy = require('passport-local').Strategy,
+   crypto = require('crypto'),
     root     = __dirname,
     port     = process.env.PORT || 8008,
-    app      = express();
-var colors = require('colors/safe');
+    app      = express(),
+   //  favicon = require('static-favicon'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    colors = require('colors/safe');
+var async = require('async');
+var flash = require('express-flash');
 var sessionConfig = {
    secret: 'Secret',
    resave: false,
@@ -19,8 +30,14 @@ var sessionConfig = {
       maxAge: 3600000
    }
 }
-app.use(session(sessionConfig));
 
+app.use(session(sessionConfig));
+app.use(passport.initialize());
+app.use(passport.session());app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(cookieParser());
+app.use(flash());
 app.use(express.static(path.join( root, 'client' )));
 app.use(express.static(path.join( root, 'bower_components' )));
 

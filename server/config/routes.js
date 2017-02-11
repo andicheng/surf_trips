@@ -7,13 +7,18 @@ module.exports = function(app){
    // app.post('/users/username', users.username);
    app.post('/users/registration', users.register);
    app.post('/users/login', users.login);
+   app.post('/users/forgot', users.forgot);
+   app.post('/contact', users.contact);
+   app.post('/users/reset/:id', users.reset);
    app.get('/currentUser', users.getCurrent);
    app.get('/trips', trips.index);
    app.get('/areaTrips/:id', trips.areaTrips);
    app.get('/countryTrips/:id', trips.countryTrips);
    app.get('/regionTrips/:id', trips.regionTrips);
+   app.get('/trip/:id', trips.trip);
    app.get('/userTrips/:id', trips.userTrips);
    app.get('/users', users.index);
+   app.post('/reportcomments', trips.reportcomments);
    app.use(userAuth);
    app.post('/newTrip', trips.newTrip);
    app.post('/newPost/:id', trips.newPost);

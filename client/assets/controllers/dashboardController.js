@@ -64,6 +64,7 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
       $scope.areas = areas;
       $scope.countries = countries;
       $scope.regions = regions;
+      $scope.url = $location.absUrl();
    })};
    getTrips()
    $scope.logout = function(){

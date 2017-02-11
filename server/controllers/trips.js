@@ -3,6 +3,11 @@ var Post = mongoose.model('Post');
 var User = mongoose.model('User');
 var Comment = mongoose.model('Comment');
 var Trip = mongoose.model('Trip');
+var async = require('async');
+var crypto = require('crypto');
+var nodemailer = require('nodemailer');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 function response_additions(err, data) {
     if (err) {
@@ -59,6 +64,17 @@ module.exports = {
             console.log('successfully getting region trips');
          }
          res.json(trips);
+      })
+   },
+   trip: function(req,res){
+      Trip.find({_id: req.params.id}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trip){
+         if(err){
+            console.log('trip loading error');
+            return res.sendStatus('500');
+         }else{
+            console.log('successfully getting trip');
+         }
+         res.json(trip);
       })
    },
    userTrips: function(req,res){
@@ -168,5 +184,41 @@ module.exports = {
             })
          }
       })
+   },
+   reportcomments: function(req, res){
+      let transporter = nodemailer.createTransport({
+         service: 'Gmail',
+         auth: {
+            user: 'andercheng@gmail.com',
+            pass: 'Bigbolo1'
+         }
+      });
+      let mailOptions = {
+         from: '',
+         to: 'andicheng@yahoo.com',
+         subject: 'SurfboardRatings.com Contact - Inappropriate Content',
+         text: "Report of Inappropriate Comment Sent" + '\n' + "Comment: " +req.body.description +req.body.text + '\n' + "Reason: "+req.body.report + '\n\n' + req.body._id
+      };
+      transporter.sendMail(mailOptions, function(err) {
+         if(err){
+            res.json({
+               errors: {
+                  login: {
+                    message: 'Error sending email. Please try again later.',
+                  }
+               },
+               name: "Validation error"
+            })
+         }else{
+            res.json({
+               errors: {
+                  login: {
+                    message: 'Your message has been sent to surfboardRatings@gmail.com.',
+                  }
+               },
+            name: "Validation error"
+         });
+         }
+      });
    },
 }

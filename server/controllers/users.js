@@ -3,6 +3,11 @@ var Post = mongoose.model('Post');
 var User = mongoose.model('User');
 var Comment = mongoose.model('Comment');
 var Trip = mongoose.model('Trip');
+var async = require('async');
+var crypto = require('crypto');
+var nodemailer = require('nodemailer');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 function response_additions(err, data) {
     if (err) {
@@ -28,32 +33,6 @@ module.exports = {
          res.json(users);
       })
    },
-   // username: function(req,res){
-   //    User.findOne({username: req.body.username}, function(err, user){
-   //       if(user){
-   //          if (err){
-   //               res.json(err);
-   //               console.log('issues saving a new user')
-   //          }
-   //          else{
-   //             req.session.user={first_name: user.first_name,
-   //                               last_name: user.last_name,
-   //                               _id: user._id};
-   //             console.log('successful username login')
-   //             res.send(user);
-   //          }
-   //       }else{
-   //          res.json({
-   //             errors:{
-   //                username:{
-   //                   message: "username not valid",
-   //                }
-   //             }
-   //          })
-   //       }
-   //
-   //    })
-   // },
    register: function(req,res){
       var user = new User(req.body);
       user.save(function(err, user){
@@ -122,6 +101,165 @@ module.exports = {
          }
       })
    },
+   forgot: function(req,res, next){
+      async.waterfall([
+          function(done) {
+            crypto.randomBytes(20, function(err, buf) {
+              var token = buf.toString('hex');
+              done(err, token);
+            });
+          },
+          function(token, done) {
+            User.findOne({ email: req.body.email }, function(err, user) {
+              if (!user) {
+                 res.json({
+                    errors: {
+                       login: {
+                          message: "No account with that email address exists.",
+                       }
+                    },
+                    name: "Validation error"
+                 });
+              } else {
+              user.resetPasswordToken = token;
+              user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+              user.save(function(err) {
+                done(err, token, user);
+              });
+              }
+            });
+          },
+          function(token, user, done) {
+            var smtpTransport = nodemailer.createTransport( {
+              service: 'Gmail',
+              auth: {
+                user: 'andercheng@gmail.com',
+                pass: 'Bigbolo1'
+              }
+            });
+            var mailOptions = {
+              to: user.email,
+              from: 'passwordreset@demo.com',
+              subject: 'Password Reset',
+              text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                'http://' + req.headers.host + '/#/reset/' + token + '\n\n' +
+                'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            };
+            smtpTransport.sendMail(mailOptions, function(err) {
+               res.json({
+                  errors: {
+                     login: {
+                       message: 'An e-mail has been sent to ' + user.email + ' with further instructions.',
+                     }
+                  },
+                  name: "Validation error"
+               });
+              done(err, 'done');
+            });
+          }
+        ], function(err) {
+          if (err) return next(err);
+          res.redirect('/#/forgot');
+        });
+   },
+   contact: function(req, res){
+      console.log('***************** Received contact **************')
+      let transporter = nodemailer.createTransport({
+         service: 'Gmail',
+         auth: {
+            user: 'andercheng@gmail.com',
+            pass: 'Bigbolo1'
+         }
+      });
+      let mailOptions = {
+         from: req.body.email,
+         to: 'andicheng@yahoo.com',
+         subject: 'SurfboardRatings.com Contact - '+ req.body.subject,
+         text: req.body.personname + ' @ '+req.body.email+' wrote: '+ req.body.message,
+      };
+      transporter.sendMail(mailOptions, function(err) {
+         if(err){
+            res.json({
+               errors: {
+                  login: {
+                    message: 'Error sending email. Please try again later.',
+                  }
+               },
+               name: "Validation error"
+            })
+         }else{
+            res.json({
+               errors: {
+                  login: {
+                    message: 'Your message has been sent to surfboardRatings@gmail.com.',
+                  }
+               },
+            name: "Validation error"
+         });
+         }
+      });
+   },
+   reset: function(req, res, next){
+      async.waterfall([
+       function(done) {
+         User.findOne({resetPasswordToken: req.params.id, resetPasswordExpires: {$gt: Date.now()}}, function(err, user){
+           if (!user) {
+             res.json({
+                errors: {
+                   login: {
+                     message: 'Password reset token is invalid or has expired.',
+                   }
+                },
+                name: "Validation error"
+             });
+          } else {
+           user.password = req.body.password;
+           user.resetPasswordToken = undefined;
+           user.resetPasswordExpires = undefined;
+           console.log('******* new password set **********')
+           user.save(function(err) {
+            //  req.login(user, function(err) {
+               done(err, user);
+            //  });
+           });
+         }
+         });
+       },
+       function(user, done) {
+          var smtpTransport = nodemailer.createTransport( {
+            service: 'Gmail',
+            auth: {
+              user: 'andercheng@gmail.com',
+              pass: 'Bigbolo1'
+            }
+          });
+         var mailOptions = {
+           to: user.email,
+           from: 'passwordreset@demo.com',
+           subject: 'Your password has been changed',
+           text: 'Hello,\n\n' +
+             'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+         };
+         smtpTransport.sendMail(mailOptions, function(err) {
+            console.log('*********** Email sent **********')
+            res.json({
+               errors: {
+                  login: {
+                    message: 'Success! Your password has been changed and an email confirmation has been sent to '+user.email+'. Please login to continue.',
+                  }
+               },
+               name: "Validation error"
+            });
+           done(err);
+         });
+       }
+     ], function(err) {
+       res.redirect('/');
+     });
+  },
+
    getCurrent: function(req,res){
       if(typeof req.session.user == 'undefined' || null == req.session.user){
          res.json();

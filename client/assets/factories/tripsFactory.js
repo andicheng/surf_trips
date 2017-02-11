@@ -12,6 +12,12 @@ app.factory('tripsFactory', ['$http','$location', function($http, $location) {
          callback(returned_data.data);
       })
    };
+   factory.contact = function(contact, callback, errback){
+      $http.post('/contact', contact).then(function(res){
+         console.log(contact)
+         callback(res);
+      })
+   };
    factory.newTrip = function(trip, callback){
       $http.post('/newTrip', trip).then(function(res){
          callback(res);
@@ -35,6 +41,12 @@ app.factory('tripsFactory', ['$http','$location', function($http, $location) {
          callback(trips);
       })
    };
+   factory.getTrip = function(trip, callback){
+      $http.get('/trip/'+trip).then(function(returned_data){
+         trip = returned_data.data;
+         callback(trip);
+      })
+   };
    factory.getUserTrips = function(user, callback){
       $http.get('/userTrips/'+user).then(function(returned_data){
          trips = returned_data.data;
@@ -48,6 +60,11 @@ app.factory('tripsFactory', ['$http','$location', function($http, $location) {
    };
    factory.newComment = function(id, comment, callback){
       $http.post('/newComment/'+id, comment).then(function(res){
+         callback(res);
+      })
+   };
+   factory.reportcomments = function(req, callback){
+      $http.post('/reportcomments', req).then(function(res){
          callback(res);
       })
    };

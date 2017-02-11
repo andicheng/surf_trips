@@ -32,6 +32,8 @@ var UserSchema = new mongoose.Schema({
       maxlength: 255,
       set: encryptPassword,
    },
+   resetPasswordToken: String,
+   resetPasswordExpires: Date,
    posts: [{type: Schema.Types.ObjectId, ref: "Post"}],
    comments: [{type: Schema.Types.ObjectId, ref: "Comment"}],
    trips: [{type: Schema.Types.ObjectId, ref: "Trip"}],

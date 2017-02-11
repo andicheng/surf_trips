@@ -21,6 +21,16 @@ app.factory('usersFactory', ['$http','$location', function($http, $location) {
          callback(res);
       })
    };
+   factory.forgot = function(user, callback, errback){
+      $http.post('/users/forgot', user).then(function(res){
+         callback(res);
+      })
+   };
+   factory.reset = function(id, user, callback){
+      $http.post('/users/reset/'+id, user).then(function(res){
+         callback(res);
+      })
+   };
    factory.getUser = function(callback){
       $http.get('/currentUser').then(function(returned_data){
          callback(returned_data.data);

@@ -8,6 +8,7 @@ app.controller('userController', ['$scope','usersFactory','tripsFactory', '$loca
       console.log($routeParams.id);
       console.log(returned_data)
       $scope.trips = returned_data;
+      $scope.url = $location.absUrl();
       // var sum = 0
       // for(var i=0; i<$scope.trips.length; i++){
       //    sum += $scope.trips[i].rating;
@@ -46,5 +47,23 @@ app.controller('userController', ['$scope','usersFactory','tripsFactory', '$loca
          }
       })
    }
+   $scope.reportcomments = function(comment, report){
+      var req = Object.assign({}, comment, report);
+      console.log(req);
+      tripsFactory.reportcomments(req, function(data){
+         if(data.data.errors){
+            $scope.report = {};
+            $scope.errors = data.data.errors;
+            alert(data.data.errors.login.message);
+         }else{
+            $scope.report = {};
+         }
+      }, function(err){
+         console.log("Please try again later.", err);
+      })
+   }
    $scope.reply = false;
+   $scope.reporttrip = false;
+   $scope.reportpost = false;
+   $scope.reportcomment = false;
 }]);

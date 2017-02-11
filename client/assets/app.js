@@ -1,4 +1,4 @@
-var app = angular.module('myApp',['ui.filters','angular.filter','ngRoute','ngCookies']);
+var app = angular.module('myApp',['720kb.socialshare','ui.filters','angular.filter','ngRoute','ngCookies']);
 
 app.factory('loginInterceptor', ['$q','$location', function($q, $location) {
    return{
@@ -20,11 +20,32 @@ app.config(function($routeProvider, $httpProvider){
       .when('/login',{
          templateUrl: 'partials/login.html',
       })
+      .when('/forgot',{
+         templateUrl: 'partials/forgot.html',
+      })
+      .when('/reset/:id',{
+         templateUrl: 'partials/reset.html',
+      })
       .when('/register',{
          templateUrl: 'partials/registration.html',
       })
       .when('/dashboard',{
          templateUrl: 'partials/dashboard.html',
+      })
+      .when('/posttrip',{
+         templateUrl: 'partials/posttrip.html',
+      })
+      .when('/contact',{
+         templateUrl: 'partials/contact.html',
+      })
+      .when('/legal',{
+         templateUrl: 'partials/legal.html',
+      })
+      .when('/dmca',{
+         templateUrl: 'partials/dmca.html',
+      })
+      .when('/about',{
+         templateUrl: 'partials/about.html',
       })
       .when('/country/:id',{
          templateUrl: 'partials/country.html',
@@ -34,6 +55,9 @@ app.config(function($routeProvider, $httpProvider){
       })
       .when('/region/:id',{
          templateUrl: 'partials/region.html',
+      })
+      .when('/trip/:id',{
+         templateUrl: 'partials/trip.html',
       })
       .when('/regions',{
          templateUrl: 'partials/regions.html',
