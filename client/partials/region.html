@@ -6,7 +6,7 @@
                 socialshare-provider="email"
                 socialshare-body= {{url}}
                 socialshare-media="https://www.google.it/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
-                socialshare-subject="Surfboard Reviews"
+                socialshare-subject="surfingJourneys.com"
                 socialshare-popup-height="300"
                 socialshare-popup-width="400">
             <i class="fa fa-envelope"></i> Email
@@ -15,8 +15,8 @@
                socialshare
                socialshare-provider="facebook"
                socialshare-type="sharer"
-               socialshare-text="surfboard reviews"
-               socialshare-url= "surfboards.com"
+               socialshare-text="Surfing Destinations Reviews"
+               socialshare-url= "surfingJourneys.com"
                socialshare-popup-height="300"
                socialshare-popup-width="400"
                socialshare-trigger="click">
@@ -25,7 +25,7 @@
           <button class="btn btn-medium font-bold"
                  socialshare
                  socialshare-provider="twitter"
-                 socialshare-hashtags="surfboard, surfing, surfboard reviews"
+                 socialshare-hashtags="travel, surfing, surfing travel, surfing destinations"
                  socialshare-via="twitter"
                  socialshare-text= {{url}}
                  socialshare-url= {{url}}
@@ -47,7 +47,7 @@
                  socialshare
                  socialshare-media="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTWGNvatNjOUyli3tBacDdAHmienfptFVStj_olGCWmaUXoIGYI"
                  socialshare-provider="pinterest"
-                 socialshare-text="surfboard reviews"
+                 socialshare-text="Surfing Destinations Reviews"
                  socialshare-url= {{url}}
                  socialshare-popup-height="300"
                  socialshare-popup-width="400"
@@ -57,7 +57,7 @@
           <button class="btn btn-medium font-bold"
                  socialshare
                  socialshare-provider="wordpress"
-                 socialshare-text="surfboard reviews"
+                 socialshare-text="Surfing Destinations Reviews"
                  socialshare-url= {{url}}
                  socialshare-popup-height="300"
                  socialshare-popup-width="400"
@@ -66,7 +66,8 @@
           </button>
    </div>
    <div id="region">
-      <h3>{{trips.region}}: Average Rating: {{trips.averageRating}} - Reviewed {{trips.count}} time<span ng-if="trips.count>1">s</span></h3>
+      <p><font color="red"><b><i>{{errors.text.message}}</i></b></font></p>
+      <h3>{{trips.region}} - Reviewed {{trips.count}} time<span ng-if="trips.count>1">s</span></h3>
       Sort: <select id="sort" ng-model="sortorder">
          <option value="-createdAt">Date Posted</option>
          <option value="-rating">Rating</option>
@@ -74,39 +75,61 @@
          <option value="area">Area</option>
       </select>
       <label><input ng-model="filter" placeholder="filter.."></label>
+      <b><div class="rating">
+         Overall Rating: {{trips.averageRating}}
+         <br>Surfing Conditions Rating: {{trips.averagesurfRating}}
+      </div>
+      <div class="rating">
+         Amenities Rating: {{trips.averageamenitiesRating}}
+         <br>Other Activities Rating: {{trips.averageactivitiesRating}}</p>
+      </div></b>
       <div id="trip" ng-repeat="trip in trips | filter: filter | orderBy:sortorder">
-         <b><i><a id="arealink" href="#/country/{{trip.country}}">{{trip.country}}</a>: <a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i> - {{trip.title}} - Rated {{trip.rating}}</b>: Posted by <a id="userlink" href="#/user/{{trip._user._id}}">{{trip._user.username}}</a> on {{trip.createdAt | date:'MMM dd, yyyy'}}
-         <p id="description">{{trip.description}} <button class='reportcomment' ng-click='reporttrip = !reporttrip'>Report</button></p>
+         <b><i><a id="arealink" href="#/country/{{trip.country}}">{{trip.country}}</a>: <a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i>
+         <p>{{trip.title}}</p></b>
+         <p>Posted by <a id="userlink" href="#/user/{{trip._user._id}}">{{trip._user.username}}</a> on {{trip.createdAt | date:'MMM dd, yyyy'}}</p>
+         <p>Trip Period: {{trip.tripmonth}} {{trip.tripyear}}</p>
+         <div class="rating">
+            Overall Rating: {{trip.rating}}
+            <br>Surfing Conditions Rating: {{trip.surfrating}}
+         </div>
+         <div class="rating">
+            Amenities Rating: {{trip.amenitiesrating}}
+            <br>Other Activities Rating: {{trip.activitiesrating}}
+         </div>
+         <p id="description">{{trip.description}}</p>
+         <i class="em em---1"></i><i class="em em--1"></i> <button class='reportcomment' ng-click='reporttrip = !reporttrip'>Report</button><br>
          <form class='report' ng-show='reporttrip'>
             <h4>I am reporting this comment as:</h4>
             <input class='reportfield' type='text' ng-model='report.report'>
             <input class='reportbutton' type="submit" value="SUBMIT" ng-click="reportcomments(trip,report)">
-            <p class='reporttext'>Reported comments and users will be reviewed by SurfboardRatings.com staff to determine whether they violate Terms of Use guidelines. Inappropriate comments will be removed, and repeated violations can lead to account termination.</p>
+            <p class='reporttext'>Reported comments and users will be reviewed by SurfingJourneys.com staff to determine whether they violate Terms of Use guidelines. Inappropriate comments will be removed, and repeated violations can lead to account termination.</p>
          </form>
          <form id="newcomment">
-            <textarea id="post" type="text" ng-model='post.text'></textarea>
-            <input class="submit" type="submit" value="Post Comment" ng-click="newPost(trip._id, post)">
+            <textarea id="post" type="text" ng-change="testuser()" ng-model='post[$index].text'></textarea>
+            <input class="submit" type="submit" value="Post Comment" ng-click="newPost(trip._id, post[$index])">
          </form>
-         <div id="posts" ng-repeat="post in trip.posts">
-            <p id="oldpost">{{post._user.username}} - {{post.createdAt | date:'MMM dd, yyyy'}}: {{post.text}} <button class='reportcomment' ng-click='reportpost = !reportpost'>Report</button></p>
+         <div id="posts" ng-repeat="post in trip.posts | orderBy:'-createdAt'">
+            <p id="oldpost">{{post._user.username}} - {{post.createdAt | date:'MMM dd, yyyy'}}: {{post.text}} <button class="submit" ng-click="reply = !reply">Reply</button></p>
+            <form id="newreply">
+               <textarea style='width:500px' ng-change="testuser()" id="comment" type="text" ng-model='comment.text' ng-show='reply'></textarea>
+               <input class="submit" type="submit" value="Send" ng-click="newComment(post._id, comment)" ng-show='reply'>
+            </form>
+            <br>
+            <i class="em em---1"></i><i class="em em--1"></i> <button class='reportcomment' ng-click='reportpost = !reportpost'>Report</button>
             <form class='report' ng-show='reportpost'>
                <h4>I am reporting this comment as:</h4>
                <input class='reportfield' type='text' ng-model='report.report'>
                <input class='reportbutton' type="submit" value="SUBMIT" ng-click="reportcomments(post,report)">
-               <p class='reporttext'>Reported comments and users will be reviewed by SurfboardRatings.com staff to determine whether they violate Terms of Use guidelines. Inappropriate comments will be removed, and repeated violations can lead to account termination.</p>
+               <p class='reporttext'>Reported comments and users will be reviewed by SurfingJourneys.com staff to determine whether they violate Terms of Use guidelines. Inappropriate comments will be removed, and repeated violations can lead to account termination.</p>
             </form>
-            <form id="newreply">
-               <button class="submit" ng-click="reply = !reply">Reply</button>
-               <textarea style='width:500px' id="comment" type="text" ng-model='comment.text' ng-show='reply'></textarea>
-               <input class="submit" type="submit" value="Send" ng-click="newComment(post._id, comment)" ng-show='reply'>
-            </form>
-            <div id="replies" ng-repeat="comment in post.comments">
-               <p>{{comment._user.username}} - {{comment.createdAt | date: 'MMM dd, yyyy'}}: {{comment.text}} <button class='reportcomment' ng-click='reportcomment = !reportcomment'>Report</button></p>
+            <div id="replies" ng-repeat="comment in post.comments | orderBy:'-createdAt'">
+               <p>{{comment._user.username}} - {{comment.createdAt | date: 'MMM dd, yyyy'}}: {{comment.text}}</p>
+               <i class="em em---1"></i><i class="em em--1"></i> <button class='reportcomment' ng-click='reportcomment = !reportcomment'>Report</button>
                <form class='report' ng-show='reportcomment'>
                   <h4>I am reporting this comment as:</h4>
                   <input class='reportfield' type='text' ng-model='report.report'>
                   <input class='reportbutton' type="submit" value="SUBMIT" ng-click="reportcomments(comment,report)">
-                  <p class='reporttext'>Reported comments and users will be reviewed by SurfboardRatings.com staff to determine whether they violate Terms of Use guidelines. Inappropriate comments will be removed, and repeated violations can lead to account termination.</p>
+                  <p class='reporttext'>Reported comments and users will be reviewed by SurfingJourneys.com staff to determine whether they violate Terms of Use guidelines. Inappropriate comments will be removed, and repeated violations can lead to account termination.</p>
                </form>
             </div>
          </div>

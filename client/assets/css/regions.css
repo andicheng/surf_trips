@@ -2,7 +2,7 @@
    margin: 0px;
    padding: 0px;
    color: white;
-   border-width: 0px;
+   /*border-width: 0px;*/
 }
 #body{
    width: 100%;
@@ -14,11 +14,15 @@
    max-width: 1200px;
    min-width: 960px;
    margin: auto;
+   background-image: url("../images/wallpaper.jpg");
+   background-repeat: repeat-y;
+   padding-top: 1%;
 }
 #bar{
    padding-top: 5px;
    padding-bottom: 5px;
    color: white;
+   min-width: 960px;
 }
 #bar a{
    text-decoration: none;
@@ -34,17 +38,29 @@
 #header{
    background-color: #0A384F;
    color: white;
-   /*margin-bottom: 10px;*/
    border-style: solid;
+   border-width: 1px;
+   border-color: lightgrey;
+   min-width: 960px;
+}
+p{
+   margin: 3px 10px;
 }
 .btn{
    display: inline-block;
    width: 80px;
+   color: black;
+   background-color: white;
+}
+.btn:hover{
+   background-color: yellow;
 }
 .col6{
-   margin-top: 5px;
    text-align: right;
-   margin-bottom: 5px;
+   padding-bottom: 10px;
+}
+.fa{
+   color: black;
 }
 .region{
    width:50%;
@@ -216,3 +232,33 @@ h2{
    height: 80px;
    margin-left: 10px;
 }
+.reportcomment{
+   padding: 3px 5px;
+}
+.reportcomment:hover{
+   background-color: red;
+   color: white;
+}
+.report {
+   padding: 10px 30px 20px;
+}
+   .reportfield{
+      width: 300px;
+   }
+   .reporttext{
+      font-size: 15px;
+   }
+   .reportbutton{
+      background-color: red;
+      color: white;
+      padding: 5px;
+   }
+   .rating{
+      display: inline-block;
+      width: 44%;
+      padding-left: 10px;
+   }
+   .ratings{
+      margin-left: 10px;
+      margin-right: 10px;
+   }

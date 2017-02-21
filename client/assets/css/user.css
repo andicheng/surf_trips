@@ -14,6 +14,10 @@
    min-width: 960px;
    margin: auto;
 }
+.em{
+   height: 20px;
+   margin: 0px 10px 10px;
+}
 #bar {
    padding-top: 5px;
    padding-bottom: 5px;
@@ -100,6 +104,7 @@ label{
    }
    #trip{
       margin-top: 10px;
+      padding-left: 10px;
    }
       #trip #description{
          margin-top: 10px;
@@ -117,7 +122,6 @@ label{
          color: white;
          padding: 2px 5px;
          vertical-align: top;
-         margin-top: 6px;
       }
       #oldpost{
          width: auto;
@@ -227,3 +231,29 @@ label{
             height: 80px;
             margin-left: 10px;
          }
+         .reportcomment{
+            padding: 3px 2px;
+            vertical-align: top;
+         }
+         .reportcomment:hover{
+            background-color: red;
+            color: white;
+         }
+         .report {
+            padding: 10px 30px 20px;
+         }
+            .reportfield{
+               width: 300px;
+            }
+            .reporttext{
+               font-size: 15px;
+            }
+            .reportbutton{
+               background-color: red;
+               color: white;
+               padding: 5px;
+            }
+            .rating{
+               display: inline-block;
+               width: 44%;
+            }

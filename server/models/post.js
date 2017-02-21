@@ -5,7 +5,16 @@ var PostSchema = new mongoose.Schema({
       type: String,
       required: true,
       trim: true,
+      minlength: 5,
    },
+   thumbsup: [{
+      type: String,
+      required: false,
+   }],
+   thumbsdown: [{
+      type: String,
+      required: false,
+   }],
    _user: {
       type: Schema.Types.ObjectId, ref: 'User'
    },

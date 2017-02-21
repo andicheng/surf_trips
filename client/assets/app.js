@@ -44,6 +44,9 @@ app.config(function($routeProvider, $httpProvider){
       .when('/dmca',{
          templateUrl: 'partials/dmca.html',
       })
+      .when('/dmcanotice',{
+         templateUrl: 'partials/dcmacontact.html',
+      })
       .when('/about',{
          templateUrl: 'partials/about.html',
       })
@@ -55,6 +58,9 @@ app.config(function($routeProvider, $httpProvider){
       })
       .when('/region/:id',{
          templateUrl: 'partials/region.html',
+      })
+      .when('/regionCountry/:region/:country',{
+         templateUrl: 'partials/regionCountry.html',
       })
       .when('/trip/:id',{
          templateUrl: 'partials/trip.html',

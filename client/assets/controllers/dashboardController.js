@@ -1,4 +1,4 @@
-app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '$location','$routeParams', function($scope, usersFactory, tripsFactory,$location, $routeParams) {
+app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '$location','$routeParams', '$route', function($scope, usersFactory, tripsFactory,$location, $routeParams, $route) {
 
    usersFactory.getUser(function(user){
       console.log(user);
@@ -10,11 +10,17 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
       var regions=[];
       for(var i=0; i<$scope.trips.length; i++){
          var sum=0;
+         var sumsurfrating=0;
+         var sumamenitiesrating=0;
+         var sumactivitiesrating=0;
          var count=0;
          var region = $scope.trips[i].region;
          for(var j=i; j<$scope.trips.length; j++){
             if($scope.trips[j].region == region){
                sum+=$scope.trips[j].rating;
+               sumsurfrating+=$scope.trips[j].surfrating;
+               sumamenitiesrating+=$scope.trips[j].amenitiesrating;
+               sumactivitiesrating+=$scope.trips[j].activitiesrating;
                count++
             }
          }
@@ -22,17 +28,23 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
             return el.region == region;
          });
          if (!found) {
-            regions.push({region: region, count: count, averageRating: Math.round(sum/count*10)/10})
+            regions.push({region: region, count: count, averageRating: Math.round(sum/count*10)/10,averageactivitiesRating: Math.round(sumactivitiesrating/count*10)/10,averagesurfRating: Math.round(sumsurfrating/count*10)/10,averageamenitiesRating: Math.round(sumamenitiesrating/count*10)/10})
          }
       }
       var countries=[];
       for(var i=0; i<$scope.trips.length; i++){
          var sum2=0;
+         var sum2surfrating=0;
+         var sum2amenitiesrating=0;
+         var sum2activitiesrating=0;
          var count2=0;
          var country = $scope.trips[i].country;
          for(var j=i; j<$scope.trips.length; j++){
             if($scope.trips[j].country == country){
                sum2+=$scope.trips[j].rating;
+               sum2surfrating+=$scope.trips[j].surfrating;
+               sum2amenitiesrating+=$scope.trips[j].amenitiesrating;
+               sum2activitiesrating+=$scope.trips[j].activitiesrating;
                count2++;
             }
          }
@@ -40,7 +52,7 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
             return el.country == country;
          });
          if (!found) {
-            countries.push({country: country, count: count2, averageRating: Math.round(sum2/count2*10)/10})
+            countries.push({country: country, count: count2, averageRating: Math.round(sum2/count2*10)/10,averageactivitiesRating: Math.round(sum2activitiesrating/count2*10)/10,averagesurfRating: Math.round(sum2surfrating/count2*10)/10,averageamenitiesRating: Math.round(sum2amenitiesrating/count2*10)/10})
          }
       }
       var areas=[];
@@ -77,7 +89,9 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
       tripsFactory.newTrip($scope.myTrip, function(data){
          console.log($scope.myTrip)
          if(data.data.errors){
+            console.log(data)
             $scope.errors = data.data.errors;
+            alert(data.data.message);
          }else{
             console.log(data);
             $scope.myTrip = {};
@@ -91,4 +105,21 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
          $scope.user = data;
       });
    }
+   $scope.reportcomments = function(comment, report){
+      var req = Object.assign({}, comment, report);
+      console.log(req);
+      tripsFactory.reportcomments(req, function(data){
+         if(data.data.errors){
+            $scope.report = {};
+            $scope.errors = data.data.errors;
+            alert(data.data.errors.login.message);
+            $route.reload();
+         }else{
+            $scope.report = {};
+         }
+      }, function(err){
+         console.log("Please try again later.", err);
+      })
+   }
+   $scope.reporttrip = false;
 }]);

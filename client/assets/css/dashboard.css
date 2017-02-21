@@ -15,9 +15,10 @@
    margin: auto;
 }
 #bar{
-   /*padding-top: 5px;
-   padding-bottom: 5px;*/
+   padding-top: 5px;
+   padding-bottom: 5px;
    color: white;
+   min-width: 960px;
 }
 #bar a{
    text-decoration: none;
@@ -54,6 +55,10 @@
    background-repeat: repeat-y;
    padding: 1%;
 }
+.em{
+   height: 20px;
+   margin: 0px 10px 10px;
+}
 #wide_panoramic{
    width: 100%;
    margin-bottom: 10px;
@@ -61,7 +66,7 @@
 }
 #locations{
    display: inline-block;
-   height: 492px;
+   height: 645px;
    width: 57%;
    vertical-align: top;
    margin-right: 1%;
@@ -97,7 +102,7 @@
       width: 78%;
    }
    #locations #recentTrip{
-      height: 470px;
+      height: 630px;
       overflow: scroll;
    }
       #locations #trip{
@@ -124,7 +129,7 @@
    border-color: lightgrey;
    border-width: thin;
    padding: 1%;
-   height: 492px;
+   height: 645px;
    background-color: white;
    opacity: 0.85;
 }
@@ -142,14 +147,21 @@
    #newTrip p{
       margin-top: 10px;
    }
+   span#noUser{
+      margin-top: 200px;
+      /*color: red;*/
+   }
    #newTrip #title{
       width: 50%;
    }
    #newTrip #desc{
-      width: 100%;
+      width: 95%;
       height: 80px;
       overflow: scroll;
       margin-left: 10px;
+   }
+   #newTrip h5{
+      margin-top: 5px;
    }
    #submit{
       margin-left: 85%;
@@ -265,8 +277,7 @@
    color: yellow;
 }
 #legal{
-   margin-right: 1%;
-   margin-bottom: 20px;
+   margin-bottom: 15px;
    padding: 1%;
    border-style: solid;
    border-color: lightgrey;
@@ -275,8 +286,7 @@
    opacity: 0.85;
 }
 #dmca{
-   margin-right: 1%;
-   margin-bottom: 20px;
+   margin-bottom: 15px;
    padding: 1%;
    border-style: solid;
    border-color: lightgrey;
@@ -285,8 +295,7 @@
    opacity: 0.85;
 }
 #about{
-   margin-right: 1%;
-   margin-bottom: 20px;
+   margin-bottom: 15px;
    padding: 1%;
    border-style: solid;
    border-color: lightgrey;
@@ -295,7 +304,6 @@
    opacity: 0.85;
 }
 #contact{
-   margin-right: 1%;
    margin-bottom: 20px;
    padding: 1%;
    border-style: solid;
@@ -318,19 +326,54 @@ p{
    margin-top: 5px;
    margin-bottom: 5px;
    text-align: justify;
+
 }
 h4{
    margin-top: 10px;
    margin-bottom: 5px;
 }
 h2{
-   width: 50%;
-   margin-left: 25%;
+   width: 60%;
+   margin-left: 20%;
    text-align: center;
    padding: 20px;
+   font-size: 28px;
+   font-variant: small-caps;
 }
 #message{
    width: 50%;
    height: 80px;
    margin-left: 10px;
 }
+img{
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+}
+.rating{
+   display: inline-block;
+   width: 44%;
+   padding-left: 10px;
+}
+.reportcomment{
+   padding: 3px 2px;
+   vertical-align: top;
+}
+.reportcomment:hover{
+   background-color: red;
+   color: white;
+}
+.report {
+   padding: 10px 30px 20px;
+}
+   .reportfield{
+      width: 300px;
+   }
+   .reporttext{
+      font-size: 15px;
+   }
+   .reportbutton{
+      background-color: red;
+      color: white;
+      padding: 5px;
+   }

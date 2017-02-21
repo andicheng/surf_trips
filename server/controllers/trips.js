@@ -66,6 +66,17 @@ module.exports = {
          res.json(trips);
       })
    },
+   regionCountryTrips: function(req,res){
+      Trip.find({region: req.params.region, country: req.params.country}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trips){
+         if(err){
+            console.log('region/country loading error');
+            return res.sendStatus('500');
+         }else{
+            console.log('successfully getting region/country trips');
+         }
+         res.json(trips);
+      })
+   },
    trip: function(req,res){
       Trip.find({_id: req.params.id}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trip){
          if(err){
@@ -99,31 +110,50 @@ module.exports = {
       User.findOne({_id: req.session.user._id}, function(err, user){
          if(err){
             return res.sendStatus('500');
+         }else if (!req.body.country2 && !req.body.country){
+            res.json({
+               errors: {
+                    message: 'Please complete all required fields',
+               },
+               name: "Validation error"
+            })
          }else{
             console.log('***************', req.body)
             var trip = new Trip(req.body);
             if(req.body.area2){
                trip.area = req.body.area2;
+            }else if(req.body.area){
+               trip.area = req.body.area.area;
             }else{
-               trip.area = req.body.area;
+               trip.area = 'Area not specified'
             }
             if(req.body.country2){
                trip.country = req.body.country2;
             }else{
-               trip.country = req.body.country;
+               trip.country = req.body.country.country;
             }
             trip._user = req.session.user._id;
+            trip.markModified('trip.area');
+            trip.markModified('trip.country');
+            console.log(trip);
             trip.save(function(err){
-               user.trips.push(trip);
-               user.save(function(err){
-                  if(err){
-                     console.log('trip loading error');
-                     res.sendStatus('500');
-                  }else{
-                     console.log('successfully added a new trip');
-                     res.json(trip);
-                  }
-               })
+               if(err){
+                  console.log('trip loading error')
+                  res.json(err)
+               }else{
+                  console.log("#####TEst saving new trip")
+                  user.trips.push(trip);
+                  user.save(function(err){
+                     if(err){
+                        console.log('user trip loading error');
+                        res.sendStatus('500');
+                     }else{
+                        console.log('@@@@@@@@@@@@@ successfully added a new trip');
+                        res.json(trip);
+                        req.session.user = user;
+                     }
+                  })
+               }
             })
          }
       })
@@ -137,20 +167,30 @@ module.exports = {
                var post = new Post(req.body);
                post._user = user._id;
                post.save(function(err){
-                  user.posts.push(post);
-                  user.save(function(err){
-                     trip.posts.push(post)
-                     trip.save(function(err){
+                  if(err){
+                     console.log('post loading error')
+                     res.json(err)
+                  }else{
+                     user.posts.push(post);
+                     user.save(function(err){
                         if(err){
-                           console.log('post loading error');
-                           return res.sendStatus('500');
+                           console.log('user/post loading error')
+                           res.json(err)
                         }else{
-                           console.log('successfully added a new post');
-                           res.json(post);
-                           req.session.user = user;
+                           trip.posts.push(post)
+                           trip.save(function(err){
+                              if(err){
+                                 console.log('post loading error');
+                                 return res.sendStatus('500');
+                              }else{
+                                 console.log('successfully added a new post');
+                                 res.json(post);
+                                 req.session.user = user;
+                              }
+                           })
                         }
                      })
-                  })
+                  }
                })
             })
          }
@@ -166,20 +206,30 @@ module.exports = {
                var comment = new Comment(req.body);
                comment._user = user._id;
                comment.save(function(err){
-                  user.comments.push(comment);
-                  user.save(function(err){
-                     post.comments.push(comment)
-                     post.save(function(err){
+                  if(err){
+                     console.log('comment loading error')
+                     res.json(err)
+                  }else{
+                     user.comments.push(comment);
+                     user.save(function(err){
                         if(err){
-                           console.log('comment loading error');
-                           return res.sendStatus('500');
+                           console.log('user/comment loading error')
+                           res.json(err)
                         }else{
-                           console.log('successfully added a new comment');
-                           res.json(comment);
-                           req.session.user = user;
+                           post.comments.push(comment)
+                           post.save(function(err){
+                              if(err){
+                                 console.log('post/comment loading error');
+                                 return res.sendStatus('500');
+                              }else{
+                                 console.log('successfully added a new comment');
+                                 res.json(comment);
+                                 req.session.user = user;
+                              }
+                           })
                         }
                      })
-                  })
+                  }
                })
             })
          }
@@ -195,9 +245,9 @@ module.exports = {
       });
       let mailOptions = {
          from: '',
-         to: 'andicheng@yahoo.com',
-         subject: 'SurfboardRatings.com Contact - Inappropriate Content',
-         text: "Report of Inappropriate Comment Sent" + '\n' + "Comment: " +req.body.description +req.body.text + '\n' + "Reason: "+req.body.report + '\n\n' + req.body._id
+         to: 'andersonc@surfingjourneys.com',
+         subject: 'SurfingJourneys.com Contact - Inappropriate Content',
+         text: "Report of Inappropriate Comment Sent" + '\n' + "Comment: " + "Trip description: " + req.body.description + '\n' + "Post or Trip text: " + req.body.text + '\n' + "Reason: "+req.body.report + '\n\n' + req.body._id
       };
       transporter.sendMail(mailOptions, function(err) {
          if(err){
@@ -213,7 +263,7 @@ module.exports = {
             res.json({
                errors: {
                   login: {
-                    message: 'Your message has been sent to surfboardRatings@gmail.com.',
+                    message: 'Your message has been sent to SurfingJourneys.com',
                   }
                },
             name: "Validation error"

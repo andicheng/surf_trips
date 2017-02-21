@@ -15,18 +15,18 @@ module.exports = function(app){
    app.get('/areaTrips/:id', trips.areaTrips);
    app.get('/countryTrips/:id', trips.countryTrips);
    app.get('/regionTrips/:id', trips.regionTrips);
+   app.get('/regionCountryTrips/:region/:country', trips.regionCountryTrips);
    app.get('/trip/:id', trips.trip);
    app.get('/userTrips/:id', trips.userTrips);
    app.get('/users', users.index);
    app.post('/reportcomments', trips.reportcomments);
    app.use(userAuth);
-   app.post('/newTrip', trips.newTrip);
    app.post('/newPost/:id', trips.newPost);
    app.post('/newComment/:id', trips.newComment);
    app.get('/logout', users.logout);
    app.delete('/users/:id', users.delete);
-   // app.get('/posts', posts.getPosts);
-   app.post('/newComment/:id', posts.newComment);
+   app.post('/newTrip', trips.newTrip);
+   // app.post('/newComment/:id', posts.newComment);
 }
 
 function userAuth(req,res,next){
