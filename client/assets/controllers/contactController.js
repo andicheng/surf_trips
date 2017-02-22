@@ -3,8 +3,8 @@ app.controller('contactController', ['$scope','tripsFactory', '$location','$rout
    $scope.sendcontact = function(contact){
       tripsFactory.contact($scope.contact, function(data){
          if(data.data.errors){
-            $scope.errors = data.data.errors;
             $scope.contact = {};
+            alert(data.data.errors.login.message)
          }else{
             $scope.contact = {};
          }

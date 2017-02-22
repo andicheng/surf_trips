@@ -25,7 +25,7 @@ app.controller('regionCountryController', ['$scope','usersFactory','tripsFactory
       $scope.trips.averageactivitiesRating = Math.round(sumactivitiesrating/$scope.trips.length*10)/10;
       $scope.url = $location.absUrl();
    })};
-   getregionCountryTrips()
+   getregionCountryTrips();
    $scope.logout = function(){
       console.log("logout clicked");
       usersFactory.logout(function(data){
@@ -40,7 +40,7 @@ app.controller('regionCountryController', ['$scope','usersFactory','tripsFactory
             alert(data.data.message);
          }else{
             $scope.post = {};
-            $route.reload();
+            getregionCountryTrips();
          }
       })
    }
@@ -52,7 +52,7 @@ app.controller('regionCountryController', ['$scope','usersFactory','tripsFactory
             alert(data.data.message);
          }else{
             $scope.comment = {};
-            $route.reload();
+            getregionCountryTrips();
          }
       })
    }
@@ -79,6 +79,84 @@ app.controller('regionCountryController', ['$scope','usersFactory','tripsFactory
       }else{
          console.log('Clicked')
       }
+   }
+   $scope.tripthumbsup = function(trip){
+      tripsFactory.tripthumbsup(trip, function(data){
+         if(data.data.errors){
+            alert(data.data.errors.message);
+            $route.reload();
+         }else{
+            console.log('successfully liked');
+            getregionCountryTrips();
+         }
+      }, function(err){
+         console.log("Please try again later.", err);
+      })
+   }
+   $scope.tripthumbsdown = function(trip){
+      tripsFactory.tripthumbsdown(trip, function(data){
+         if(data.data.errors){
+            alert(data.data.errors.message);
+            $route.reload();
+         }else{
+            console.log('successfully unliked');
+            getregionCountryTrips();
+         }
+      }, function(err){
+         console.log("Please try again later.", err);
+      })
+   }
+   $scope.postthumbsup = function(post){
+      tripsFactory.postthumbsup(post, function(data){
+         if(data.data.errors){
+            alert(data.data.errors.message);
+            $route.reload();
+         }else{
+            console.log('successfully liked');
+            getregionCountryTrips();
+         }
+      }, function(err){
+         console.log("Please try again later.", err);
+      })
+   }
+   $scope.postthumbsdown = function(post){
+      tripsFactory.postthumbsdown(post, function(data){
+         if(data.data.errors){
+            alert(data.data.errors.message);
+            $route.reload();
+         }else{
+            console.log('successfully unliked');
+            getregionCountryTrips();
+         }
+      }, function(err){
+         console.log("Please try again later.", err);
+      })
+   }
+   $scope.commentthumbsup = function(comment){
+      tripsFactory.commentthumbsup(comment, function(data){
+         if(data.data.errors){
+            alert(data.data.errors.message);
+            $route.reload();
+         }else{
+            console.log('successfully liked');
+            getregionCountryTrips();
+         }
+      }, function(err){
+         console.log("Please try again later.", err);
+      })
+   }
+   $scope.commentthumbsdown = function(comment){
+      tripsFactory.commentthumbsdown(comment, function(data){
+         if(data.data.errors){
+            alert(data.data.errors.message);
+            $route.reload();
+         }else{
+            console.log('successfully unliked');
+            getregionCountryTrips();
+         }
+      }, function(err){
+         console.log("Please try again later.", err);
+      })
    }
    $scope.reply = false;
    $scope.reporttrip = false;

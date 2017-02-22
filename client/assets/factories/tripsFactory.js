@@ -15,6 +15,7 @@ app.factory('tripsFactory', ['$http','$location', function($http, $location) {
    factory.contact = function(contact, callback, errback){
       $http.post('/contact', contact).then(function(res){
          console.log(contact)
+         console.log(res)
          callback(res);
       })
    };
@@ -76,6 +77,36 @@ app.factory('tripsFactory', ['$http','$location', function($http, $location) {
    };
    factory.logout = function(callback){
       $http.get('/logout').then(function(res){
+         callback(res);
+      })
+   };
+   factory.tripthumbsup = function(trip, callback){
+      $http.post('/tripthumbsup', trip).then(function(res){
+         callback(res);
+      })
+   };
+   factory.tripthumbsdown = function(trip, callback){
+      $http.post('/tripthumbsdown', trip).then(function(res){
+         callback(res);
+      })
+   };
+   factory.postthumbsup = function(post, callback){
+      $http.post('/postthumbsup', post).then(function(res){
+         callback(res);
+      })
+   };
+   factory.postthumbsdown = function(post, callback){
+      $http.post('/postthumbsdown', post).then(function(res){
+         callback(res);
+      })
+   };
+   factory.commentthumbsup = function(comment, callback){
+      $http.post('/commentthumbsup', comment).then(function(res){
+         callback(res);
+      })
+   };
+   factory.commentthumbsdown = function(comment, callback){
+      $http.post('/commentthumbsdown', comment).then(function(res){
          callback(res);
       })
    };

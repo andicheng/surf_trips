@@ -26,6 +26,12 @@ module.exports = function(app){
    app.get('/logout', users.logout);
    app.delete('/users/:id', users.delete);
    app.post('/newTrip', trips.newTrip);
+   app.post('/tripthumbsup', trips.tripthumbsup);
+   app.post('/tripthumbsdown', trips.tripthumbsdown);
+   app.post('/postthumbsup', trips.postthumbsup);
+   app.post('/postthumbsdown', trips.postthumbsdown);
+   app.post('/commentthumbsup', trips.commentthumbsup);
+   app.post('/commentthumbsdown', trips.commentthumbsdown);
    // app.post('/newComment/:id', posts.newComment);
 }
 

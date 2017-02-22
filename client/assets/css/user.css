@@ -16,7 +16,10 @@
 }
 .em{
    height: 20px;
-   margin: 0px 10px 10px;
+   margin: 0px 5px 5px 5px;
+}
+.thumbs{
+   margin-left: 10px;
 }
 #bar {
    padding-top: 5px;
@@ -43,7 +46,7 @@
 }
 .btn{
    display: inline-block;
-   width: 80px;
+   width: 88px;
 }
 .btn:hover{
    background-color: yellow;
@@ -72,7 +75,8 @@
 h3{
    display: inline-block;
    vertical-align: top;
-   width: 75%;
+   width: 50%;
+   margin-right: 20%;
    margin-bottom: 10px;
 }
 label{

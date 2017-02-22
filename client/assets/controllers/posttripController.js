@@ -77,10 +77,9 @@ app.controller('posttripController', ['$scope','usersFactory','tripsFactory', '$
       tripsFactory.newTrip($scope.myTrip, function(data){
          console.log($scope.myTrip)
          if(data.data.errors){
-            $scope.errors = data.data.errors;
-            console.log(data);
+            console.log(data)
+            alert(data.data.errors.message);
          }else{
-            console.log(data);
             $scope.myTrip = {};
             var id = data.data._user;
             $location.path('/user/'+id)

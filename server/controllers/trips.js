@@ -235,6 +235,216 @@ module.exports = {
          }
       })
    },
+   tripthumbsup: function(req, res){
+      User.findOne({_id: req.session.user._id}, function(err, user){
+         if(err){
+            return res.sendStatus('500');
+         }else{
+            Trip.findOne({_id: req.body._id}, function(err, trip){
+               if(err){
+                  return res.sendStatus('500');
+               }else{
+                  if(trip.thumbsup.indexOf(user._id)>=0){
+                     console.log('already liked');
+                     res.json({
+                        errors: {
+                             message: 'Already liked',
+                        },
+                        name: "Validation error"
+                     })
+                  }else{
+                     trip.thumbsup.push(user._id)
+                     trip.save(function(err){
+                        if(err){
+                           console.log('tripthumbsup load error')
+                           return res.sendStatus('500');
+                        }else{
+                           console.log('successfully added a tripthumbsup');
+                           res.json(trip);
+                           req.session.user = user;
+                        }
+                     })
+                  }
+               }
+            })
+         }
+      })
+   },
+   tripthumbsdown: function(req, res){
+      User.findOne({_id: req.session.user._id}, function(err, user){
+         if(err){
+            return res.sendStatus('500');
+         }else{
+            Trip.findOne({_id: req.body._id}, function(err, trip){
+               if(err){
+                  return res.sendStatus('500');
+               }else{
+                  if(trip.thumbsdown.indexOf(user._id)>=0){
+                     console.log('already unliked');
+                     res.json({
+                        errors: {
+                             message: 'Already unliked',
+                        },
+                        name: "Validation error"
+                     })
+                  }else{
+                     trip.thumbsdown.push(user._id)
+                     trip.save(function(err){
+                        if(err){
+                           console.log('tripthumbsdown load error')
+                           return res.sendStatus('500');
+                        }else{
+                           console.log('successfully added a tripthumbsdown');
+                           res.json(trip);
+                           req.session.user = user;
+                        }
+                     })
+                  }
+               }
+            })
+         }
+      })
+   },
+   postthumbsup: function(req, res){
+      User.findOne({_id: req.session.user._id}, function(err, user){
+         if(err){
+            return res.sendStatus('500');
+         }else{
+            Post.findOne({_id: req.body._id}, function(err, post){
+               if(err){
+                  return res.sendStatus('500');
+               }else{
+                  if(post.thumbsup.indexOf(user._id)>=0){
+                     console.log('already liked');
+                     res.json({
+                        errors: {
+                             message: 'Already liked',
+                        },
+                        name: "Validation error"
+                     })
+                  }else{
+                     post.thumbsup.push(user._id)
+                     post.save(function(err){
+                        if(err){
+                           console.log('postthumbsup load error')
+                           return res.sendStatus('500');
+                        }else{
+                           console.log('successfully added a postthumbsup');
+                           res.json(post);
+                           req.session.user = user;
+                        }
+                     })
+                  }
+               }
+            })
+         }
+      })
+   },
+   postthumbsdown: function(req, res){
+      User.findOne({_id: req.session.user._id}, function(err, user){
+         if(err){
+            return res.sendStatus('500');
+         }else{
+            Post.findOne({_id: req.body._id}, function(err, post){
+               if(err){
+                  return res.sendStatus('500');
+               }else{
+                  if(post.thumbsdown.indexOf(user._id)>=0){
+                     console.log('already unliked');
+                     res.json({
+                        errors: {
+                             message: 'Already unliked',
+                        },
+                        name: "Validation error"
+                     })
+                  }else{
+                     post.thumbsdown.push(user._id)
+                     post.save(function(err){
+                        if(err){
+                           console.log('postthumbsdown load error')
+                           return res.sendStatus('500');
+                        }else{
+                           console.log('successfully added a postthumbsdown');
+                           res.json(post);
+                           req.session.user = user;
+                        }
+                     })
+                  }
+               }
+            })
+         }
+      })
+   },
+   commentthumbsup: function(req, res){
+      User.findOne({_id: req.session.user._id}, function(err, user){
+         if(err){
+            return res.sendStatus('500');
+         }else{
+            Comment.findOne({_id: req.body._id}, function(err, comment){
+               if(err){
+                  return res.sendStatus('500');
+               }else{
+                  if(comment.thumbsup.indexOf(user._id)>=0){
+                     console.log('already liked');
+                     res.json({
+                        errors: {
+                             message: 'Already liked',
+                        },
+                        name: "Validation error"
+                     })
+                  }else{
+                     comment.thumbsup.push(user._id)
+                     comment.save(function(err){
+                        if(err){
+                           console.log('commentthumbsup load error')
+                           return res.sendStatus('500');
+                        }else{
+                           console.log('successfully added a commentthumbsup');
+                           res.json(comment);
+                           req.session.user = user;
+                        }
+                     })
+                  }
+               }
+            })
+         }
+      })
+   },
+   commentthumbsdown: function(req, res){
+      User.findOne({_id: req.session.user._id}, function(err, user){
+         if(err){
+            return res.sendStatus('500');
+         }else{
+            Comment.findOne({_id: req.body._id}, function(err, comment){
+               if(err){
+                  return res.sendStatus('500');
+               }else{
+                  if(comment.thumbsdown.indexOf(user._id)>=0){
+                     console.log('already unliked');
+                     res.json({
+                        errors: {
+                             message: 'Already unliked',
+                        },
+                        name: "Validation error"
+                     })
+                  }else{
+                     comment.thumbsdown.push(user._id)
+                     comment.save(function(err){
+                        if(err){
+                           console.log('commentthumbsdown load error')
+                           return res.sendStatus('500');
+                        }else{
+                           console.log('successfully added a commentthumbsdown');
+                           res.json(comment);
+                           req.session.user = user;
+                        }
+                     })
+                  }
+               }
+            })
+         }
+      })
+   },
    reportcomments: function(req, res){
       let transporter = nodemailer.createTransport({
          service: 'Gmail',
@@ -244,10 +454,10 @@ module.exports = {
          }
       });
       let mailOptions = {
-         from: '',
+         from: req.body.email,
          to: 'andersonc@surfingjourneys.com',
          subject: 'SurfingJourneys.com Contact - Inappropriate Content',
-         text: "Report of Inappropriate Comment Sent" + '\n' + "Comment: " + "Trip description: " + req.body.description + '\n' + "Post or Trip text: " + req.body.text + '\n' + "Reason: "+req.body.report + '\n\n' + req.body._id
+         text: "Report of Inappropriate Comment Sent" + '\n\n' + "Comment: " + '\n\n' + "Trip description: " + '\n'+ req.body.description + '\n\n' + "Post or Trip text: " + '\n' + req.body.text + '\n\n' + "Reason: "+req.body.report + '\n\n' + req.body._id
       };
       transporter.sendMail(mailOptions, function(err) {
          if(err){

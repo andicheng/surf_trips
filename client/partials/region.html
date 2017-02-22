@@ -97,7 +97,7 @@
             <br>Other Activities Rating: {{trip.activitiesrating}}
          </div>
          <p id="description">{{trip.description}}</p>
-         <i class="em em---1"></i><i class="em em--1"></i> <button class='reportcomment' ng-click='reporttrip = !reporttrip'>Report</button><br>
+         <span class='thumbs'>{{trip.thumbsup.length}}</span><a href="" ng-click='tripthumbsup(trip)'><i class="em em---1"></i></a><span class="thumbs">{{trip.thumbsdown.length}}</span><a href="" ng-click='tripthumbsdown(trip)'><i class="em em--1"></i></a>  <button class='reportcomment' ng-click='reporttrip = !reporttrip'>Report</button><br>
          <form class='report' ng-show='reporttrip'>
             <h4>I am reporting this comment as:</h4>
             <input class='reportfield' type='text' ng-model='report.report'>
@@ -110,12 +110,12 @@
          </form>
          <div id="posts" ng-repeat="post in trip.posts | orderBy:'-createdAt'">
             <p id="oldpost">{{post._user.username}} - {{post.createdAt | date:'MMM dd, yyyy'}}: {{post.text}} <button class="submit" ng-click="reply = !reply">Reply</button></p>
-            <form id="newreply">
-               <textarea style='width:500px' ng-change="testuser()" id="comment" type="text" ng-model='comment.text' ng-show='reply'></textarea>
-               <input class="submit" type="submit" value="Send" ng-click="newComment(post._id, comment)" ng-show='reply'>
+            <form id="newreply" ng-show='reply'>
+               <textarea style='width:500px' ng-change="testuser()" id="comment" type="text" ng-model='comment.text'></textarea>
+               <input class="submit" type="submit" value="Send" ng-click="newComment(post._id, comment)">
             </form>
             <br>
-            <i class="em em---1"></i><i class="em em--1"></i> <button class='reportcomment' ng-click='reportpost = !reportpost'>Report</button>
+            <span class='thumbs'>{{post.thumbsup.length}}</span><a href="" ng-click='postthumbsup(post)'><i class="em em---1"></i></a><span class="thumbs">{{post.thumbsdown.length}}</span><a href="" ng-click='postthumbsdown(post)'><i class="em em--1"></i></a>  <button class='reportcomment' ng-click='reportpost = !reportpost'>Report</button><br>
             <form class='report' ng-show='reportpost'>
                <h4>I am reporting this comment as:</h4>
                <input class='reportfield' type='text' ng-model='report.report'>
@@ -124,7 +124,7 @@
             </form>
             <div id="replies" ng-repeat="comment in post.comments | orderBy:'-createdAt'">
                <p>{{comment._user.username}} - {{comment.createdAt | date: 'MMM dd, yyyy'}}: {{comment.text}}</p>
-               <i class="em em---1"></i><i class="em em--1"></i> <button class='reportcomment' ng-click='reportcomment = !reportcomment'>Report</button>
+               <span class='thumbs'>{{comment.thumbsup.length}}</span><a href="" ng-click='commentthumbsup(comment)'><i class="em em---1"></i></a><span class="thumbs">{{comment.thumbsdown.length}}</span><a href="" ng-click='commentthumbsdown(comment)'><i class="em em--1"></i></a>  <button class='reportcomment' ng-click='reportcomment = !reportcomment'>Report</button>
                <form class='report' ng-show='reportcomment'>
                   <h4>I am reporting this comment as:</h4>
                   <input class='reportfield' type='text' ng-model='report.report'>

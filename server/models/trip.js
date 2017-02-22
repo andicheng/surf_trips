@@ -60,10 +60,12 @@ var TripSchema = new mongoose.Schema({
    thumbsup: [{
       type: String,
       required: false,
+      unique: true,
    }],
    thumbsdown: [{
       type: String,
       required: false,
+      unique: true,
    }],
    posts: [{type: Schema.Types.ObjectId, ref: "Post"}],
    _user: {type: Schema.Types.ObjectId, ref: "User"},

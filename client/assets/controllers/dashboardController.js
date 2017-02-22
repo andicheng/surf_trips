@@ -1,7 +1,6 @@
 app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '$location','$routeParams', '$route', function($scope, usersFactory, tripsFactory,$location, $routeParams, $route) {
 
    usersFactory.getUser(function(user){
-      console.log(user);
       $scope.user = user;
    });
    var getTrips = function(){
@@ -58,11 +57,17 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
       var areas=[];
       for(var i=0; i<$scope.trips.length; i++){
          var sum3=0;
+         var sum3surfrating=0;
+         var sum3amenitiesrating=0;
+         var sum3activitiesrating=0;
          var count3=0;
          var area = $scope.trips[i].area;
          for(var j=i; j<$scope.trips.length; j++){
             if($scope.trips[j].area == area){
                sum3+=$scope.trips[j].rating;
+               sum3surfrating+=$scope.trips[j].surfrating;
+               sum3amenitiesrating+=$scope.trips[j].amenitiesrating;
+               sum3activitiesrating+=$scope.trips[j].activitiesrating;
                count3++;
             }
          }
@@ -70,7 +75,7 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
             return el.area == area;
          });
          if (!found) {
-            areas.push({area: area, count: count3, averageRating: Math.round(sum3/count3*10)/10})
+            areas.push({area: area, count: count3, averageRating: Math.round(sum3/count3*10)/10,averageactivitiesRating: Math.round(sum3activitiesrating/count3*10)/10,averagesurfRating: Math.round(sum3surfrating/count3*10)/10,averageamenitiesRating: Math.round(sum3amenitiesrating/count3*10)/10})
          }
       }
       $scope.areas = areas;
@@ -90,10 +95,8 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
          console.log($scope.myTrip)
          if(data.data.errors){
             console.log(data)
-            $scope.errors = data.data.errors;
-            alert(data.data.message);
+            alert(data.data.errors.message);
          }else{
-            console.log(data);
             $scope.myTrip = {};
             var id = data.data._user;
             $location.path('/user/'+id)
@@ -107,7 +110,6 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
    }
    $scope.reportcomments = function(comment, report){
       var req = Object.assign({}, comment, report);
-      console.log(req);
       tripsFactory.reportcomments(req, function(data){
          if(data.data.errors){
             $scope.report = {};
@@ -116,6 +118,32 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
             $route.reload();
          }else{
             $scope.report = {};
+         }
+      }, function(err){
+         console.log("Please try again later.", err);
+      })
+   }
+   $scope.tripthumbsup = function(trip){
+      tripsFactory.tripthumbsup(trip, function(data){
+         if(data.data.errors){
+            alert(data.data.errors.message);
+            $route.reload();
+         }else{
+            console.log('successfully liked');
+            getTrips();
+         }
+      }, function(err){
+         console.log("Please try again later.", err);
+      })
+   }
+   $scope.tripthumbsdown = function(trip){
+      tripsFactory.tripthumbsdown(trip, function(data){
+         if(data.data.errors){
+            alert(data.data.errors.message);
+            $route.reload();
+         }else{
+            console.log('successfully unliked');
+            getTrips();
          }
       }, function(err){
          console.log("Please try again later.", err);

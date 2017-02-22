@@ -72,7 +72,7 @@
          <span class="ratings">Surf Quality: {{region.averagesurfRating}}</span><span class="ratings">Amenities: {{region.averageamenitiesRating}}</span><span class="ratings">Activities: {{region.averageactivitiesRating}}</span></h5>
       </div>
       <div ng-repeat="trip in trips | filter: {region: 'North America'} | unique:'country' | orderBy:'country'">
-         <p ng-if="trip.region=='North America'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Overall Rating: {{country.averageRating}}<br>
+         <p ng-if="trip.region=='North America'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Rated {{country.count}} time<span ng-if="country.count>1">s</span> - Overall Rating: {{country.averageRating}}<br>
          <span class="ratings">Surf Quality: {{country.averagesurfRating}}</span><span class="ratings">Amenities: {{country.averageamenitiesRating}}</span><span class="ratings">Activities: {{country.averageactivitiesRating}}</span></span></span></p>
       </div>
    </div>
@@ -83,7 +83,7 @@
          <span class="ratings">Surf Quality: {{region.averagesurfRating}}</span><span class="ratings">Amenities: {{region.averageamenitiesRating}}</span><span class="ratings">Activities: {{region.averageactivitiesRating}}</span></h5>
       </div>
       <div ng-repeat="trip in trips | filter: {region: 'Central America'} | unique:'country' | orderBy:'country'">
-         <p ng-if="trip.region=='Central America'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Overall Rating: {{country.averageRating}}<br>
+         <p ng-if="trip.region=='Central America'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Rated {{country.count}} time<span ng-if="country.count>1">s</span> - Overall Rating: {{country.averageRating}}<br>
          <span class="ratings">Surf Quality: {{country.averagesurfRating}}</span><span class="ratings">Amenities: {{country.averageamenitiesRating}}</span><span class="ratings">Activities: {{country.averageactivitiesRating}}</span></span></span></p>
       </div>
    </div>
@@ -94,7 +94,7 @@
          <span class="ratings">Surf Quality: {{region.averagesurfRating}}</span><span class="ratings">Amenities: {{region.averageamenitiesRating}}</span><span class="ratings">Activities: {{region.averageactivitiesRating}}</span></h5>
       </div>
       <div ng-repeat="trip in trips | filter: {region: 'South America'} | unique:'country' | orderBy:'country'">
-         <p ng-if="trip.region=='South America'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Overall Rating: {{country.averageRating}}<br>
+         <p ng-if="trip.region=='South America'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Rated {{country.count}} time<span ng-if="country.count>1">s</span> - Overall Rating: {{country.averageRating}}<br>
          <span class="ratings">Surf Quality: {{country.averagesurfRating}}</span><span class="ratings">Amenities: {{country.averageamenitiesRating}}</span><span class="ratings">Activities: {{country.averageactivitiesRating}}</span></span></span></p>
       </div>
    </div>
@@ -105,7 +105,7 @@
          <span class="ratings">Surf Quality: {{region.averagesurfRating}}</span><span class="ratings">Amenities: {{region.averageamenitiesRating}}</span><span class="ratings">Activities: {{region.averageactivitiesRating}}</span></h5>
       </div>
       <div ng-repeat="trip in trips | filter: {region: 'Pacific Islands'} | unique:'country' | orderBy:'country'">
-         <p ng-if="trip.region=='Pacific Islands'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Overall Rating: {{country.averageRating}}<br>
+         <p ng-if="trip.region=='Pacific Islands'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Rated {{country.count}} time<span ng-if="country.count>1">s</span> - Overall Rating: {{country.averageRating}}<br>
          <span class="ratings">Surf Quality: {{country.averagesurfRating}}</span><span class="ratings">Amenities: {{country.averageamenitiesRating}}</span><span class="ratings">Activities: {{country.averageactivitiesRating}}</span></span></span></p>
       </div>
    </div>
@@ -116,7 +116,7 @@
          <span class="ratings">Surf Quality: {{region.averagesurfRating}}</span><span class="ratings">Amenities: {{region.averageamenitiesRating}}</span><span class="ratings">Activities: {{region.averageactivitiesRating}}</span></h5>
       </div>
       <div ng-repeat="trip in trips | filter: {region: 'Caribbean'} | unique:'country' | orderBy:'country'">
-         <p ng-if="trip.region=='Caribbean'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Overall Rating: {{country.averageRating}}<br>
+         <p ng-if="trip.region=='Caribbean'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Rated {{country.count}} time<span ng-if="country.count>1">s</span> - Overall Rating: {{country.averageRating}}<br>
          <span class="ratings">Surf Quality: {{country.averagesurfRating}}</span><span class="ratings">Amenities: {{country.averageamenitiesRating}}</span><span class="ratings">Activities: {{country.averageactivitiesRating}}</span></span></span></p>
       </div>
    </div>
@@ -127,7 +127,7 @@
          <span class="ratings">Surf Quality: {{region.averagesurfRating}}</span><span class="ratings">Amenities: {{region.averageamenitiesRating}}</span><span class="ratings">Activities: {{region.averageactivitiesRating}}</span></h5>
       </div>
       <div ng-repeat="trip in trips | filter: {region: 'Europe'} | unique:'country' | orderBy:'country'">
-         <p ng-if="trip.region=='Europe'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Overall Rating: {{country.averageRating}}<br>
+         <p ng-if="trip.region=='Europe'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Rated {{country.count}} time<span ng-if="country.count>1">s</span> - Overall Rating: {{country.averageRating}}<br>
          <span class="ratings">Surf Quality: {{country.averagesurfRating}}</span><span class="ratings">Amenities: {{country.averageamenitiesRating}}</span><span class="ratings">Activities: {{country.averageactivitiesRating}}</span></span></span></p>
       </div>
    </div>
@@ -138,7 +138,7 @@
          <span class="ratings">Surf Quality: {{region.averagesurfRating}}</span><span class="ratings">Amenities: {{region.averageamenitiesRating}}</span><span class="ratings">Activities: {{region.averageactivitiesRating}}</span></h5>
       </div>
       <div ng-repeat="trip in trips | filter: {region: 'Africa'} | unique:'country' | orderBy:'country'">
-         <p ng-if="trip.region=='Africa'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Overall Rating: {{country.averageRating}}<br>
+         <p ng-if="trip.region=='Africa'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Rated {{country.count}} time<span ng-if="country.count>1">s</span> - Overall Rating: {{country.averageRating}}<br>
          <span class="ratings">Surf Quality: {{country.averagesurfRating}}</span><span class="ratings">Amenities: {{country.averageamenitiesRating}}</span><span class="ratings">Activities: {{country.averageactivitiesRating}}</span></span></span></p>
       </div>
    </div>
@@ -149,7 +149,7 @@
          <span class="ratings">Surf Quality: {{region.averagesurfRating}}</span><span class="ratings">Amenities: {{region.averageamenitiesRating}}</span><span class="ratings">Activities: {{region.averageactivitiesRating}}</span></h5>
       </div>
       <div ng-repeat="trip in trips | filter: {region: 'Central Asia'} | unique:'country' | orderBy:'country'">
-         <p ng-if="trip.region=='Central Asia'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Overall Rating: {{country.averageRating}}<br>
+         <p ng-if="trip.region=='Central Asia'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Rated {{country.count}} time<span ng-if="country.count>1">s</span> - Overall Rating: {{country.averageRating}}<br>
          <span class="ratings">Surf Quality: {{country.averagesurfRating}}</span><span class="ratings">Amenities: {{country.averageamenitiesRating}}</span><span class="ratings">Activities: {{country.averageactivitiesRating}}</span></span></span></p>
       </div>
    </div>
@@ -160,7 +160,7 @@
          <span class="ratings">Surf Quality: {{region.averagesurfRating}}</span><span class="ratings">Amenities: {{region.averageamenitiesRating}}</span><span class="ratings">Activities: {{region.averageactivitiesRating}}</span></h5>
       </div>
       <div ng-repeat="trip in trips | filter: {region: 'South East Asia'} | unique:'country' | orderBy:'country'">
-         <p ng-if="trip.region=='South East Asia'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Overall Rating: {{country.averageRating}}<br>
+         <p ng-if="trip.region=='South East Asia'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Rated {{country.count}} time<span ng-if="country.count>1">s</span> - Overall Rating: {{country.averageRating}}<br>
          <span class="ratings">Surf Quality: {{country.averagesurfRating}}</span><span class="ratings">Amenities: {{country.averageamenitiesRating}}</span><span class="ratings">Activities: {{country.averageactivitiesRating}}</span></span></span></p>
       </div>
    </div>
@@ -171,7 +171,7 @@
          <span class="ratings">Surf Quality: {{region.averagesurfRating}}</span><span class="ratings">Amenities: {{region.averageamenitiesRating}}</span><span class="ratings">Activities: {{region.averageactivitiesRating}}</span></h5>
       </div>
       <div ng-repeat="trip in trips | filter: {region: 'Australia'} | unique:'country' | orderBy:'country'">
-         <p ng-if="trip.region=='Australia'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Overall Rating: {{country.averageRating}}<br>
+         <p ng-if="trip.region=='Australia'"><a id="countrylink" href="#/regionCountry/{{trip.region}}/{{trip.country}}">{{trip.country}}</a><span ng-repeat="country in countries"><span ng-if="country.country2==trip.country && country.region2==trip.region"> - Rated {{country.count}} time<span ng-if="country.count>1">s</span> - Overall Rating: {{country.averageRating}}<br>
          <span class="ratings">Surf Quality: {{country.averagesurfRating}}</span><span class="ratings">Amenities: {{country.averageamenitiesRating}}</span><span class="ratings">Activities: {{country.averageactivitiesRating}}</span></span></span></p>
       </div>
    </div>

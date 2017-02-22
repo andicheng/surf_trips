@@ -71,6 +71,9 @@ app.config(function($routeProvider, $httpProvider){
       .when('/user/:id',{
          templateUrl: 'partials/user.html',
       })
+      .when('/articles',{
+         templateUrl: 'partials/articles.html',
+      })
       .otherwise({
          redirectTo: '/dashboard'
       })

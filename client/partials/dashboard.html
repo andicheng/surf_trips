@@ -113,7 +113,7 @@
                   <br>Other Activities Rating: {{trip.activitiesrating}}
                </div>
             <p id="description">{{trip.description}} </p>
-            <i class="em em---1"></i><i class="em em--1"></i> <button class='reportcomment' ng-click='reporttrip = !reporttrip'>Report</button><br></i>
+            <span class='thumbs'>{{trip.thumbsup.length}}</span><a href="" ng-click='tripthumbsup(trip)'><i class="em em---1"></i></a><span class="thumbs">{{trip.thumbsdown.length}}</span><a href="" ng-click='tripthumbsdown(trip)'><i class="em em--1"></i></a> <button class='reportcomment' ng-click='reporttrip = !reporttrip'>Report</button><br>
             <form class='report' ng-show='reporttrip'>
                <h4>I am reporting this comment as:</h4>
                <input class='reportfield' type='text' ng-model='report.report'>
@@ -124,7 +124,7 @@
       </div>
    </div>
    <div id="newTrip">
-      <h3>Share Your Experiences <span ng-if="user">{{user.username}}</span></h3><b><span id="noUser" ng-if="!user">(Please register or log in to continue!)</span></b>
+      <h3>Share Your Experiences <span ng-if="user"><a id="userlink" href="#/user/{{user.username}}">{{user.username}}</a></span></h3><b><span id="noUser" ng-if="!user">(Please register or log in to continue!)</span></b>
       {{errors.title.message}}
       <form ng-show="user">
          <h5>Select a region</h5>
@@ -236,17 +236,44 @@
    <div id="regions">
       <img class="panoramic" src="../assets/images/panoramic1.jpg" alt="missing photo">
       <h3 class="regionsummary">Region Summary</h3>
-      <p ng-repeat="region in regions | orderBy:'region'"><b><i><a class="regionlink" href="#/region/{{region.region}}">{{region.region}}:</a></i></b> Rated {{region.count}} Time<span ng-show="region.count>1">s</span> - Average Rating: {{region.averageRating}}
+      <div ng-repeat="region in regions | orderBy:'region'"><b><i><a class="regionlink" href="#/region/{{region.region}}">{{region.region}}:</a></i></b> Rated {{region.count}} Time<span ng-show="region.count>1">s</span><br>
+         <div class="rating">
+            Overall: {{region.averageRating}}
+            <br>Surf: {{region.averagesurfRating}}
+         </div>
+         <div class="rating">
+            Amenities: {{region.averageamenitiesRating}}
+            <br>Activities: {{region.averageactivitiesRating}}
+         </div>
+      </div>
    </div>
    <div id="countries">
       <img class="panoramic" src="../assets/images/panoramic3.jpg" alt="missing photo">
       <h3 class="regionsummary">Best Rated Countries</h3>
-      <p ng-repeat="country in countries | orderBy:'-averageRating' | limitTo: 15"><b><i><a class="countrylink" href="#/country/{{country.country}}">{{country.country}}:</a></i></b> Rated {{country.count}} Time<span ng-show="country.count>1">s</span> - Average Rating: {{country.averageRating}}
+      <div ng-repeat="country in countries | orderBy:'-averageRating' | limitTo: 15"><b><i><a class="countrylink" href="#/country/{{country.country}}">{{country.country}}:</a></i></b> Rated {{country.count}} Time<span ng-show="country.count>1">s</span><br>
+         <div class="rating">
+            Overall: {{country.averageRating}}
+            <br>Surf: {{country.averagesurfRating}}
+         </div>
+         <div class="rating">
+            Amenities: {{country.averageamenitiesRating}}
+            <br>Activities: {{country.averageactivitiesRating}}
+         </div>
+      </div>
    </div>
    <div id="areas">
       <img class="panoramic" src="../assets/images/panoramic2.jpg" alt="missing photo">
       <h3 class="regionsummary">Best Rated Areas</h3>
-      <p ng-repeat="area in areas | orderBy:'-averageRating' | limitTo: 20" ng-if="area.area!='Area not specified'"><b><i><a class="countrylink" href="#/area/{{area.area}}">{{area.area}}:</a></i></b> Rated {{area.count}} Time<span ng-show="area.count>1">s</span> - Average Rating: {{area.averageRating}}
+      <div ng-repeat="area in areas | orderBy:'-averageRating' | limitTo: 20" ng-if="area.area!='Area not specified' && area.area!='No area specified'"><b><i><a class="countrylink" href="#/area/{{area.area}}">{{area.area}}:</a></i></b> Rated {{area.count}} Time<span ng-show="area.count>1">s</span><br>
+         <div class="rating">
+            Overall: {{area.averageRating}}
+            <br>Surf: {{area.averagesurfRating}}
+         </div>
+         <div class="rating">
+            Amenities: {{area.averageamenitiesRating}}
+            <br>Activities: {{area.averageactivitiesRating}}
+         </div>
+      </div>
    </div>
    <!-- <div id="map"></div>
    <meta name="viewport" content="initial-scale=1.0">

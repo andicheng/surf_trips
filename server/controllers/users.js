@@ -174,7 +174,7 @@ module.exports = {
          }
       });
       let mailOptions = {
-         from: req.body.email,
+         from: '',
          to: 'andersonc@surfingjourneys.com',
          subject: 'SurfingJourneys.com Contact - '+ req.body.subject,
          text: req.body.personname + ' @ '+req.body.email+' wrote: '+ req.body.message,
@@ -193,7 +193,7 @@ module.exports = {
             res.json({
                errors: {
                   login: {
-                    message: 'Your message has been sent to SurfingJourneys@gmail.com.',
+                    message: 'Your message has been sent to SurfingJourneys.com.',
                   }
                },
             name: "Validation error"
@@ -269,7 +269,6 @@ module.exports = {
                console.log('issue getting session user');
                res.sendStatus('500');
             }else{
-               console.log("get current", user);
                var user = {
                   first_name: user.first_name,
                   last_name: user.last_name,

@@ -41,7 +41,7 @@
 }
 .btn{
    display: inline-block;
-   width: 80px;
+   width: 88px;
 }
 .btn:hover{
    background-color: yellow;
@@ -57,7 +57,10 @@
 }
 .em{
    height: 20px;
-   margin: 0px 10px 10px;
+   margin: 0px 5px 5px 5px;
+}
+.thumbs{
+   margin-left: 10px;
 }
 #wide_panoramic{
    width: 100%;
@@ -99,7 +102,7 @@
    #locations h3{
       display: inline-block;
       vertical-align: top;
-      width: 78%;
+      margin-right: 55%;
    }
    #locations #recentTrip{
       height: 630px;

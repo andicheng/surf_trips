@@ -10,10 +10,12 @@ var PostSchema = new mongoose.Schema({
    thumbsup: [{
       type: String,
       required: false,
+      unique: true,
    }],
    thumbsdown: [{
       type: String,
       required: false,
+      unique: true,
    }],
    _user: {
       type: Schema.Types.ObjectId, ref: 'User'
