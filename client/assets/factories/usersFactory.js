@@ -21,6 +21,11 @@ app.factory('usersFactory', ['$http','$location', function($http, $location) {
          callback(res);
       })
    };
+   factory.adminlogin = function(admin, callback, errback){
+      $http.post('/users/adminlogin', admin).then(function(res){
+         callback(res);
+      })
+   };
    factory.forgot = function(user, callback, errback){
       $http.post('/users/forgot', user).then(function(res){
          callback(res);

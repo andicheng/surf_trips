@@ -7,7 +7,6 @@ app.controller('regionsController', ['$scope','usersFactory','tripsFactory', '$l
    tripsFactory.getTrips(function(returned_data){
       $scope.trips = returned_data;
       var trips = $scope.trips
-      console.log($scope.trips);
       var regions=[];
       for(var i=0; i<$scope.trips.length; i++){
          var sum=0;
@@ -77,9 +76,6 @@ app.controller('regionsController', ['$scope','usersFactory','tripsFactory', '$l
       //    }
       // };
       $scope.countries = countries;
-      console.log($scope.trips);
-      console.log(countries);
-      console.log(regions);
       $scope.regions = regions;
       $scope.url = $location.absUrl();
    })};

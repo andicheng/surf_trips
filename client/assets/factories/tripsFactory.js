@@ -110,5 +110,10 @@ app.factory('tripsFactory', ['$http','$location', function($http, $location) {
          callback(res);
       })
    };
+   factory.newArticle = function(article, callback){
+      $http.post('/newArticle', article).then(function(res){
+         callback(res);
+      })
+   };
    return factory;
 }]);

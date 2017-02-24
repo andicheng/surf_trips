@@ -74,6 +74,15 @@ app.config(function($routeProvider, $httpProvider){
       .when('/articles',{
          templateUrl: 'partials/articles.html',
       })
+      .when('/article',{
+         templateUrl: 'partials/article.html',
+      })
+      .when('/adminlogin',{
+         templateUrl: 'partials/adminlogin.html',
+      })
+      .when('/admin',{
+         templateUrl: 'partials/admin.html',
+      })
       .otherwise({
          redirectTo: '/dashboard'
       })

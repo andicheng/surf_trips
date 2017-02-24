@@ -5,7 +5,6 @@ app.controller('countryController', ['$scope','usersFactory','tripsFactory', '$l
    });
    var getCountryTrips = function(){
    tripsFactory.getCountryTrips($routeParams.id, function(returned_data){
-      console.log(returned_data)
       $scope.trips = returned_data;
       var sum = 0
       var sumsurfrating=0;
@@ -27,16 +26,14 @@ app.controller('countryController', ['$scope','usersFactory','tripsFactory', '$l
    })};
    getCountryTrips();
    $scope.logout = function(){
-      console.log("logout clicked");
       usersFactory.logout(function(data){
       });
       $location.url('/login')
    }
    $scope.newPost = function(id, post){
       tripsFactory.newPost(id, post, function(data){
-         console.log(id, post)
          if(data.data.errors){
-            $scope.errors = data.data.errors;
+            // $scope.errors = data.data.errors;
             alert(data.data.message);
          }else{
             $scope.post = {};
@@ -46,9 +43,8 @@ app.controller('countryController', ['$scope','usersFactory','tripsFactory', '$l
    }
    $scope.newComment = function(id, comment){
       tripsFactory.newComment(id, comment, function(data){
-         console.log(id, comment)
          if(data.data.errors){
-            $scope.errors = data.data.errors;
+            // $scope.errors = data.data.errors;
             alert(data.data.message);
          }else{
             $scope.comment = {};
@@ -58,7 +54,6 @@ app.controller('countryController', ['$scope','usersFactory','tripsFactory', '$l
    }
    $scope.reportcomments = function(comment, report){
       var req = Object.assign({}, comment, report);
-      console.log(req);
       tripsFactory.reportcomments(req, function(data){
          if(data.data.errors){
             $scope.report = {};

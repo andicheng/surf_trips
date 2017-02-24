@@ -1,10 +1,13 @@
 app.controller('log_regController', ['$scope','usersFactory', '$location','$routeParams', function($scope, usersFactory, $location, $routeParams) {
 
    $scope.register = function(user){
+      console.log($scope.newUser)
       if($scope.newUser && $scope.newUser.password == $scope.newUser.confpass){
          usersFactory.register($scope.newUser, function(data){
+            console.log(data)
             if(data.data.errors){
-               $scope.errors = data.data.errors;
+               // $scope.errors = data.data.errors;
+               alert(data.data.errors.message)
             }else{
                $scope.user = data.data;
                $location.url('/dashboard')
@@ -23,6 +26,19 @@ app.controller('log_regController', ['$scope','usersFactory', '$location','$rout
             $scope.errors = data.data.errors;
          }else{
             $location.url('/dashboard')
+         }
+      }, function(err){
+         console.log("I am an error", err);
+      })
+   }
+   $scope.adminlogin = function(admin){
+      usersFactory.adminlogin($scope.admin, function(data){
+         console.log(data)
+         if(data.data.errors){
+            $scope.errors = data.data.errors;
+         }else{
+            $scope.admin = data;
+            $location.url('/admin');
          }
       }, function(err){
          console.log("I am an error", err);

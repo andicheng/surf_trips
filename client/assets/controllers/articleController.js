@@ -1,10 +1,10 @@
-app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$location','$routeParams','$route', function($scope, usersFactory, tripsFactory, $location, $routeParams, $route) {
+app.controller('articleController', ['$scope','usersFactory','tripsFactory', '$location','$routeParams', '$route', '$sce', function($scope, usersFactory, tripsFactory, $location, $routeParams, $route, $sce) {
 
    usersFactory.getUser(function(user){
       $scope.user = user;
    });
-   var getRegionTrips = function(){
-   tripsFactory.getRegionTrips($routeParams.id, function(returned_data){
+   var getAreaTrips = function(){
+   tripsFactory.getAreaTrips($routeParams.id, function(returned_data){
       $scope.trips = returned_data;
       var sum = 0
       var sumsurfrating=0;
@@ -18,14 +18,23 @@ app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$lo
       }
       var averageRating = sum/$scope.trips.length;
       $scope.trips.count = $scope.trips.length;
-      $scope.trips.region = $routeParams.id;
       $scope.trips.averageRating = Math.round(averageRating*10)/10;
       $scope.trips.averagesurfRating = Math.round(sumsurfrating/$scope.trips.length*10)/10;
       $scope.trips.averageamenitiesRating = Math.round(sumamenitiesrating/$scope.trips.length*10)/10;
       $scope.trips.averageactivitiesRating = Math.round(sumactivitiesrating/$scope.trips.length*10)/10;
       $scope.url = $location.absUrl();
    })};
-   getRegionTrips();
+   getAreaTrips();
+   $scope.newArticle = function(){
+      tripsFactory.newArticle($scope.article, function(data){
+         if(data.data.errors){
+            console.log('error saving article')
+         }else{
+            $scope.article = {};
+            $location.url('/articles')
+         }
+      })
+   }
    $scope.logout = function(){
       console.log("logout clicked");
       usersFactory.logout(function(data){
@@ -34,23 +43,26 @@ app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$lo
    }
    $scope.newPost = function(id, post){
       tripsFactory.newPost(id, post, function(data){
+         console.log(id, post)
+         console.log(data)
          if(data.data.errors){
-            // $scope.errors = data.data.message;
+            // $scope.errors = data.data.errors;
             alert(data.data.message);
          }else{
             $scope.post = {};
-            getRegionTrips();
+            getAreaTrips();
          }
       })
    }
    $scope.newComment = function(id, comment){
       tripsFactory.newComment(id, comment, function(data){
+         console.log(id, comment)
          if(data.data.errors){
             // $scope.errors = data.data.errors;
             alert(data.data.message);
          }else{
             $scope.comment = {};
-            getRegionTrips();
+            getAreaTrips();
          }
       })
    }
@@ -72,7 +84,6 @@ app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$lo
    $scope.testuser = function(){
       if(!$scope.user){
          alert("Please register or login to post comments")
-         console.log('test')
       }else{
          console.log('Clicked')
       }
@@ -84,7 +95,7 @@ app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$lo
             $route.reload();
          }else{
             console.log('successfully liked');
-            getRegionTrips();
+            getAreaTrips();
          }
       }, function(err){
          console.log("Please try again later.", err);
@@ -97,7 +108,7 @@ app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$lo
             $route.reload();
          }else{
             console.log('successfully unliked');
-            getRegionTrips();
+            getAreaTrips();
          }
       }, function(err){
          console.log("Please try again later.", err);
@@ -110,7 +121,7 @@ app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$lo
             $route.reload();
          }else{
             console.log('successfully liked');
-            getRegionTrips();
+            getAreaTrips();
          }
       }, function(err){
          console.log("Please try again later.", err);
@@ -123,7 +134,7 @@ app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$lo
             $route.reload();
          }else{
             console.log('successfully unliked');
-            getRegionTrips();
+            getAreaTrips();
          }
       }, function(err){
          console.log("Please try again later.", err);
@@ -136,7 +147,7 @@ app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$lo
             $route.reload();
          }else{
             console.log('successfully liked');
-            getRegionTrips();
+            getAreaTrips();
          }
       }, function(err){
          console.log("Please try again later.", err);
@@ -149,7 +160,7 @@ app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$lo
             $route.reload();
          }else{
             console.log('successfully unliked');
-            getRegionTrips();
+            getAreaTrips();
          }
       }, function(err){
          console.log("Please try again later.", err);
@@ -159,4 +170,12 @@ app.controller('regionController', ['$scope','usersFactory','tripsFactory', '$lo
    $scope.reporttrip = false;
    $scope.reportpost = false;
    $scope.reportcomment = false;
+   $scope.article = {
+      title: "Title Test",
+      headline: "Title Heading",
+      text: "<h2>Testing text</h2> \
+      <p>This should be another paragraph</p> \
+      <input type=submit value='Submit'>"
+   }
+   $scope.text = $sce.trustAsHtml($scope.article.text);
 }]);

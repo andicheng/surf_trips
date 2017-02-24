@@ -46,7 +46,7 @@
 }
 .btn{
    display: inline-block;
-   width: 80px;
+   width: 90px;
 }
 .btn:hover{
    background-color: yellow;
@@ -69,14 +69,6 @@
    padding: 1%;
    opacity: 0.85;
    background-color: white;
-}
-.btn{
-   display: inline-block;
-   width: 88px;
-}
-.col6{
-   text-align: right;
-   margin-bottom: 10px;
 }
 h3{
    display: inline-block;

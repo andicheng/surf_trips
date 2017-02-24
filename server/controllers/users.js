@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Post = mongoose.model('Post');
 var User = mongoose.model('User');
+var Admin = mongoose.model('Admin');
 var Comment = mongoose.model('Comment');
 var Trip = mongoose.model('Trip');
 var async = require('async');
@@ -34,19 +35,86 @@ module.exports = {
       })
    },
    register: function(req,res){
-      var user = new User(req.body);
-      user.save(function(err, user){
-         if (err){
-              res.json(err);
-              console.log('issues saving a new user')
+      User.find({}, function(err, users){
+         console.log(req.body)
+         if(err){
+            console.log('loading error');
+            return res.sendStatus('500');
+         }else{
+            function emailexists(email) {
+              return users.some(function(el) {
+                return el.email === email;
+              });
+            }
+            function usernameexists(username) {
+              return users.some(function(el) {
+                return el.username === username;
+              });
+            }
+            if(emailexists(req.body.email)){
+               res.json({
+                  errors: {
+                     message: "Email already registered",
+                  },
+                  name: "Validation error"
+               });
+            }else if(usernameexists(req.body.username)){
+               res.json({
+                  errors: {
+                     message: "Username already in use",
+                  },
+                  name: "Validation error"
+               });
+            }else{
+               var user = new User(req.body);
+               user.save(function(err, user){
+                  if (err){
+                       res.json(err);
+                       console.log('issues saving a new user')
+                  }
+                  else{
+                     req.session.user={first_name: user.first_name,
+                                       last_name: user.last_name,
+                                       username: user.username,
+                                       _id: user._id};
+                     console.log('successfully added a new user')
+                     res.status(200).send("session user established")
+                  }
+               })
+            }
          }
-         else{
-            req.session.user={first_name: user.first_name,
-                              last_name: user.last_name,
-                              username: user.username,
-                              _id: user._id};
-            console.log('successfully added a new user')
-            res.status(200).send("session user established")
+      })
+   },
+   adminlogin: function(req,res){
+      Admin.findOne({email: req.body.email}, function(err, admin){
+         if(err){
+            res.json(err);
+         }else if(admin.password == req.body.password){
+            User.findOne({email: req.body.email}, function(err, user){
+               if(err){
+                  res.json(err);
+               }else{
+                  req.session.admin = {
+                     email: admin.email
+                  };
+                  req.session.user = {
+                     first_name: user.first_name,
+                     last_name: user.last_name,
+                     username: user.username,
+                     _id: user._id
+                  };
+                  res.send(admin.email);
+               }
+            });
+         }else{
+            res.json({
+               errors: {
+                  login: {
+                     message: "email or password do not match",
+                  }
+               },
+               name: "Validation error"
+            });
          }
       })
    },
@@ -259,7 +327,6 @@ module.exports = {
        res.redirect('/');
      });
   },
-
    getCurrent: function(req,res){
       if(typeof req.session.user == 'undefined' || null == req.session.user){
          res.json();
@@ -282,6 +349,7 @@ module.exports = {
    },
    logout: function(req,res){
       req.session.user=null;
+      req.session.admin=null;
       console.log("user logged out")
       res.status(200).send("session user logged out")
    },

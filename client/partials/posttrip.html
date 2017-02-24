@@ -88,7 +88,7 @@
             <option value="South East Asia">South East Asia</option>
             <option value="Pacific Islands">Pacific Islands</option>
          </select></p>
-         <h5>Provide a country</h5>
+         <h5>Provide a country or territory</h5>
          <p><select style="width: 40%" ng-model="myTrip.country" ng-options="trip.country for trip in trips | filter:{region:myTrip.region} | unique:'country'">
             <option class="dropdown" ng-disabled='true' ng-selected='true' value={{trip.country}}>Select a country</option>
          </select>

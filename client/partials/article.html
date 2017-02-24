@@ -1,10 +1,8 @@
-<link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
-<!-- ************************MAP*********************** -->
+<link rel="stylesheet" type="text/css" href="assets/css/article.css">
 <!DOCTYPE html>
 <meta name="viewport" content="initial-scale=1.0">
 
-<div id="container" ng-controller="dashboardController">
-   <!-- <img id="wide_panoramic" src="../assets/images/wide_panoramic.jpg"> -->
+<div id="container" ng-controller="articleController">
    <div class="col6 offset-left2">
          <button class="btn btn-medium font-bold"
                 socialshare
@@ -70,7 +68,9 @@
               <i class="fa fa-wordpress"></i> Wordpress
           </button>
    </div>
-   <div id="articles">
-      <h2>Coming Soon</h2>
-      <!-- <a href='#/article'>Article</a> -->
+   <div id="article">
+      <p>{{article.title}}</p>
+      <p>{{article.heading}}</p>
+      <p ng-bind-html='text'></p>
+   </div>
 </div>

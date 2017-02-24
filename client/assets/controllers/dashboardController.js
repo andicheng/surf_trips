@@ -91,17 +91,24 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
       $location.url('/login')
    }
    $scope.newTrip = function(){
-      tripsFactory.newTrip($scope.myTrip, function(data){
-         console.log($scope.myTrip)
-         if(data.data.errors){
-            console.log(data)
-            alert(data.data.errors.message);
-         }else{
-            $scope.myTrip = {};
-            var id = data.data._user;
-            $location.path('/user/'+id)
-         }
-      })
+      var day = '01';
+      var month = $scope.myTrip.tripmonth;
+      var year = $scope.myTrip.tripyear;
+      var date = day+' '+month+' '+year;
+      var mydate = new Date(date);
+      if(mydate <= new Date()){
+         tripsFactory.newTrip($scope.myTrip, function(data){
+            if(data.data.errors){
+               alert(data.data.errors.message);
+            }else{
+               $scope.myTrip = {};
+               var id = data.data._user;
+               $location.path('/user/'+id)
+            }
+         })
+      }else{
+         alert('Trip date cannot be in the future')
+      }
    }
    $scope.show = function(){
       usersFactory.show($routeParams.user, function(data){

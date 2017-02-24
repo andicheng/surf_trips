@@ -124,7 +124,7 @@
       </div>
    </div>
    <div id="newTrip">
-      <h3>Share Your Experiences <span ng-if="user"><a id="userlink" href="#/user/{{user.username}}">{{user.username}}</a></span></h3><b><span id="noUser" ng-if="!user">(Please register or log in to continue!)</span></b>
+      <h3>Share Your Experiences <span ng-if="user"><a id="userlink" href="#/user/{{user._id}}">{{user.username}}</a></span></h3><b><span id="noUser" ng-if="!user">(Please register or log in to continue!)</span></b>
       {{errors.title.message}}
       <form ng-show="user">
          <h5>Select a region</h5>
@@ -140,7 +140,7 @@
             <option value="South East Asia">South East Asia</option>
             <option value="Pacific Islands">Pacific Islands</option>
          </select></p>
-         <h5>Provide a country</h5>
+         <h5>Provide a country or territory</h5>
          <p><select style="width: 40%" ng-model="myTrip.country" ng-options="trip.country for trip in trips | filter:{region:myTrip.region} | unique:'country'">
             <option class="dropdown" ng-disabled='true' ng-selected='true' value={{trip.country}}>Select a country</option>
          </select>

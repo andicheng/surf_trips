@@ -46,7 +46,7 @@
 }
 .btn{
    display: inline-block;
-   width: 88px;
+   width: 90px;
 }
 .btn:hover{
    background-color: yellow;
@@ -68,14 +68,6 @@
    padding: 15px;
    background-image: url("../images/wallpaper.jpg");
    background-repeat: repeat-y;
-}
-.btn{
-   display: inline-block;
-   width: 80px;
-}
-.col6{
-   text-align: right;
-   margin-bottom: 10px;
 }
 h3{
    display: inline-block;
