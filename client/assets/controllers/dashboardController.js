@@ -98,11 +98,13 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
       var mydate = new Date(date);
       if(mydate <= new Date()){
          tripsFactory.newTrip($scope.myTrip, function(data){
+            console.log($scope.myTrip);
             if(data.data.errors){
                alert(data.data.errors.message);
             }else{
                $scope.myTrip = {};
                var id = data.data._user;
+               console.log(data);
                $location.path('/user/'+id)
             }
          })

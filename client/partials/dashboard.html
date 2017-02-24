@@ -99,7 +99,7 @@
       <h3>Recent Posts</h3>
       <label><input ng-model="filter" placeholder="filter.."></label>
       <div id="recentTrip">
-         <div id="trip" ng-animate="'animate'" ng-repeat="trip in trips | filter: filter | limitTo: 25 | orderBy: '-createdAt'">
+         <div id="trip" ng-animate="'animate'" ng-repeat="trip in trips | filter: filter | limitTo: 12 | orderBy: '-createdAt'">
             <b><i><a class="regionlink" href="#/region/{{trip.region}}">{{trip.region}}</a> - <a id="arealink" href="#/country/{{trip.country}}">{{trip.country}}</a>: <a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i></b>
             <b><p><a class="regionlink" href="#/trip/{{trip._id}}">{{trip.title}}</a></p></b>
             <p>Posted by <a id="userlink" href="#/user/{{trip._user._id}}">{{trip._user.username}}</a> on {{trip.createdAt | date:'MM/dd/yyyy'}}</p>
@@ -112,7 +112,7 @@
                   Amenities Rating: {{trip.amenitiesrating}}
                   <br>Other Activities Rating: {{trip.activitiesrating}}
                </div>
-            <p id="description">{{trip.description}} </p>
+            <p id="description">{{trip.description}}</p>
             <span class='thumbs'>{{trip.thumbsup.length}}</span><a href="" ng-click='tripthumbsup(trip)'><i class="em em---1"></i></a><span class="thumbs">{{trip.thumbsdown.length}}</span><a href="" ng-click='tripthumbsdown(trip)'><i class="em em--1"></i></a> <button class='reportcomment' ng-click='reporttrip = !reporttrip'>Report</button><br>
             <form class='report' ng-show='reporttrip'>
                <h4>I am reporting this comment as:</h4>
@@ -173,7 +173,7 @@
          <h5>Provide a title for your trip</h5>
          <p><input id="title" type="text" ng-model='myTrip.title'></p>
          <h5>Provide details of your trip</h5>
-         <textarea id="desc" type="text" ng-model='myTrip.description'></textarea>
+         <pre><textarea id="desc" type="text" ng-model='myTrip.description'></textarea></pre>
          <h5>Rate your overall experience on this trip<br>(0 worst - 10 best)</h5>
          <p><select ng-model="myTrip.rating">
             <option value="0">0</option>

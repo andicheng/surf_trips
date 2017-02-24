@@ -21,7 +21,6 @@ app.controller('log_regController', ['$scope','usersFactory', '$location','$rout
    }
    $scope.login = function(user){
       usersFactory.login($scope.user, function(data){
-         console.log(data)
          if(data.data.errors){
             $scope.errors = data.data.errors;
          }else{
@@ -33,7 +32,6 @@ app.controller('log_regController', ['$scope','usersFactory', '$location','$rout
    }
    $scope.adminlogin = function(admin){
       usersFactory.adminlogin($scope.admin, function(data){
-         console.log(data)
          if(data.data.errors){
             $scope.errors = data.data.errors;
          }else{

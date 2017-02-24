@@ -123,6 +123,7 @@
       max-height: 55px;
       overflow: scroll;
       text-align: justify;
+      white-space: pre-wrap;
    }
 #newTrip{
    display: inline-block;

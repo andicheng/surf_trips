@@ -91,6 +91,7 @@ label{
       #trip #description{
          margin-top: 10px;
          margin-bottom: 10px;
+         white-space: pre-wrap;
       }
       #trip #post{
          width: 50%;
