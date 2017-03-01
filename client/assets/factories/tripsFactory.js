@@ -115,5 +115,57 @@ app.factory('tripsFactory', ['$http','$location', function($http, $location) {
          callback(res);
       })
    };
+   factory.getArticles = function(callback){
+      $http.get('/articles').then(function(returned_data){
+         articles = returned_data;
+         callback(articles);
+      })
+   };
+   factory.getArticle = function(article, callback){
+      $http.get('/getArticle/'+article).then(function(returned_data){
+         article = returned_data;
+         callback(article);
+      })
+   };
+   factory.newArticlePost = function(id, post, callback){
+      $http.post('/newArticlePost/'+id, post).then(function(res){
+         callback(res);
+      })
+   };
+   factory.newArticleComment = function(id, comment, callback){
+      $http.post('/newArticleComment/'+id, comment).then(function(res){
+         callback(res);
+      })
+   };
+   factory.articlethumbsup = function(article, callback){
+      $http.post('/articlethumbsup', article).then(function(res){
+         callback(res);
+      })
+   };
+   factory.articlethumbsdown = function(article, callback){
+      $http.post('/articlethumbsdown', article).then(function(res){
+         callback(res);
+      })
+   };
+   factory.articlepostthumbsup = function(post, callback){
+      $http.post('/articlepostthumbsup', post).then(function(res){
+         callback(res);
+      })
+   };
+   factory.articlepostthumbsdown = function(post, callback){
+      $http.post('/articlepostthumbsdown', post).then(function(res){
+         callback(res);
+      })
+   };
+   factory.articlecommentthumbsup = function(comment, callback){
+      $http.post('/articlecommentthumbsup', comment).then(function(res){
+         callback(res);
+      })
+   };
+   factory.articlecommentthumbsdown = function(comment, callback){
+      $http.post('/articlecommentthumbsdown', comment).then(function(res){
+         callback(res);
+      })
+   };
    return factory;
 }]);

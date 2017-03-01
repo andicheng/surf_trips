@@ -1,9 +1,9 @@
-<link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
+<link rel="stylesheet" type="text/css" href="assets/css/article.css">
 <!-- ************************MAP*********************** -->
 <!DOCTYPE html>
 <meta name="viewport" content="initial-scale=1.0">
 
-<div id="container" ng-controller="dashboardController">
+<div id="container" ng-controller="articlesController">
    <!-- <img id="wide_panoramic" src="../assets/images/wide_panoramic.jpg"> -->
    <div class="col6 offset-left2">
          <button class="btn btn-medium font-bold"
@@ -71,6 +71,9 @@
           </button>
    </div>
    <div id="articles">
-      <h2>Coming Soon</h2>
-      <!-- <a href='#/article'>Article</a> -->
+      <div ng-repeat='article in articles'>
+         <p><a href='#/article/{{article._id}}'>{{article.title}}</a> - Added on {{article.updatedAt | date:'MM/dd/yyyy'}}</p>
+         <p>{{article.headline}}</p>
+         <br>
+      </div>
 </div>

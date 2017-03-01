@@ -69,8 +69,43 @@
           </button>
    </div>
    <div id="article">
-      <p>{{article.title}}</p>
-      <p>{{article.heading}}</p>
+      <h3>{{article.title}}</h3>
+      <h4>Last updated on {{article.updatedAt | date:'MM/dd/yyyy'}}</h4>
       <p ng-bind-html='text'></p>
+      <br>
+      <p>Author: {{article.author}}</p>
+      <span class='thumbs'>{{article.thumbsup.length}}</span><a href="" ng-click='articlethumbsup(article)'><i class="em em---1"></i></a><span class="thumbs">{{article.thumbsdown.length}}</span><a href="" ng-click='articlethumbsdown(trip)'><i class="em em--1"></i></a>
+      <br>
+      <h4 class='commentsHeading'>Comments:</h4>
+      <form id="newcomment">
+         <textarea id="post" type="text" ng-change="testuser()" ng-model='post[$index].text'></textarea>
+         <input class="submit" type="submit" value="Post Comment" ng-click="newArticlePost(article._id, post[$index])">
+      </form>
+      <div id="posts" ng-repeat="post in article.posts | orderBy:'-createdAt'">
+         <p id="oldpost">{{post._user.username}} - {{post.createdAt | date:'MMM dd, yyyy'}}: {{post.text}}
+            <button class='showreplies' ng-click='showreplies = !showreplies'><span ng-if='!showreplies && post.comments.length>0'>Show Replies ({{post.comments.length}})</span><span ng-if='showreplies'>Hide Replies</span></button>
+            <button class="submit" ng-click="reply = !reply">Reply</button></p>
+         <form id="newreply" ng-show='reply'>
+            <textarea style='width:500px' ng-change="testuser()" id="comment" type="text" ng-model='comment.text'></textarea>
+            <input class="submit" type="submit" value="Send" ng-click="newArticleComment(post._id, comment)">
+         </form>
+         <br>
+         <span class='thumbs'>{{post.thumbsup.length}}</span><a href="" ng-click='articlepostthumbsup(post)'><i class="em em---1"></i></a><span class="thumbs">{{post.thumbsdown.length}}</span><a href="" ng-click='articlepostthumbsdown(post)'><i class="em em--1"></i></a>  <button class='reportcomment' ng-click='reportpost = !reportpost'>Report</button><br>
+         <form class='report' ng-show='reportpost'>
+            <h4>I am reporting this comment as:</h4>
+            <input class='reportfield' type='text' ng-model='report.report'>
+            <input class='reportbutton' type="submit" value="SUBMIT" ng-click="reportcomments(post,report)">
+            <p class='reporttext'>Reported comments and users will be reviewed by SurfingJourneys.com staff to determine whether they violate Terms of Use guidelines. Inappropriate comments will be removed, and repeated violations can lead to account termination.</p>
+         </form>
+         <div id="replies" ng-repeat="comment in post.comments | orderBy:'-createdAt'" ng-show='showreplies'>
+            <p>{{comment._user.username}} - {{comment.createdAt | date: 'MMM dd, yyyy'}}: {{comment.text}}</p>
+            <span class='thumbs'>{{comment.thumbsup.length}}</span><a href="" ng-click='articlecommentthumbsup(comment)'><i class="em em---1"></i></a><span class="thumbs">{{comment.thumbsdown.length}}</span><a href="" ng-click='articlecommentthumbsdown(comment)'><i class="em em--1"></i></a>  <button class='reportcomment' ng-click='reportcomment = !reportcomment'>Report</button><br>
+            <form class='report' ng-show='reportcomment'>
+               <h4>I am reporting this comment as:</h4>
+               <input class='reportfield' type='text' ng-model='report.report'>
+               <input class='reportbutton' type="submit" value="SUBMIT" ng-click="reportcomments(comment,report)">
+               <p class='reporttext'>Reported comments and users will be reviewed by SurfingJourneys.com staff to determine whether they violate Terms of Use guidelines. Inappropriate comments will be removed, and repeated violations can lead to account termination.</p>
+            </form>
+         </div>
    </div>
 </div>

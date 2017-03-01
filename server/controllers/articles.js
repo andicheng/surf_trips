@@ -22,161 +22,46 @@ function response_additions(err, data) {
 
 console.log('articles controller');
 module.exports = {
-   index: function(req,res){
-      Trip.find({}).populate('_user').populate({path:'posts',model:'Post',populate:{path:'_user',model:'User'}}).sort('-rating').exec(function(err, trips){
+   articles: function(req,res){
+      Article.find({}).populate({path:'posts',model:'ArticlePost'}).exec(function(err, articles){
          if(err){
-            console.log('loading error');
+            console.log('articles loading error');
             return res.sendStatus('500');
          }else{
-            console.log('successfully getting trips');
+            console.log('successfully getting articles');
          }
-         res.json(trips);
+         res.json(articles);
       })
    },
    newArticle: function(req, res){
-      var article = new Article(req.body);
-      article.save(function(err){
+      Article.update({title: req.body.title}, req.body, {upsert: true}, function(err, article){
          if(err){
             console.log('article loading error');
-            res.sendStatus('500');
+            res.json(err)
          }else{
             console.log('@@@@@@@@@@@@@ successfully added a new article');
             res.json(article);
          }
       })
    },
-   areaTrips: function(req,res){
-      Trip.find({area: req.params.id}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trips){
+   getArticle: function(req,res){
+      Article.find({_id: req.params.id}).populate('_user').populate({path:'posts',model:'ArticlePost',populate:[{path:'_user',model:'User'},{path:'comments',model:'ArticleComment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, article){
          if(err){
-            console.log('area loading error');
+            console.log('error getting article');
             return res.sendStatus('500');
          }else{
-            console.log('successfully getting area trips');
+            console.log('successfully getting article');
          }
-         res.json(trips);
+         res.json(article);
       })
    },
-   countryTrips: function(req,res){
-      Trip.find({country: req.params.id}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trips){
-         if(err){
-            console.log('country loading error');
-            return res.sendStatus('500');
-         }else{
-            console.log('successfully getting country trips');
-         }
-         res.json(trips);
-      })
-   },
-   regionTrips: function(req,res){
-      Trip.find({region: req.params.id}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trips){
-         if(err){
-            console.log('region loading error');
-            return res.sendStatus('500');
-         }else{
-            console.log('successfully getting region trips');
-         }
-         res.json(trips);
-      })
-   },
-   regionCountryTrips: function(req,res){
-      Trip.find({region: req.params.region, country: req.params.country}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trips){
-         if(err){
-            console.log('region/country loading error');
-            return res.sendStatus('500');
-         }else{
-            console.log('successfully getting region/country trips');
-         }
-         res.json(trips);
-      })
-   },
-   trip: function(req,res){
-      Trip.find({_id: req.params.id}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trip){
-         if(err){
-            console.log('trip loading error');
-            return res.sendStatus('500');
-         }else{
-            console.log('successfully getting trip');
-         }
-         res.json(trip);
-      })
-   },
-   userTrips: function(req,res){
-      User.findOne({_id: req.params.id}).exec(function(err, user){
-         if(err){
-            console.log('loading error');
-            return res.sendStatus('500');
-         }else{
-            Trip.find({_user: user}).populate('_user').populate({path:'posts',model:'Post',populate:[{path:'_user',model:'User'},{path:'comments',model:'Comment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, trips){
-               if(err){
-                  console.log('loading error');
-                  return res.sendStatus('500');
-               }else{
-                  console.log('successfully getting user trips');
-               }
-               res.json(trips);
-            })
-         }
-      })
-   },
-   newTrip: function(req,res){
-      User.findOne({_id: req.session.user._id}, function(err, user){
-         if(err){
-            return res.sendStatus('500');
-         }else if (!req.body.country2 && !req.body.country){
-            res.json({
-               errors: {
-                    message: 'Please complete all required fields',
-               },
-               name: "Validation error"
-            })
-         }else{
-            console.log('***************', req.body)
-            var trip = new Trip(req.body);
-            if(req.body.area2){
-               trip.area = req.body.area2;
-            }else if(req.body.area){
-               trip.area = req.body.area.area;
-            }else{
-               trip.area = 'Area not specified'
-            }
-            if(req.body.country2){
-               trip.country = req.body.country2;
-            }else{
-               trip.country = req.body.country.country;
-            }
-            trip._user = req.session.user._id;
-            trip.markModified('trip.area');
-            trip.markModified('trip.country');
-            console.log(trip);
-            trip.save(function(err){
-               if(err){
-                  console.log('trip loading error')
-                  res.json(err)
-               }else{
-                  console.log("#####TEst saving new trip")
-                  user.trips.push(trip);
-                  user.save(function(err){
-                     if(err){
-                        console.log('user trip loading error');
-                        res.sendStatus('500');
-                     }else{
-                        console.log('@@@@@@@@@@@@@ successfully added a new trip');
-                        res.json(trip);
-                        req.session.user = user;
-                     }
-                  })
-               }
-            })
-         }
-      })
-   },
-   newPost: function(req,res){
+   newArticlePost: function(req,res){
       User.findOne({_id: req.session.user._id}, function(err, user){
          if(err){
             return res.sendStatus('500');
          }else{
-            Trip.findOne({_id: req.params.id}, function(err, trip){
-               var post = new Post(req.body);
+            Article.findOne({_id: req.params.id}, function(err, article){
+               var post = new ArticlePost(req.body);
                post._user = user._id;
                post.save(function(err){
                   if(err){
@@ -189,13 +74,13 @@ module.exports = {
                            console.log('user/post loading error')
                            res.json(err)
                         }else{
-                           trip.posts.push(post)
-                           trip.save(function(err){
+                           article.posts.push(post)
+                           article.save(function(err){
                               if(err){
-                                 console.log('post loading error');
+                                 console.log('article post loading error');
                                  return res.sendStatus('500');
                               }else{
-                                 console.log('successfully added a new post');
+                                 console.log('successfully added a new article post');
                                  res.json(post);
                                  req.session.user = user;
                               }
@@ -208,14 +93,14 @@ module.exports = {
          }
       })
    },
-   newComment: function(req,res){
+   newArticleComment: function(req,res){
       console.log('***************', req.body)
       User.findOne({_id: req.session.user._id}, function(err, user){
          if(err){
             return res.sendStatus('500');
          }else{
-            Post.findOne({_id: req.params.id}, function(err, post){
-               var comment = new Comment(req.body);
+            ArticlePost.findOne({_id: req.params.id}, function(err, post){
+               var comment = new ArticleComment(req.body);
                comment._user = user._id;
                comment.save(function(err){
                   if(err){
@@ -231,10 +116,10 @@ module.exports = {
                            post.comments.push(comment)
                            post.save(function(err){
                               if(err){
-                                 console.log('post/comment loading error');
+                                 console.log('article post/comment loading error');
                                  return res.sendStatus('500');
                               }else{
-                                 console.log('successfully added a new comment');
+                                 console.log('successfully added a new article comment');
                                  res.json(comment);
                                  req.session.user = user;
                               }
@@ -247,16 +132,16 @@ module.exports = {
          }
       })
    },
-   tripthumbsup: function(req, res){
+   articlethumbsup: function(req, res){
       User.findOne({_id: req.session.user._id}, function(err, user){
          if(err){
             return res.sendStatus('500');
          }else{
-            Trip.findOne({_id: req.body._id}, function(err, trip){
+            Article.findOne({_id: req.body._id}, function(err, article){
                if(err){
                   return res.sendStatus('500');
                }else{
-                  if(trip.thumbsup.indexOf(user._id)>=0){
+                  if(article.thumbsup.indexOf(user._id)>=0){
                      console.log('already liked');
                      res.json({
                         errors: {
@@ -265,14 +150,14 @@ module.exports = {
                         name: "Validation error"
                      })
                   }else{
-                     trip.thumbsup.push(user._id)
-                     trip.save(function(err){
+                     article.thumbsup.push(user._id)
+                     article.save(function(err){
                         if(err){
-                           console.log('tripthumbsup load error')
+                           console.log('article tripthumbsup load error')
                            return res.sendStatus('500');
                         }else{
-                           console.log('successfully added a tripthumbsup');
-                           res.json(trip);
+                           console.log('successfully added an article tripthumbsup');
+                           res.json(article);
                            req.session.user = user;
                         }
                      })
@@ -282,16 +167,16 @@ module.exports = {
          }
       })
    },
-   tripthumbsdown: function(req, res){
+   articlethumbsdown: function(req, res){
       User.findOne({_id: req.session.user._id}, function(err, user){
          if(err){
             return res.sendStatus('500');
          }else{
-            Trip.findOne({_id: req.body._id}, function(err, trip){
+            Article.findOne({_id: req.body._id}, function(err, article){
                if(err){
                   return res.sendStatus('500');
                }else{
-                  if(trip.thumbsdown.indexOf(user._id)>=0){
+                  if(article.thumbsdown.indexOf(user._id)>=0){
                      console.log('already unliked');
                      res.json({
                         errors: {
@@ -300,14 +185,14 @@ module.exports = {
                         name: "Validation error"
                      })
                   }else{
-                     trip.thumbsdown.push(user._id)
-                     trip.save(function(err){
+                     article.thumbsdown.push(user._id)
+                     article.save(function(err){
                         if(err){
-                           console.log('tripthumbsdown load error')
+                           console.log('article tripthumbsdown load error')
                            return res.sendStatus('500');
                         }else{
-                           console.log('successfully added a tripthumbsdown');
-                           res.json(trip);
+                           console.log('successfully added an article tripthumbsdown');
+                           res.json(article);
                            req.session.user = user;
                         }
                      })
@@ -317,12 +202,12 @@ module.exports = {
          }
       })
    },
-   postthumbsup: function(req, res){
+   articlepostthumbsup: function(req, res){
       User.findOne({_id: req.session.user._id}, function(err, user){
          if(err){
             return res.sendStatus('500');
          }else{
-            Post.findOne({_id: req.body._id}, function(err, post){
+            ArticlePost.findOne({_id: req.body._id}, function(err, post){
                if(err){
                   return res.sendStatus('500');
                }else{
@@ -338,10 +223,10 @@ module.exports = {
                      post.thumbsup.push(user._id)
                      post.save(function(err){
                         if(err){
-                           console.log('postthumbsup load error')
+                           console.log('article postthumbsup load error')
                            return res.sendStatus('500');
                         }else{
-                           console.log('successfully added a postthumbsup');
+                           console.log('successfully added an article postthumbsup');
                            res.json(post);
                            req.session.user = user;
                         }
@@ -352,12 +237,12 @@ module.exports = {
          }
       })
    },
-   postthumbsdown: function(req, res){
+   articlepostthumbsdown: function(req, res){
       User.findOne({_id: req.session.user._id}, function(err, user){
          if(err){
             return res.sendStatus('500');
          }else{
-            Post.findOne({_id: req.body._id}, function(err, post){
+            ArticlePost.findOne({_id: req.body._id}, function(err, post){
                if(err){
                   return res.sendStatus('500');
                }else{
@@ -373,10 +258,10 @@ module.exports = {
                      post.thumbsdown.push(user._id)
                      post.save(function(err){
                         if(err){
-                           console.log('postthumbsdown load error')
+                           console.log('article postthumbsdown load error')
                            return res.sendStatus('500');
                         }else{
-                           console.log('successfully added a postthumbsdown');
+                           console.log('successfully added an article postthumbsdown');
                            res.json(post);
                            req.session.user = user;
                         }
@@ -387,12 +272,12 @@ module.exports = {
          }
       })
    },
-   commentthumbsup: function(req, res){
+   articlecommentthumbsup: function(req, res){
       User.findOne({_id: req.session.user._id}, function(err, user){
          if(err){
             return res.sendStatus('500');
          }else{
-            Comment.findOne({_id: req.body._id}, function(err, comment){
+            ArticleComment.findOne({_id: req.body._id}, function(err, comment){
                if(err){
                   return res.sendStatus('500');
                }else{
@@ -408,10 +293,10 @@ module.exports = {
                      comment.thumbsup.push(user._id)
                      comment.save(function(err){
                         if(err){
-                           console.log('commentthumbsup load error')
+                           console.log('article commentthumbsup load error')
                            return res.sendStatus('500');
                         }else{
-                           console.log('successfully added a commentthumbsup');
+                           console.log('successfully added an article commentthumbsup');
                            res.json(comment);
                            req.session.user = user;
                         }
@@ -422,12 +307,12 @@ module.exports = {
          }
       })
    },
-   commentthumbsdown: function(req, res){
+   articlecommentthumbsdown: function(req, res){
       User.findOne({_id: req.session.user._id}, function(err, user){
          if(err){
             return res.sendStatus('500');
          }else{
-            Comment.findOne({_id: req.body._id}, function(err, comment){
+            ArticleComment.findOne({_id: req.body._id}, function(err, comment){
                if(err){
                   return res.sendStatus('500');
                }else{
@@ -443,10 +328,10 @@ module.exports = {
                      comment.thumbsdown.push(user._id)
                      comment.save(function(err){
                         if(err){
-                           console.log('commentthumbsdown load error')
+                           console.log('article commentthumbsdown load error')
                            return res.sendStatus('500');
                         }else{
-                           console.log('successfully added a commentthumbsdown');
+                           console.log('successfully added an article commentthumbsdown');
                            res.json(comment);
                            req.session.user = user;
                         }
@@ -469,7 +354,7 @@ module.exports = {
          from: req.body.email,
          to: 'andersonc@surfingjourneys.com',
          subject: 'SurfingJourneys.com Contact - Inappropriate Content',
-         text: "Report of Inappropriate Comment Sent" + '\n\n' + "Comment: " + '\n\n' + "Trip description: " + '\n'+ req.body.description + '\n\n' + "Post or Trip text: " + '\n' + req.body.text + '\n\n' + "Reason: "+req.body.report + '\n\n' + req.body._id
+         text: "Report of Inappropriate Comment Sent" + '\n\n' + "Comment: " + '\n\n' + "Article description: " + '\n'+ req.body.description + '\n\n' + "Post or Comment text: " + '\n' + req.body.text + '\n\n' + "Reason: "+req.body.report + '\n\n' + req.body._id
       };
       transporter.sendMail(mailOptions, function(err) {
          if(err){

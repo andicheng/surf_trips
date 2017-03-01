@@ -249,7 +249,7 @@
    </div>
    <div id="countries">
       <img class="panoramic" src="../assets/images/panoramic3.jpg" alt="missing photo">
-      <h3 class="regionsummary">Best Rated Countries</h3>
+      <h3 class="regionsummary">Best Rated Countries/Territories</h3>
       <div ng-repeat="country in countries | orderBy:'-averageRating' | limitTo: 15"><b><i><a class="countrylink" href="#/country/{{country.country}}">{{country.country}}:</a></i></b> Rated {{country.count}} Time<span ng-show="country.count>1">s</span><br>
          <div class="rating">
             Overall: {{country.averageRating}}

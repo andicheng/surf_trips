@@ -142,4 +142,5 @@ app.controller('tripController', ['$scope','usersFactory','tripsFactory', '$loca
    $scope.reporttrip = false;
    $scope.reportpost = false;
    $scope.reportcomment = false;
+   $scope.showreplies = false;
 }]);

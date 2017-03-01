@@ -41,7 +41,7 @@
 }
 .btn{
    display: inline-block;
-   width: 90px;
+   width: 93px;
 }
 .btn:hover{
    background-color: yellow;
@@ -69,7 +69,7 @@
 }
 #locations{
    display: inline-block;
-   height: 660px;
+   height: 670px;
    width: 57%;
    vertical-align: top;
    margin-right: 1%;
@@ -105,7 +105,7 @@
       margin-right: 55%;
    }
    #locations #recentTrip{
-      height: 640px;
+      height: 645px;
       overflow: scroll;
    }
       #locations #trip{
@@ -133,7 +133,7 @@
    border-color: lightgrey;
    border-width: thin;
    padding: 1%;
-   height: 660px;
+   height: 670px;
    background-color: white;
    opacity: 0.85;
 }

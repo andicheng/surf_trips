@@ -21,6 +21,8 @@ module.exports = function(app){
    app.get('/userTrips/:id', trips.userTrips);
    app.get('/users', users.index);
    app.post('/reportcomments', trips.reportcomments);
+   app.get('/articles', articles.articles);
+   app.get('/getArticle/:id', articles.getArticle);
    app.use(userAuth);
    app.post('/newPost/:id', trips.newPost);
    app.post('/newComment/:id', trips.newComment);
@@ -33,6 +35,14 @@ module.exports = function(app){
    app.post('/postthumbsdown', trips.postthumbsdown);
    app.post('/commentthumbsup', trips.commentthumbsup);
    app.post('/commentthumbsdown', trips.commentthumbsdown);
+   app.post('/newArticlePost/:id', articles.newArticlePost);
+   app.post('/newArticleComment/:id', articles.newArticleComment);
+   app.post('/articlethumbsup', articles.articlethumbsup);
+   app.post('/articlethumbsdown', articles.articlethumbsdown);
+   app.post('/articlepostthumbsup', articles.articlepostthumbsup);
+   app.post('/articlepostthumbsdown', articles.articlepostthumbsdown);
+   app.post('/articlecommentthumbsup', articles.articlecommentthumbsup);
+   app.post('/articlecommentthumbsdown', articles.articlecommentthumbsdown);
    app.use(adminAuth);
    app.post('/newArticle', articles.newArticle);
    // app.post('/newComment/:id', posts.newComment);

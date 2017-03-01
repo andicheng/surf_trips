@@ -46,7 +46,7 @@
 }
 .btn{
    display: inline-block;
-   width: 90px;
+   width: 93px;
 }
 .btn:hover{
    background-color: yellow;
@@ -93,6 +93,9 @@ label{
          margin-top: 10px;
          margin-bottom: 10px;
          white-space: pre-wrap;
+      }
+      .commentsHeading{
+         margin-left: 25px;
       }
       #trip #post{
          width: 50%;

@@ -74,7 +74,7 @@ app.config(function($routeProvider, $httpProvider){
       .when('/articles',{
          templateUrl: 'partials/articles.html',
       })
-      .when('/article',{
+      .when('/article/:id',{
          templateUrl: 'partials/article.html',
       })
       .when('/adminlogin',{

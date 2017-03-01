@@ -157,4 +157,5 @@ app.controller('countryController', ['$scope','usersFactory','tripsFactory', '$l
    $scope.reporttrip = false;
    $scope.reportpost = false;
    $scope.reportcomment = false;
+   $scope.showreplies = false;
 }]);

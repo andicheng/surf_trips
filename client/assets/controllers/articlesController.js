@@ -1,19 +1,19 @@
-app.controller('articleController', ['$scope','usersFactory','tripsFactory', '$location','$routeParams', '$route', '$sce', function($scope, usersFactory, tripsFactory, $location, $routeParams, $route, $sce) {
+app.controller('articlesController', ['$scope','usersFactory','tripsFactory', '$location','$routeParams', '$route', '$sce', function($scope, usersFactory, tripsFactory, $location, $routeParams, $route, $sce) {
 
    usersFactory.getUser(function(user){
       $scope.user = user;
    });
-   var getArticle = function(){
-      tripsFactory.getArticle($routeParams.id, function(data){
-         if(data.data.errors){
-            console.log('error getting article')
+   var getArticles = function(){
+      tripsFactory.getArticles(function(returned_data){
+         if(returned_data.data.errors){
+            // $scope.errors = data.data.errors;
+            alert(returned_data.data.errors);
          }else{
-            $scope.article = data.data[0];
-            $scope.text = $sce.trustAsHtml($scope.article.text);
+            $scope.articles = returned_data.data;
          }
       })
-   };
-   getArticle();
+   }
+   getArticles();
    $scope.newArticle = function(){
       tripsFactory.newArticle($scope.article, function(data){
          if(data.data.errors){
@@ -30,8 +30,8 @@ app.controller('articleController', ['$scope','usersFactory','tripsFactory', '$l
       });
       $location.url('/login')
    }
-   $scope.newArticlePost = function(id, post){
-      tripsFactory.newArticlePost(id, post, function(data){
+   $scope.newPost = function(id, post){
+      tripsFactory.newPost(id, post, function(data){
          console.log(id, post)
          console.log(data)
          if(data.data.errors){
@@ -39,19 +39,19 @@ app.controller('articleController', ['$scope','usersFactory','tripsFactory', '$l
             alert(data.data.message);
          }else{
             $scope.post = {};
-            getArticle();
+            getAreaTrips();
          }
       })
    }
-   $scope.newArticleComment = function(id, comment){
-      tripsFactory.newArticleComment(id, comment, function(data){
+   $scope.newComment = function(id, comment){
+      tripsFactory.newComment(id, comment, function(data){
          console.log(id, comment)
          if(data.data.errors){
             // $scope.errors = data.data.errors;
             alert(data.data.message);
          }else{
             $scope.comment = {};
-            getArticle();
+            getAreaTrips();
          }
       })
    }
@@ -77,79 +77,79 @@ app.controller('articleController', ['$scope','usersFactory','tripsFactory', '$l
          console.log('Clicked')
       }
    }
-   $scope.articlethumbsup = function(article){
-      tripsFactory.articlethumbsup(article, function(data){
+   $scope.tripthumbsup = function(trip){
+      tripsFactory.tripthumbsup(trip, function(data){
          if(data.data.errors){
             alert(data.data.errors.message);
             $route.reload();
          }else{
             console.log('successfully liked');
-            getArticle();
+            getAreaTrips();
          }
       }, function(err){
          console.log("Please try again later.", err);
       })
    }
-   $scope.articlethumbsdown = function(article){
-      tripsFactory.articlethumbsdown(article, function(data){
+   $scope.tripthumbsdown = function(trip){
+      tripsFactory.tripthumbsdown(trip, function(data){
          if(data.data.errors){
             alert(data.data.errors.message);
             $route.reload();
          }else{
             console.log('successfully unliked');
-            getArticle();
+            getAreaTrips();
          }
       }, function(err){
          console.log("Please try again later.", err);
       })
    }
-   $scope.articlepostthumbsup = function(post){
-      tripsFactory.articlepostthumbsup(post, function(data){
+   $scope.postthumbsup = function(post){
+      tripsFactory.postthumbsup(post, function(data){
          if(data.data.errors){
             alert(data.data.errors.message);
             $route.reload();
          }else{
             console.log('successfully liked');
-            getArticle();
+            getAreaTrips();
          }
       }, function(err){
          console.log("Please try again later.", err);
       })
    }
-   $scope.articlepostthumbsdown = function(post){
-      tripsFactory.articlepostthumbsdown(post, function(data){
+   $scope.postthumbsdown = function(post){
+      tripsFactory.postthumbsdown(post, function(data){
          if(data.data.errors){
             alert(data.data.errors.message);
             $route.reload();
          }else{
             console.log('successfully unliked');
-            getArticle();
+            getAreaTrips();
          }
       }, function(err){
          console.log("Please try again later.", err);
       })
    }
-   $scope.articlecommentthumbsup = function(comment){
-      tripsFactory.articlecommentthumbsup(comment, function(data){
+   $scope.commentthumbsup = function(comment){
+      tripsFactory.commentthumbsup(comment, function(data){
          if(data.data.errors){
             alert(data.data.errors.message);
             $route.reload();
          }else{
             console.log('successfully liked');
-            getArticle();
+            getAreaTrips();
          }
       }, function(err){
          console.log("Please try again later.", err);
       })
    }
-   $scope.articlecommentthumbsdown = function(comment){
-      tripsFactory.articlecommentthumbsdown(comment, function(data){
+   $scope.commentthumbsdown = function(comment){
+      tripsFactory.commentthumbsdown(comment, function(data){
          if(data.data.errors){
             alert(data.data.errors.message);
             $route.reload();
          }else{
             console.log('successfully unliked');
-            getArticle();
+            getAreaTrips();
          }
       }, function(err){
          console.log("Please try again later.", err);
@@ -159,13 +159,12 @@ app.controller('articleController', ['$scope','usersFactory','tripsFactory', '$l
    $scope.reporttrip = false;
    $scope.reportpost = false;
    $scope.reportcomment = false;
-   $scope.showreplies = false;
-   // $scope.article = {
-   //    title: "Title Test",
-   //    headline: "Title Heading",
-   //    text: "<h2>Testing text</h2> \
-   //    <p>This should be another paragraph</p> \
-   //    <input type=submit value='Submit'>"
-   // }
-
+   $scope.article = {
+      title: "Title Test",
+      headline: "Title Heading",
+      text: "<h2>Testing text</h2> \
+      <p>This should be another paragraph</p> \
+      <input type=submit value='Submit'>"
+   }
+   $scope.text = $sce.trustAsHtml($scope.article.text);
 }]);
