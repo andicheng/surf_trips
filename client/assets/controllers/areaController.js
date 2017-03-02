@@ -2,28 +2,35 @@ app.controller('areaController', ['$scope','usersFactory','tripsFactory', '$loca
 
    usersFactory.getUser(function(user){
       $scope.user = user;
+      $scope.reply = false;
+      $scope.reporttrip = false;
+      $scope.reportpost = false;
+      $scope.reportcomment = false;
+      // $scope.showreplies = false;
+      $scope.url = $location.absUrl();
    });
    var getAreaTrips = function(){
-   tripsFactory.getAreaTrips($routeParams.id, function(returned_data){
-      $scope.trips = returned_data;
-      var sum = 0
-      var sumsurfrating=0;
-      var sumamenitiesrating=0;
-      var sumactivitiesrating=0;
-      for(var i=0; i<$scope.trips.length; i++){
-         sum += $scope.trips[i].rating;
-         sumsurfrating += $scope.trips[i].surfrating;
-         sumamenitiesrating += $scope.trips[i].amenitiesrating;
-         sumactivitiesrating += $scope.trips[i].activitiesrating;
-      }
-      var averageRating = sum/$scope.trips.length;
-      $scope.trips.count = $scope.trips.length;
-      $scope.trips.averageRating = Math.round(averageRating*10)/10;
-      $scope.trips.averagesurfRating = Math.round(sumsurfrating/$scope.trips.length*10)/10;
-      $scope.trips.averageamenitiesRating = Math.round(sumamenitiesrating/$scope.trips.length*10)/10;
-      $scope.trips.averageactivitiesRating = Math.round(sumactivitiesrating/$scope.trips.length*10)/10;
-      $scope.url = $location.absUrl();
-   })};
+      tripsFactory.getAreaTrips($routeParams.id, function(returned_data){
+         $scope.trips = returned_data;
+         var sum = 0
+         var sumsurfrating=0;
+         var sumamenitiesrating=0;
+         var sumactivitiesrating=0;
+         for(var i=0; i<$scope.trips.length; i++){
+            sum += $scope.trips[i].rating;
+            sumsurfrating += $scope.trips[i].surfrating;
+            sumamenitiesrating += $scope.trips[i].amenitiesrating;
+            sumactivitiesrating += $scope.trips[i].activitiesrating;
+         }
+         var averageRating = sum/$scope.trips.length;
+         $scope.trips.count = $scope.trips.length;
+         $scope.trips.averageRating = Math.round(averageRating*10)/10;
+         $scope.trips.averagesurfRating = Math.round(sumsurfrating/$scope.trips.length*10)/10;
+         $scope.trips.averageamenitiesRating = Math.round(sumamenitiesrating/$scope.trips.length*10)/10;
+         $scope.trips.averageactivitiesRating = Math.round(sumactivitiesrating/$scope.trips.length*10)/10;
+         // $scope.url = $location.absUrl();
+      })
+   };
    getAreaTrips();
    $scope.logout = function(){
       console.log("logout clicked");
@@ -33,8 +40,6 @@ app.controller('areaController', ['$scope','usersFactory','tripsFactory', '$loca
    }
    $scope.newPost = function(id, post){
       tripsFactory.newPost(id, post, function(data){
-         console.log(id, post)
-         console.log(data)
          if(data.data.errors){
             // $scope.errors = data.data.errors;
             alert(data.data.message);
@@ -75,7 +80,7 @@ app.controller('areaController', ['$scope','usersFactory','tripsFactory', '$loca
       if(!$scope.user){
          alert("Please register or login to post comments")
       }else{
-         console.log('Clicked')
+
       }
    }
    $scope.tripthumbsup = function(trip){
@@ -156,9 +161,9 @@ app.controller('areaController', ['$scope','usersFactory','tripsFactory', '$loca
          console.log("Please try again later.", err);
       })
    }
-   $scope.reply = false;
-   $scope.reporttrip = false;
-   $scope.reportpost = false;
-   $scope.reportcomment = false;
-   $scope.showreplies = false;
+   // $scope.reply = false;
+   // $scope.reporttrip = false;
+   // $scope.reportpost = false;
+   // $scope.reportcomment = false;
+   // $scope.showreplies = false;
 }]);

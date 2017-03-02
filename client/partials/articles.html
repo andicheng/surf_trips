@@ -72,7 +72,7 @@
    </div>
    <div id="articles">
       <div ng-repeat='article in articles'>
-         <p><a href='#/article/{{article._id}}'>{{article.title}}</a> - Added on {{article.updatedAt | date:'MM/dd/yyyy'}}</p>
+         <p><b><a href='#/article/{{article._id}}'>{{article.title}}</a></b> - Added on {{article.updatedAt | date:'MM/dd/yyyy'}}</p>
          <p>{{article.headline}}</p>
          <br>
       </div>

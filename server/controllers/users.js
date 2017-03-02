@@ -65,6 +65,13 @@ module.exports = {
                   },
                   name: "Validation error"
                });
+            }else if(req.body.password.length < 8){
+               res.json({
+                  errors: {
+                     message: "password must be longer than 8 characters",
+                  },
+                  name: "Validation error"
+               });
             }else{
                var user = new User(req.body);
                user.save(function(err, user){
