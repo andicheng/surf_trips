@@ -6,10 +6,18 @@
 fieldset{
    padding: 10px;
    line-height: 25px;
+   height: 250px;
+}
+span {
+   display: inline-block;
+   width: 140px;
 }
 input{
    background-color: white;
    color: black;
+}
+#submit{
+   padding: 2px 5px;
 }
 #body{
    background-color: #0A384F;

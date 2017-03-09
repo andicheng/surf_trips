@@ -6,7 +6,7 @@ app.controller('areaController', ['$scope','usersFactory','tripsFactory', '$loca
       $scope.reporttrip = false;
       $scope.reportpost = false;
       $scope.reportcomment = false;
-      // $scope.showreplies = false;
+      $scope.showreplies = false;
       $scope.url = $location.absUrl();
    });
    var getAreaTrips = function(){
@@ -28,7 +28,6 @@ app.controller('areaController', ['$scope','usersFactory','tripsFactory', '$loca
          $scope.trips.averagesurfRating = Math.round(sumsurfrating/$scope.trips.length*10)/10;
          $scope.trips.averageamenitiesRating = Math.round(sumamenitiesrating/$scope.trips.length*10)/10;
          $scope.trips.averageactivitiesRating = Math.round(sumactivitiesrating/$scope.trips.length*10)/10;
-         // $scope.url = $location.absUrl();
       })
    };
    getAreaTrips();
@@ -49,18 +48,30 @@ app.controller('areaController', ['$scope','usersFactory','tripsFactory', '$loca
          }
       })
    }
-   $scope.newComment = function(id, comment){
+   $scope.newComment = function(post, comment){
+      var id = post._id
       tripsFactory.newComment(id, comment, function(data){
-         console.log(id, comment)
          if(data.data.errors){
             // $scope.errors = data.data.errors;
             alert(data.data.message);
          }else{
             $scope.comment = {};
             getAreaTrips();
+            post.showreplies = true;
+            $scope.post = post;
          }
       })
    }
+   // var expand = function(item){
+   //    angular.forEach($scope.trips.posts, function (i) {
+   //       console.log('testing')
+   //       if (i === item) {
+   //          i.showfull = true;
+   //       } else {
+   //          i.showfull = false;
+   //       }
+   //    });
+   // }
    $scope.reportcomments = function(comment, report){
       var req = Object.assign({}, comment, report);
       tripsFactory.reportcomments(req, function(data){
@@ -161,9 +172,4 @@ app.controller('areaController', ['$scope','usersFactory','tripsFactory', '$loca
          console.log("Please try again later.", err);
       })
    }
-   // $scope.reply = false;
-   // $scope.reporttrip = false;
-   // $scope.reportpost = false;
-   // $scope.reportcomment = false;
-   // $scope.showreplies = false;
 }]);

@@ -183,8 +183,8 @@ label{
             list-style-position: inside;
          }
          p{
-            margin-top: 5px;
-            margin-bottom: 5px;
+            margin-top: 8px;
+            margin-bottom: 8px;
             text-align: justify;
          }
          h4{
@@ -247,4 +247,22 @@ label{
       padding: 1%;
       opacity: 0.85;
       background-color: white;
+      line-height: 22px;
+   }
+   ul{
+      list-style-position: outside;
+   }
+   ol{
+      list-style-position: inside;
+      font-weight: bold;
+   }
+   li{
+      margin: 10px 0px 10px;
+      text-align: justify;
+   }
+   span.text{
+      font-weight: normal;
+   }
+   img{
+      margin: 10px 20px;
    }

@@ -3,6 +3,10 @@
    margin: 0px;
    padding: 0px;
 }
+span {
+   display: inline-block;
+   width: 81px;
+}
 input{
    background-color: white;
    color: black;
@@ -10,6 +14,10 @@ input{
 fieldset{
    padding: 10px;
    line-height: 25px;
+   height: 190px;
+}
+#submit{
+   padding: 2px 5px;
 }
 #body{
    background-color: #0A384F;

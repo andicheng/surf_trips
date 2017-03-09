@@ -68,7 +68,7 @@ module.exports = {
             }else if(req.body.password.length < 8){
                res.json({
                   errors: {
-                     message: "password must be longer than 8 characters",
+                     message: "Password must be longer than 8 characters",
                   },
                   name: "Validation error"
                });
@@ -77,7 +77,7 @@ module.exports = {
                user.save(function(err, user){
                   if (err){
                        res.json(err);
-                       console.log('issues saving a new user')
+                       console.log('Issues saving a new user')
                   }
                   else{
                      req.session.user={first_name: user.first_name,
