@@ -67,12 +67,44 @@
    margin-bottom: 10px;
    height: 200px;
 }
-#locations{
+#left_block{
    display: inline-block;
-   height: 670px;
-   width: 57%;
+   height: 693px;
+   width: 59%;
    vertical-align: top;
    margin-right: 1%;
+   margin-bottom: 20px;
+   /*padding: 1%;*/
+   /*border-style: solid;
+   border-color: lightgrey;
+   border-width: thin;
+   background-color: white;
+   opacity: 0.85;*/
+}
+#articles{
+   height: 180px;
+   margin-bottom: 15px;
+   padding: 1%;
+   border-style: solid;
+   border-color: lightgrey;
+   border-width: thin;
+   background-color: white;
+   opacity: 0.85;
+}
+   #articleblock{
+      overflow: scroll;
+      height: 160px;
+   }
+   #articlelink{
+      text-decoration: underline;
+      color: darkblue;
+      padding-right: 5px;
+   }
+#locations{
+   /*display: inline-block;*/
+   height: 470px;
+   vertical-align: top;
+   /*margin-right: 1%;*/
    margin-bottom: 20px;
    padding: 1%;
    border-style: solid;
@@ -105,7 +137,7 @@
       margin-right: 55%;
    }
    #locations #recentTrip{
-      height: 645px;
+      height: 445px;
       overflow: scroll;
    }
       #locations #trip{

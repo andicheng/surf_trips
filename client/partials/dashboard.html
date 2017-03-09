@@ -95,31 +95,42 @@
               <i class="fa fa-wordpress"></i> Wordpress
           </button>
    </div>
-   <div id="locations">
-      <h3>Recent Posts</h3>
-      <label><input ng-model="filter" placeholder="filter.."></label>
-      <div id="recentTrip">
-         <div id="trip" ng-animate="'animate'" ng-repeat="trip in trips | filter: filter | limitTo: 12 | orderBy: '-createdAt'">
-            <b><i><a class="regionlink" href="#/region/{{trip.region}}">{{trip.region}}</a> - <a id="arealink" href="#/country/{{trip.country}}">{{trip.country}}</a>: <a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i></b>
-            <b><p><a class="regionlink" href="#/trip/{{trip._id}}">{{trip.title}}</a></p></b>
-            <p>Posted by <a id="userlink" href="#/user/{{trip._user._id}}">{{trip._user.username}}</a> on {{trip.createdAt | date:'MM/dd/yyyy'}}</p>
-               <p>Trip Period: {{trip.tripmonth}} {{trip.tripyear}}</p>
-               <div class="rating">
-                  Overall Rating: {{trip.rating}}
-                  <br>Surfing Conditions Rating: {{trip.surfrating}}
-               </div>
-               <div class="rating">
-                  Amenities Rating: {{trip.amenitiesrating}}
-                  <br>Other Activities Rating: {{trip.activitiesrating}}
-               </div>
-            <p id="description">{{trip.description}}</p>
-            <span class='thumbs'>{{trip.thumbsup.length}}</span><a href="" ng-click='tripthumbsup(trip)'><i class="em em---1"></i></a><span class="thumbs">{{trip.thumbsdown.length}}</span><a href="" ng-click='tripthumbsdown(trip)'><i class="em em--1"></i></a> <button class='reportcomment' ng-click='reporttrip = !reporttrip'>Report</button><br>
-            <form class='report' ng-show='reporttrip'>
-               <h4>I am reporting this comment as:</h4>
-               <input class='reportfield' type='text' ng-model='report.report'>
-               <input class='reportbutton' type="submit" value="SUBMIT" ng-click="reportcomments(trip,report)">
-               <p class='reporttext'>Reported comments and users will be reviewed by SurfingJourneys.com staff to determine whether they violate Terms of Use guidelines. Inappropriate comments will be removed, and repeated violations can lead to account termination.</p>
-            </form>
+   <div id="left_block">
+      <div id='articles'>
+         <h3>Articles</h3>
+         <div id='articleblock'>
+            <div ng-repeat="article in articles | orderBy: '-updatedAt'">
+               <p><b><a id='articlelink' href='#/article/{{article._id}}'>{{article.title}}</a></b> - Added on {{article.updatedAt | date:'MM/dd/yyyy'}}</p>
+               <p>{{article.headline}}</p>
+            </div>
+         </div>
+      </div>
+      <div id="locations">
+         <h3>Recent Posts</h3>
+         <label><input ng-model="filter" placeholder="filter.."></label>
+         <div id="recentTrip">
+            <div id="trip" ng-animate="'animate'" ng-repeat="trip in trips | filter: filter | limitTo: 12 | orderBy: '-createdAt'">
+               <b><i><a class="regionlink" href="#/region/{{trip.region}}">{{trip.region}}</a> - <a id="arealink" href="#/country/{{trip.country}}">{{trip.country}}</a>: <a id="arealink" href="#/area/{{trip.area}}">{{trip.area}}</a></i></b>
+               <b><p><a class="regionlink" href="#/trip/{{trip._id}}">{{trip.title}}</a></p></b>
+               <p>Posted by <a id="userlink" href="#/user/{{trip._user._id}}">{{trip._user.username}}</a> on {{trip.createdAt | date:'MM/dd/yyyy'}}</p>
+                  <p>Trip Period: {{trip.tripmonth}} {{trip.tripyear}}</p>
+                  <div class="rating">
+                     Overall Rating: {{trip.rating}}
+                     <br>Surfing Conditions Rating: {{trip.surfrating}}
+                  </div>
+                  <div class="rating">
+                     Amenities Rating: {{trip.amenitiesrating}}
+                     <br>Other Activities Rating: {{trip.activitiesrating}}
+                  </div>
+               <p id="description">{{trip.description}}</p>
+               <span class='thumbs'>{{trip.thumbsup.length}}</span><a href="" ng-click='tripthumbsup(trip)'><i class="em em---1"></i></a><span class="thumbs">{{trip.thumbsdown.length}}</span><a href="" ng-click='tripthumbsdown(trip)'><i class="em em--1"></i></a> <button class='reportcomment' ng-click='reporttrip = !reporttrip'>Report</button><br>
+               <form class='report' ng-show='reporttrip'>
+                  <h4>I am reporting this comment as:</h4>
+                  <input class='reportfield' type='text' ng-model='report.report'>
+                  <input class='reportbutton' type="submit" value="SUBMIT" ng-click="reportcomments(trip,report)">
+                  <p class='reporttext'>Reported comments and users will be reviewed by SurfingJourneys.com staff to determine whether they violate Terms of Use guidelines. Inappropriate comments will be removed, and repeated violations can lead to account termination.</p>
+               </form>
+            </div>
          </div>
       </div>
    </div>

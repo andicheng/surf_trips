@@ -83,7 +83,18 @@ app.controller('dashboardController', ['$scope','usersFactory','tripsFactory', '
       $scope.regions = regions;
       $scope.url = $location.absUrl();
    })};
-   getTrips()
+   getTrips();
+   var getArticles = function(){
+      tripsFactory.getArticles(function(returned_data){
+         if(returned_data.data.errors){
+            // $scope.errors = data.data.errors;
+            alert(returned_data.data.errors);
+         }else{
+            $scope.articles = returned_data.data;
+         }
+      })
+   }
+   getArticles();
    $scope.logout = function(){
       console.log("logout clicked");
       usersFactory.logout(function(data){
