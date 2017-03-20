@@ -1,4 +1,4 @@
-var app = angular.module('myApp',['720kb.socialshare','ui.filters','angular.filter','ngRoute','ngCookies']);
+var app = angular.module('myApp',['updateMeta','720kb.socialshare','ui.filters','angular.filter','ngRoute','ngCookies']);
 
 app.factory('loginInterceptor', ['$q','$location', function($q, $location) {
    return{
