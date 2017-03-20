@@ -100,7 +100,7 @@
          <h3>Articles</h3>
          <div id='articleblock'>
             <div ng-repeat="article in articles | orderBy: '-updatedAt'">
-               <p><b><a id='articlelink' href='#/article/{{article._id}}'>{{article.title}}</a></b> - Added on {{article.updatedAt | date:'MM/dd/yyyy'}}</p>
+               <p><b><a id='articlelink' href='#/article/{{article.title}}'>{{article.title}}</a></b> - Added on {{article.updatedAt | date:'MM/dd/yyyy'}}</p>
                <p>{{article.headline}}</p>
             </div>
          </div>

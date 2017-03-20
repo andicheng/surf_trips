@@ -26,6 +26,9 @@
    padding-bottom: 5px;
    color: white;
    min-width: 960px;
+   margin-top: 5px;
+   margin-bottom: 5px;
+   margin: 3px 10px;
 }
 #bar a{
    text-decoration: none;

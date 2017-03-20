@@ -71,8 +71,8 @@
           </button>
    </div>
    <div id="articles">
-      <div ng-repeat='article in articles'>
-         <p><b><a href='#/article/{{article._id}}'>{{article.title}}</a></b> - Added on {{article.updatedAt | date:'MM/dd/yyyy'}}</p>
+      <div ng-repeat='article in articles | orderBy: "-updatedAt"'>
+         <p><b><a href='#/article/{{article.title}}'>{{article.title}}</a></b> - Added on {{article.updatedAt | date:'MM/dd/yyyy'}}</p>
          <p>{{article.headline}}</p>
          <br>
       </div>

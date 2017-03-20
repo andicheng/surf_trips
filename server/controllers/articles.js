@@ -45,7 +45,7 @@ module.exports = {
       })
    },
    getArticle: function(req,res){
-      Article.find({_id: req.params.id}).populate('_user').populate({path:'posts',model:'ArticlePost',populate:[{path:'_user',model:'User'},{path:'comments',model:'ArticleComment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, article){
+      Article.find({title: req.params.id}).populate('_user').populate({path:'posts',model:'ArticlePost',populate:[{path:'_user',model:'User'},{path:'comments',model:'ArticleComment',populate:{path:'_user',model:'User'}}]}).sort('-createdAt').exec(function(err, article){
          if(err){
             console.log('error getting article');
             return res.sendStatus('500');
